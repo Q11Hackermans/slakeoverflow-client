@@ -10,10 +10,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     GamePanel() {
         this.setBackground(Color.BLUE);
-        JPanel a = new JPanel();
-        a.setBackground(Color.GREEN);
-        a.setMinimumSize(100,100);
-        this.add(a);
     }
 
     @Override
