@@ -4,23 +4,26 @@ package com.github.q11hackermans.slakeoverflow_client;
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
+
     private GamePanel mainPanel;
 
     GameFrame() {
         this.mainPanel = new GamePanel();
 
-        this.add(mainPanel);
+        // this.getContentPane().setLayout(new BorderLayout());
+        this.add(mainPanel); // add the mainPanel / GamePanel to the window
+
         this.setTitle("Slakeoverflow");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close the enitre window instance
-        this.setVisible(true); // otherwise the window will be hidden.
-        this.setResizable(false);
-        this.setSize(0, 0); // we'll change the size of the window based on the field count
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setResizable(true); // non resizable windows don't render properly
+        this.pack();
 
     }
 
     public void render(int[][] fields) {
-
-        this.setSize((fields.length + 1) * 50, (fields.length + 1) * 50); // every box will be 50*50px large
+        int width = (fields.length) * 60;
+        this.setSize(width, width); // set initial size for the window
         this.mainPanel.render(fields);
     }
 }
