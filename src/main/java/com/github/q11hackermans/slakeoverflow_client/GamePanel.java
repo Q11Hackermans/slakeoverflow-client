@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 } else {
                     p.setBackground(Colors.getColorFromCode(fields[i][j]));
-                    p = new SnakeHead();
+                    // p = new SnakeHead();
                 }
                 wrapper.add(p);
             }
