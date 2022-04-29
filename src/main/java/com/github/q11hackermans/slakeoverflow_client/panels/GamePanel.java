@@ -1,19 +1,17 @@
 //@blame Joshua3212
-package com.github.q11hackermans.slakeoverflow_client;
+package com.github.q11hackermans.slakeoverflow_client.panels;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    GamePanel() {
+    public GamePanel() {
         this.setBackground(Colors.black);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     }
