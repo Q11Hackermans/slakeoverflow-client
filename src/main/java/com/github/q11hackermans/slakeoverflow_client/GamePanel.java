@@ -15,7 +15,7 @@ import com.github.q11hackermans.slakeoverflow_client.components.SnakeHead;
 public class GamePanel extends JPanel implements ActionListener {
 
     GamePanel() {
-        this.setBackground(Colors.bg);
+        this.setBackground(Colors.black);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     }
 
@@ -41,15 +41,15 @@ public class GamePanel extends JPanel implements ActionListener {
                     // create the chessboardy look | surely theres a nicer approach
                     if (Numbers.isEven(i)) {
                         if (Numbers.isEven(j)) {
-                            p.setBackground(Colors.green1);
+                            p.setBackground(Colors.ground1);
                         } else {
-                            p.setBackground(Colors.green2);
+                            p.setBackground(Colors.ground2);
                         }
                     } else {
                         if (Numbers.isEven(j)) {
-                            p.setBackground(Colors.green2);
+                            p.setBackground(Colors.ground2);
                         } else {
-                            p.setBackground(Colors.green1);
+                            p.setBackground(Colors.ground1);
                         }
                     }
                 } else {

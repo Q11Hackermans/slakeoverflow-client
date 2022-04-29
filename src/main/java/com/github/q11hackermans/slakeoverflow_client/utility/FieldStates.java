@@ -1,3 +1,5 @@
+package com.github.q11hackermans.slakeoverflow_client.utility;
+
 public class FieldStates{
     public final int GROUND = 0;
     public final int PLAYER_HEAD_OWN = 101;

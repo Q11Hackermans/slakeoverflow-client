@@ -19,7 +19,7 @@ public class Colors {
     public static Color getColorFromCode(int code) {
         switch (code) {
             case 1:
-                return body;
+                return playerBodyOwn;
         }
         return debug;
     }

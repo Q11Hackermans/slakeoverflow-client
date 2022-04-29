@@ -15,7 +15,7 @@ public class GameFrame extends JFrame {
         this.loginPanel = new LoginPanel();
         this.mainPanel = new GamePanel();
 
-        this.add(loginPanel);
+        //this.add(loginPanel);
         // this.getContentPane().setLayout(new BorderLayout());
         this.add(mainPanel); // add the mainPanel / GamePanel to the window
 
