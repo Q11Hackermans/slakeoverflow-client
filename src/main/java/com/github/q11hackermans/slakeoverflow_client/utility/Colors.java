@@ -43,6 +43,8 @@ public class Colors {
             
             
             }
+
+        // if no vaild code was received
         return debug;
     }
 
