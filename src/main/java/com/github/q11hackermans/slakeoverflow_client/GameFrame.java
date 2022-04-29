@@ -6,10 +6,16 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame {
 
     private GamePanel mainPanel;
+    private LoginPanel loginPanel;
 
     GameFrame() {
+
+
+
+        this.loginPanel = new LoginPanel();
         this.mainPanel = new GamePanel();
 
+        this.add(loginPanel);
         // this.getContentPane().setLayout(new BorderLayout());
         this.add(mainPanel); // add the mainPanel / GamePanel to the window
 
