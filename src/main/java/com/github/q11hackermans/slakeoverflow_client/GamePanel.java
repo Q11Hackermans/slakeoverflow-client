@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
-import com.github.q11hackermans.slakeoverflow_client.components.SnakeHead;
 
 public class GamePanel extends JPanel implements ActionListener {
 
@@ -54,7 +53,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 } else {
                     p.setBackground(Colors.getColorFromCode(fields[i][j]));
-                    // p = new SnakeHead();
                 }
                 wrapper.add(p);
             }

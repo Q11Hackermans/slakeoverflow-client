@@ -3,12 +3,12 @@ package com.github.q11hackermans.slakeoverflow_client;
 
 import javax.swing.JFrame;
 
-public class GameFrame extends JFrame {
+public class GameView extends JFrame {
 
     private GamePanel gamePanel;
     private LoginPanel loginPanel;
 
-    GameFrame() {
+    GameView() {
 
 
 

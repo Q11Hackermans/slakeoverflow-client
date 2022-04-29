@@ -13,7 +13,7 @@ public class SlakeoverflowClient {
                 { 0, 0, 1 }
         };
 
-        GameFrame f = new GameFrame();
+        GameView f = new GameView();
         f.render(demoArray);
     }
 }
