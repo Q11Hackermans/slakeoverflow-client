@@ -6,7 +6,9 @@ import java.awt.*;
 
 public class Colors {
     public static Color ground1 = Color.decode("#4aa832");
-    public static Color ground2 = Color.decode("#356e26");
+    public static Color ground2 = Color.decode("#017821");
+    public static Color bg = Color.decode("#356e26");
+    
 
     public static Color playerBodyOwn = Color.decode("#4147e8");
     public static Color playerHeadOwn = Color.decode("#5459e3");

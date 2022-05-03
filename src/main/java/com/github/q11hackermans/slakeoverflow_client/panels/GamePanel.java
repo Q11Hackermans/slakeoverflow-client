@@ -7,13 +7,14 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
+import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
 public class GamePanel extends JPanel implements ActionListener {
 
     public GamePanel() {
-        this.setBackground(Colors.black);
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        this.setBackground(Colors.bg);
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100)); //todo: properly center
     }
 
     @Override
@@ -34,24 +35,24 @@ public class GamePanel extends JPanel implements ActionListener {
 
                 JPanel p = new JPanel();
                 p.setPreferredSize(new Dimension(20, 20));
-                if (fields[i][j] == 0) {
-                    // create the chessboardy look | surely theres a nicer approach
-                    if (Numbers.isEven(i)) {
-                        if (Numbers.isEven(j)) {
-                            p.setBackground(Colors.ground1);
-                        } else {
-                            p.setBackground(Colors.ground2);
-                        }
+            
+                // create the chessboardy background
+                if (Numbers.isEven(i)) {
+                    if (Numbers.isEven(j)) {
+                        p.setBackground(Colors.ground1);
                     } else {
-                        if (Numbers.isEven(j)) {
-                            p.setBackground(Colors.ground2);
-                        } else {
-                            p.setBackground(Colors.ground1);
-                        }
+                        p.setBackground(Colors.ground2);
                     }
                 } else {
-                    p.setBackground(Colors.getColorFromCode(fields[i][j]));
+                    if (Numbers.isEven(j)) {
+                        p.setBackground(Colors.ground2);
+                    } else {
+                        p.setBackground(Colors.ground1);
+                    }
                 }
+                
+                p.add(new JLabel(Assets.getSpriteFromCode(fields[i][j])));                    
+
                 wrapper.add(p);
             }
         }

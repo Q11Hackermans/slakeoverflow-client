@@ -7,6 +7,4 @@ public class KeyBinds {
     public static final int PLAYER_LEFT = 1;
     public static final int PLAYER_RIGHT = 2;
     public static final int PLAYER_DOWN = 3;
-
-    // other ?
 }
