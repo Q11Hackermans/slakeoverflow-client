@@ -14,9 +14,9 @@ public class Observable {
         items.remove(o);
     }
 
-    public void push() {
+    public void push(int[][] i) {
         items.forEach(a -> {
-            a.update();
+            a.update(i);
         });
     }
 

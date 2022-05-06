@@ -35,9 +35,6 @@ public class GameView extends JFrame implements Observer {
         // fullscreen jframe
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // initial render
-        this.render(this.gameModel.fetchData());
-
     }
 
     public void render(int[][] fields) {
@@ -49,7 +46,7 @@ public class GameView extends JFrame implements Observer {
     }
 
     @Override
-    public void update() {
-        this.render(this.gameModel.fetchData());
+    public void update(int[][] i) {
+        this.render(i) ; 
     }
 }

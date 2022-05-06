@@ -7,5 +7,12 @@
             "default": true
         },
     ],
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.dependency.syncWithFolderExplorer": false,
+    
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "C:\\Users\\Schueler\\Downloads\\*.jar"
+    ]
 }

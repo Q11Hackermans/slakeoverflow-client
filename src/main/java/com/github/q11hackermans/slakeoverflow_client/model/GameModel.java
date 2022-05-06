@@ -8,10 +8,11 @@ import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
 // communicate with the server
 public class GameModel extends Observable {
     public GameModel() {
-
+        //debug
+        this.fetchData();
     }
 
-    public int[][] fetchData() {
+    public void fetchData() {
         // fetch data every 1/4 sec?
         // return null;
 
@@ -20,7 +21,10 @@ public class GameModel extends Observable {
                 { 0, 0, 102 },
                 { 0, 0, 102 }
         };
-        return demoArray;
+        for (int i=0; i<=5; i++){
+            this.push(demoArray);
+            System.out.println("-- send");
+        }
     }
 
     public void sendData(KeyEvent e) {
