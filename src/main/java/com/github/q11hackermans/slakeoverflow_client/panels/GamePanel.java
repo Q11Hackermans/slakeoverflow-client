@@ -10,7 +10,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener, Panel {
 
     public GamePanel() {
         this.setBackground(Colors.bg);
@@ -23,7 +23,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
+
     // takes a 2d array as a representation for the entire playing field
+    @Override
     public void render(int[][] fields) {
         System.out.println("-- render GamePanel");
 

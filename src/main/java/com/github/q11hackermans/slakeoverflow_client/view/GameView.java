@@ -11,6 +11,8 @@ import java.awt.event.*;
 
 public class GameView extends JFrame implements Observer {
 
+
+    private int gameState;
     private GamePanel gamePanel;
     private LoginPanel loginPanel;
     private GameModel gameModel;
@@ -20,22 +22,22 @@ public class GameView extends JFrame implements Observer {
         this.gamePanel = new GamePanel();
         this.gameModel = new GameModel();
 
-        //this.add(loginPanel);
-        this.add(gamePanel);
+        this.createWindow();
+    }
 
+
+    public void createWindow(){
+        // initially create a window when openend
         this.setTitle("Slakeoverflow");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setResizable(true);
-
-        // if fullscreening doesn't work (as usual), set default size
         this.setSize(500, 500);
-
-        // fullscreen jframe
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
     }
 
+
+    @Override
     public void render(int[][] fields) {
         this.gamePanel.render(fields);
     }

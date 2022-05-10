@@ -8,7 +8,6 @@ import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 public class GameController implements KeyListener {
         private GameView gameView;
         private GameModel gameModel;
-
         public GameController() {
 
                 this.gameView = new GameView();

@@ -2,21 +2,35 @@
 package com.github.q11hackermans.slakeoverflow_client.model;
 
 import java.awt.event.*;
+import java.io.IOException;
 
 import net.jandie1505.connectionmanager.client.CMCClient;
 
 import com.github.q11hackermans.slakeoverflow_client.observe.Observable;
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
+import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
+import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOType;
 
 // communicate with the server
 public class GameModel extends Observable {
 
-    private CMCClient connectionManagerInstance;
+    private CMCClient  cmcClient;
+    private DataIOStreamHandler dataIOStreamHandler;
+
+    public int gameState = 0;
     public GameModel(String host, int port) {
-        connectionManagerInstance = new CMCClient(host, port);
+        try {
+            cmcClient = new CMCClient(host, port);
+            dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, false);
+        } catch (IOException e) {
+
+        }
 
     }
 
+    public void setState(int i) {
+        this.gameState = i;
+    }
 
 
     public void fetchData() {
