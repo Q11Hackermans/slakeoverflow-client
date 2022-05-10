@@ -1,20 +1,27 @@
+
 package com.github.q11hackermans.slakeoverflow_client.model;
 
 import java.awt.event.*;
+
+import net.jandie1505.connectionmanager.client.CMCClient;
 
 import com.github.q11hackermans.slakeoverflow_client.observe.Observable;
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
 
 // communicate with the server
 public class GameModel extends Observable {
-    public GameModel() {
-        //debug
-        this.fetchData();
+
+    private CMCClient connectionManagerInstance;
+    public GameModel(String host, int port) {
+        connectionManagerInstance = new CMCClient(host, port);
+
     }
 
+
+
     public void fetchData() {
-        // fetch data every 1/4 sec?
-        // return null;
+
+
 
         int[][] demoArray = {
                 { 0, 101, 102 },
@@ -23,7 +30,6 @@ public class GameModel extends Observable {
         };
         for (int i=0; i<=5; i++){
             this.push(demoArray);
-            System.out.println("-- send");
         }
     }
 

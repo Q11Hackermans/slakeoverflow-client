@@ -10,8 +10,9 @@ public class GameController implements KeyListener {
         private GameModel gameModel;
 
         public GameController() {
-                this.gameModel = new GameModel();
+
                 this.gameView = new GameView();
+                this.gameModel = new GameModel();
 
                 gameModel.add(gameView);
 

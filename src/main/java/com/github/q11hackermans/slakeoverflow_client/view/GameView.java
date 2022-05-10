@@ -13,7 +13,6 @@ public class GameView extends JFrame implements Observer {
 
     private GamePanel gamePanel;
     private LoginPanel loginPanel;
-
     private GameModel gameModel;
 
     public GameView() {
@@ -21,7 +20,7 @@ public class GameView extends JFrame implements Observer {
         this.gamePanel = new GamePanel();
         this.gameModel = new GameModel();
 
-        // this.add(loginPanel);
+        //this.add(loginPanel);
         this.add(gamePanel);
 
         this.setTitle("Slakeoverflow");
@@ -47,6 +46,8 @@ public class GameView extends JFrame implements Observer {
 
     @Override
     public void update(int[][] i) {
-        this.render(i) ; 
+
+        System.out.print("hey");
+        this.render(i) ;
     }
 }
