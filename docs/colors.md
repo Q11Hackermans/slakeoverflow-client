@@ -10,17 +10,11 @@
 ---
 
 
-### Used for background
+### Hintergrund
 - green1 : #4aa832
 - green2 : #356e26
 
 - bg : #000
 
-
-### Used for player/snake
-- head :
-- body : ##4147e8
-
-
-### other
-- apple 
+### Sprites
+*todo*
