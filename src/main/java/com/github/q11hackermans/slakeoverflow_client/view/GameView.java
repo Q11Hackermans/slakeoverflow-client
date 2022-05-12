@@ -6,28 +6,33 @@ import javax.swing.*;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.observe.Observer;
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
+import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import java.awt.event.*;
 
 public class GameView extends JFrame implements Observer {
 
+    private String host = null;
+    private int port = 0;
 
-    private int gameState;
-    private GamePanel gamePanel;
-    private LoginPanel loginPanel;
-    private GameModel gameModel;
+    private GamePanel gamePanel = null;
+    private LoginPanel loginPanel = null;
+    private GameModel gameModel = null;
 
     public GameView() {
-        this.loginPanel = new LoginPanel();
-        this.gamePanel = new GamePanel();
-        this.gameModel = new GameModel();
-
         this.createWindow();
+        this.displayLoginPanel();
     }
 
+    // WINDOWS
 
-    public void createWindow(){
-        // initially create a window when openend
+    /*
+     * Create a proper window for the game and login panel
+     */
+
+    public void createWindow() {
+        Logger.info("creating game window");
+
         this.setTitle("Slakeoverflow");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -36,20 +41,48 @@ public class GameView extends JFrame implements Observer {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
+    // PANELS + MODELS
 
-    @Override
-    public void render(int[][] fields) {
-        this.gamePanel.render(fields);
+    /*
+     * GamePanel
+     * displays game field
+     */
+
+    public void displayGamePanel() {
+        if (this.host != null && this.port != 0) {
+            this.gameModel = new GameModel(this.host, this.port);
+            this.gamePanel = new GamePanel();
+        } else {
+            Logger.error("port and host must be specified.");
+        }
+
     }
+
+    public void renderGamePanel(int[][] fields) {
+        if (this.gameModel != null) {
+            this.gamePanel.render(fields);
+        } else {
+            Logger.error("port and host must be specified.");
+        }
+    }
+
+    /*
+     * LoginPanel
+     * handles server host, port (later: username)
+     */
+    public void displayLoginPanel() {
+        this.loginPanel = new LoginPanel();
+        this.add(this.loginPanel);
+    }
+
+    // OTHER
 
     public void createKeyListener(KeyListener listener) {
         this.addKeyListener(listener);
     }
 
     @Override
-    public void update(int[][] i) {
-
-        System.out.print("hey");
-        this.render(i) ;
+    public void updateGameField(int[][] i) {
+        this.renderGamePanel(i);
     }
 }

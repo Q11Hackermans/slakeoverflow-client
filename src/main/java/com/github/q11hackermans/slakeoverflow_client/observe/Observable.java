@@ -1,4 +1,5 @@
 package com.github.q11hackermans.slakeoverflow_client.observe;
+
 import java.util.*;
 
 public class Observable {
@@ -15,9 +16,9 @@ public class Observable {
         this.items.remove(o);
     }
 
-    public void push(int[][] i){
+    public void push(int[][] i) {
         this.items.forEach(a -> {
-            a.update(i);
+            a.updateGameField(i);
         });
     }
 
