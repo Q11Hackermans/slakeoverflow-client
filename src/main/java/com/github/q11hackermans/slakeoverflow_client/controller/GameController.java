@@ -9,6 +9,11 @@ public class GameController implements KeyListener {
         private final GameView gameView;
         private final GameModel gameModel;
 
+
+        public static void main(String[] args) {
+                new GameController();
+        }
+
         public GameController() {
                 this.gameView = new GameView();
                 this.gameModel = new GameModel("", 0);
