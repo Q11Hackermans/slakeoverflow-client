@@ -1,16 +1,8 @@
 package com.github.q11hackermans.slakeoverflow_client.utility;
 
 public class Logger {
-
-    public static final String RESET = "\033[0m";
-    public static final String DEBUG = "\033[0;36m";
-    public static final String ERROR = "\033[0;31m";
-    public static final String INFO = "\033[0m";
-
-
-
     public static void writeLine(String message, String color){
-     System.out.println(color + message + RESET);
+        System.out.println(color + message + Colors.CONSOLE_RESET);
     }
 
 
@@ -18,14 +10,14 @@ public class Logger {
     Simple colored logs
      */
     public static void error(String message) {
-        writeLine("ERROR  | " + message, ERROR);
+        writeLine("ERROR  | " + message, Colors.CONSOLE_ERROR);
     }
 
     public static void info(String message) {
-        writeLine("INFO   | " + message, INFO);
+        writeLine("INFO   | " + message, Colors.CONSOLE_INFO);
     }
 
     public static void debug(String message){
-        writeLine("DEBUG  | " + message, DEBUG);
+        writeLine("DEBUG  | " + message, Colors.CONSOLE_DEBUG);
     }
 }

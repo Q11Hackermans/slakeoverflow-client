@@ -2,58 +2,105 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.*;
 
+import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
 public class GamePanel extends JPanel implements  Panel {
 
+    private int gameWidth=0;
+    private int gameHeight=0;
+
+    private JPanel background=null;
+    private JPanel lastBackground=null;
+
     public GamePanel() {
-        this.setBackground(Colors.bg);
+        createPanel();
+    }
+
+    private void createPanel() {
+        this.setBackground(Colors.BG);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100)); //todo: properly center
     }
 
 
-    // takes a 2d array as a representation for the entire playing field
-    @Override
-    public void render(int[][] fields) {
-        System.out.println("-- render GamePanel");
 
+    // RENDERING
+
+    /*
+    Render the typical chessboard background (only if field-size changes (for some reason)
+     */
+
+    public JPanel getBackgroundJPanel(int[][] fields){
+        Logger.info("creating background JPanel");
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
         wrapper.setPreferredSize(new Dimension(fields.length * 20, fields.length * 20));
 
         for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields.length; j++) {
+            for (int j = 0; j < fields[0].length; j++) {
 
-                JPanel p = new JPanel();
-                p.setPreferredSize(new Dimension(20, 20));
-            
-                // create the chessboardy background
+                JPanel nextPanel = new JPanel();
+                nextPanel.setPreferredSize(new Dimension(20, 20));
+
                 if (Numbers.isEven(i)) {
                     if (Numbers.isEven(j)) {
-                        p.setBackground(Colors.ground1);
+                        nextPanel.setBackground(Colors.GROUND_1);
                     } else {
-                        p.setBackground(Colors.ground2);
+                        nextPanel.setBackground(Colors.GROUND_2);
                     }
                 } else {
                     if (Numbers.isEven(j)) {
-                        p.setBackground(Colors.ground2);
+                        nextPanel.setBackground(Colors.GROUND_2);
                     } else {
-                        p.setBackground(Colors.ground1);
+                        nextPanel.setBackground(Colors.GROUND_1);
                     }
                 }
-                
-                p.add(new JLabel(Assets.getSpriteFromCode(fields[i][j])));                    
-
-                wrapper.add(p);
+                wrapper.add(nextPanel);
             }
         }
+        return wrapper;
+    }
 
-        this.add(wrapper);
+
+    /*
+    Main render method; map new sprites onto chessboard background
+     */
+    @Override
+    public void render(int[][] fields) {
+        Logger.info("rendering background");
+
+        if ((fields.length == gameHeight && fields[0].length == gameWidth ) && lastBackground != null){ //no need to check for gameHeight (if the field was at least rendered once)
+
+            JPanel nextFrame = this.background;
+
+            for (int i = 0; i < fields.length; i++) {
+                for (int j = 0; j < fields[0].length; j++) {
+                    nextFrame.add(new JLabel(Assets.getSpriteFromCode(fields[i][j])));
+                }
+            }
+
+
+
+            // lets hope this wont break
+            this.remove(this.lastBackground);
+            this.add(nextFrame);
+        }else{
+            // generate background first
+            this.background = this.getBackgroundJPanel(fields);
+            if(lastBackground == null){
+                this.lastBackground = background;
+            }
+
+            this.gameHeight = fields.length;
+            this.gameWidth = fields[0].length;
+            //this.render(fields);
+
+        }
+
     }
 
 }

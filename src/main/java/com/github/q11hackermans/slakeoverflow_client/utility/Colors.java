@@ -5,45 +5,18 @@ package com.github.q11hackermans.slakeoverflow_client.utility;
 import java.awt.*;
 
 public class Colors {
-    public static final Color ground1 = Color.decode("#4aa832");
-    public static final Color ground2 = Color.decode("#017821");
-    public static final Color bg = Color.decode("#356e26");
-    
 
-    public static final Color playerBodyOwn = Color.decode("#4147e8");
-    public static final Color playerHeadOwn = Color.decode("#5459e3");
+    // GAMEFIELD COLORS
+    public static final Color GROUND_1 = Color.decode("#4aa832");
+    public static final Color GROUND_2 = Color.decode("#017821");
+    public static final Color BG = Color.decode("#356e26");
 
-    public static final Color playerBodyOther = Color.decode("#44455e");
-    public static final Color playerHeadOther = Color.decode("#545573");
 
-    public static Color itemApple = Color.decode("#4147e8");
+    // CONSOLE COLORS
+    public static final String CONSOLE_RESET = "\033[0m";
+    public static final String CONSOLE_DEBUG = "\033[0;36m"; //light blue / cyan
+    public static final String CONSOLE_ERROR = "\033[0;31m"; // red
+    public static final String CONSOLE_INFO = CONSOLE_RESET; // no color
 
-    // other
-    public static Color black = Color.decode("#000");
-    public static final Color debug = Color.RED;
-
-    public static Color getColorFromCode(int code) {
-        switch (code) {
-            // color codes for own player | 100-199
-            case 101:
-                return playerHeadOwn;
-            case 102:
-                return playerBodyOwn;
-
-            // color codes for other player(s) | 200-299
-            case 201:
-                return playerHeadOther;
-            case 202:
-                return playerBodyOther;
-
-            // items eg. apples | 300-399
-            case 301:
-                return playerHeadOther;
-
-        }
-
-        // if no vaild code was received
-        return debug;
-    }
 
 }

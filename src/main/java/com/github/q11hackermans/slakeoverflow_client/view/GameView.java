@@ -18,7 +18,7 @@ public class GameView extends JFrame implements GameObserver, LoginPanelListener
 
     public GameView() {
         this.createWindow();
-        this.displayLoginPanel();
+        //this.displayLoginPanel();
 
         Logger.debug("manually rendering gamePanel -- todo: automatically check for port + host");
         this.displayGamePanel();
@@ -41,7 +41,7 @@ public class GameView extends JFrame implements GameObserver, LoginPanelListener
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    // PANELS + MODELS
+    // PANELS
 
     /*
      * GamePanel
