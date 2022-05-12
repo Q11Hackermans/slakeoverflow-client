@@ -10,17 +10,11 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
-public class GamePanel extends JPanel implements ActionListener, Panel {
+public class GamePanel extends JPanel implements  Panel {
 
     public GamePanel() {
         this.setBackground(Colors.bg);
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100)); //todo: properly center
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
-        // TODO Auto-generated method stub
-
     }
 
 

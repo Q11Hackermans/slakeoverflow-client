@@ -1,30 +1,30 @@
-//@blame Joshua3212
+ //@blame Joshua3212
 package com.github.q11hackermans.slakeoverflow_client.view;
 
 import javax.swing.*;
 
+import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
-import com.github.q11hackermans.slakeoverflow_client.observe.Observer;
+import com.github.q11hackermans.slakeoverflow_client.observe.GameObserver;
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import java.awt.event.*;
 
-public class GameView extends JFrame implements Observer {
-
-    private String host = null;
-    private int port = 0;
+public class GameView extends JFrame implements GameObserver, LoginPanelListener {
 
     private GamePanel gamePanel = null;
     private LoginPanel loginPanel = null;
-    private GameModel gameModel = null;
 
     public GameView() {
         this.createWindow();
         this.displayLoginPanel();
+
+        Logger.debug("manually rendering gamePanel -- todo: automatically check for port + host");
+        this.displayGamePanel();
     }
 
-    // WINDOWS
+    // FRAME
 
     /*
      * Create a proper window for the game and login panel
@@ -49,21 +49,20 @@ public class GameView extends JFrame implements Observer {
      */
 
     public void displayGamePanel() {
-        if (this.host != null && this.port != 0) {
-            this.gameModel = new GameModel(this.host, this.port);
-            this.gamePanel = new GamePanel();
-        } else {
-            Logger.error("port and host must be specified.");
-        }
-
+        this.gamePanel = new GamePanel();
+        this.add(this.gamePanel);
     }
 
-    public void renderGamePanel(int[][] fields) {
-        if (this.gameModel != null) {
-            this.gamePanel.render(fields);
-        } else {
-            Logger.error("port and host must be specified.");
-        }
+    public void removeGamePanel(){
+        this.remove(this.gamePanel);
+    }
+
+
+    /*
+    (Re)render gameField
+     */
+    public void renderGame(int[][] fields) {
+        this.gamePanel.render(fields);
     }
 
     /*
@@ -73,6 +72,13 @@ public class GameView extends JFrame implements Observer {
     public void displayLoginPanel() {
         this.loginPanel = new LoginPanel();
         this.add(this.loginPanel);
+
+
+        // (re)register listeners
+        this.registerListeners();
+    }
+    public void removeLoginPanel(){
+        this.remove(this.loginPanel);
     }
 
     // OTHER
@@ -81,8 +87,36 @@ public class GameView extends JFrame implements Observer {
         this.addKeyListener(listener);
     }
 
+
     @Override
-    public void updateGameField(int[][] i) {
-        this.renderGamePanel(i);
+    public void updateGame(int[][] i) {
+        this.renderGame(i);
+    }
+
+    @Override
+    public void stopGame() {
+
+    }
+
+    @Override
+    public void startGame() {
+
+    }
+
+
+    // LISTENERS register
+    public void registerListeners() {
+        Logger.info("registering listeners");
+        loginPanel.setLoginPanelListener(this);
+    }
+
+    // LISTENERS use
+
+    /*
+    Check for changes on the login screen & update send host + port to model if changed
+     */
+    @Override
+    public void onLogin(String host, int port) {
+
     }
 }

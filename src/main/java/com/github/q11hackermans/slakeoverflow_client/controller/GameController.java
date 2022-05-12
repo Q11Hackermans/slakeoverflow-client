@@ -11,14 +11,18 @@ public class GameController implements KeyListener {
 
         public GameController() {
                 this.gameView = new GameView();
-                gameModel.add(gameView);
+                this.gameModel = new GameModel("", 0);
+
+                this.gameModel.add(gameView);
+
+                gameModel.setData();
 
                 this.gameView.addKeyListener(this);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-                this.gameModel.sendData(e);
+                this.gameModel.getKey(e);
         }
 
         @Override
