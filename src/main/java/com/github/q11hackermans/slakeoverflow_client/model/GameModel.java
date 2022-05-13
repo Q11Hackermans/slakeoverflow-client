@@ -2,7 +2,9 @@ package com.github.q11hackermans.slakeoverflow_client.model;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.List;
 
+import com.github.q11hackermans.slakeoverflow_client.listeners.EventListener;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
@@ -10,21 +12,25 @@ import com.github.q11hackermans.slakeoverflow_client.observe.GameObservable;
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOType;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class GameModel extends GameObservable {
 
 
     private int[][] gameField;
-    private CMCClient  cmcClient = null;
-    private DataIOStreamHandler dataIOStreamHandler = null;
+    private CMCClient  cmcClient;
+    private DataIOStreamHandler dataIOStreamHandler;
 
-    public GameModel(String host, int port) {
+    public GameModel(String host, int port) throws IOException {
         this.setCmcClient(host, port);
+        this.cmcClient = new CMCClient(host, port, List.of(new EventListener()));
+        this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, false);
     }
 
-    public GameModel(){
+    /*public GameModel(){
         Logger.info("GameModel created without host and port set");
-    }
+    }*/
 
     public void setData() {
         Logger.info("received data");
@@ -69,6 +75,14 @@ public class GameModel extends GameObservable {
 
         if (nextKey != -1) {
             Logger.info("key "+ nextKey + " pressed");
+            JSONObject s = new JSONObject();
+            s.put("cmd","game_direction_change");
+            s.put("direction",nextKey);
+            try {
+                dataIOStreamHandler.writeUTF(s.toString());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
