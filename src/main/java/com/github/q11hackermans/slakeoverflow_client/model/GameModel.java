@@ -5,33 +5,34 @@ import java.io.IOException;
 import java.util.List;
 
 import com.github.q11hackermans.slakeoverflow_client.listeners.EventListener;
+import com.github.q11hackermans.slakeoverflow_client.listeners.GameModelListener;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
-import com.github.q11hackermans.slakeoverflow_client.observe.GameObservable;
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOType;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class GameModel extends GameObservable {
+public class GameModel{
 
 
-    private int[][] gameField;
+    private GameModelListener listener;
+
+
     private CMCClient  cmcClient;
     private DataIOStreamHandler dataIOStreamHandler;
 
+
+
     public GameModel(String host, int port) throws IOException {
-        this.setCmcClient(host, port);
         this.cmcClient = new CMCClient(host, port, List.of(new EventListener()));
         this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, false);
     }
 
-    /*public GameModel(){
-        Logger.info("GameModel created without host and port set");
-    }*/
-
+    /**
+     * Receive data from the server
+     */
     public void setData() {
         Logger.info("received data");
         int[][] demoArray = {
@@ -40,10 +41,14 @@ public class GameModel extends GameObservable {
                 { 0, 0, 102 }
         };
         for (int i=0; i<=5; i++){
-            this.updateGame(demoArray);
+            this.nextFrame(demoArray);
         }
     }
 
+    /**
+     * Register keypresses and send them to the server
+     * @param e
+     */
     public void getKey(KeyEvent e) {
         int nextKey = 0;
         switch (e.getKeyCode()) {
@@ -86,38 +91,23 @@ public class GameModel extends GameObservable {
         }
     }
 
+    //SETTERS/GETTERS
 
 
-    //GETTERS + SETTERS
-
-    /*
-        the gameField stores the current gameField
-     */
-    public int[][] getGameField() {
-        return gameField;
+    public GameModelListener getListener() {
+        return listener;
     }
 
-    public void setGameField(int[][] gameField) {
-        this.gameField = gameField;
+    public void setListener(GameModelListener listener) {
+        this.listener = listener;
     }
 
 
-    /*
-        Create ( and get ) CMCClient if not already created in constructor
-     */
+    //EVENTS
 
-
-    public CMCClient getCmcClient() {
-        return cmcClient;
-    }
-
-    public void setCmcClient(String host, int port) {
-        try {
-            this.cmcClient = new CMCClient(host, port);
-            dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, false);
-            Logger.info("cmcClient and dataIOStreamHandler created");
-        }catch (IOException e) {
-            Logger.error(e.toString());
-        }
+    public void lobbyJoined(){}
+    public void lobbyClosed(){}
+    public int[][] nextFrame(int[][] i){
+        return i;
     }
 }

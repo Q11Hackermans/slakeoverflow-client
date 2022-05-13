@@ -13,6 +13,9 @@ public class EventListener extends CMListenerAdapter {
     public void onClientCreated(CMClientCreatedEvent event) {
         // WAS PASSIEREN SOLL WENN DIE VERBINDUNG ERFOLGREICH WAR SCHREIBST DU HIER REIN
         event.getClient(); // SO BEKOMMST DU DEN CLIENT
+
+
+
     }
 
     @Override

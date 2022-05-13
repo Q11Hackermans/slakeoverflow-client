@@ -3,6 +3,7 @@ package com.github.q11hackermans.slakeoverflow_client.view;
 
 import javax.swing.*;
 
+import com.github.q11hackermans.slakeoverflow_client.listeners.GameModelListener;
 import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.observe.GameObserver;
@@ -11,7 +12,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import java.awt.event.*;
 
-public class GameView extends JFrame implements GameObserver, LoginPanelListener {
+public class GameView extends JFrame implements GameModelListener, LoginPanelListener {
 
     private GamePanel gamePanel = null;
     private LoginPanel loginPanel = null;
@@ -118,5 +119,20 @@ public class GameView extends JFrame implements GameObserver, LoginPanelListener
     @Override
     public void onLogin(String host, int port) {
 
+    }
+
+    @Override
+    public void lobbyJoined() {
+
+    }
+
+    @Override
+    public void lobbyClosed() {
+
+    }
+
+    @Override
+    public int[][] nextFrame() {
+        return new int[0][];
     }
 }

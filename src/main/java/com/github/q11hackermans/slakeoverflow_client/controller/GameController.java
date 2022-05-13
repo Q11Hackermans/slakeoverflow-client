@@ -19,7 +19,7 @@ public class GameController implements KeyListener {
                 this.gameView = new GameView();
                 this.gameModel = new GameModel("", 0);
 
-                this.gameModel.add(gameView);
+                this.gameModel.setListener(gameView);
 
                 gameModel.setData();
 
