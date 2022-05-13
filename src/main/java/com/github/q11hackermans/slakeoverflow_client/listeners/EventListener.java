@@ -4,6 +4,7 @@ import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
 import net.jandie1505.connectionmanager.events.CMClientCreatedEvent;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.events.DataIOUTFReceivedEvent;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,11 +30,22 @@ public class EventListener extends CMListenerAdapter {
     @Override
     public void onUTFReceived(DataIOUTFReceivedEvent event) {
         try {
-            JSONObject jsonObject = new JSONObject(event.getData());
+            JSONObject data = new JSONObject(event.getData());
 
             // WENN VOM SERVER NE NACHRICHT KOMMT, BEKOMMST DU DIE HIER
 
-            jsonObject.getString("cmd"); // SO HOLST DU DIR DEN STRING CMD AUS DEM JSONOBJECT RAUS
+            String baseCommand = data.getString("cmd"); // SO HOLST DU DIR DEN STRING CMD AUS DEM JSONOBJECT RAUS
+
+            switch (baseCommand){
+                case "playerdata":
+                    JSONArray j = data.getJSONArray("fields");
+
+                case "":
+                    System.out.println("");
+
+                default:
+                    break;
+            }
         } catch(JSONException e) {
             System.out.println("Received data in wrong format. Disconnecting...");
             event.getClient().close();
