@@ -1,10 +1,4 @@
-# Todo
+# Slakeoverflow client
 
-
-
-### Assets
-- schlange-körper
-- schlange-kopf (x10)
-- kästen-hintergrund
-- border
-- äpfel
+### How to run
+Build application + execute

@@ -1,26 +1,34 @@
 package com.github.q11hackermans.slakeoverflow_client.controller;
 
 import java.awt.event.*;
+import java.io.IOException;
 
 import com.github.q11hackermans.slakeoverflow_client.view.GameView;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 
 public class GameController implements KeyListener {
-        private GameView gameView;
-        private GameModel gameModel;
+        private final GameView gameView;
+        private final GameModel gameModel;
 
-        public GameController() {
-                this.gameModel = new GameModel();
+
+        public static void main(String[] args) throws IOException {
+                new GameController();
+        }
+
+        public GameController() throws IOException {
                 this.gameView = new GameView();
+                this.gameModel = new GameModel("", 0);
 
-                gameModel.add(gameView);
+                this.gameModel.setListener(gameView);
+
+                gameModel.setData();
 
                 this.gameView.addKeyListener(this);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-                this.gameModel.sendData(e);
+                this.gameModel.getKey(e);
         }
 
         @Override
