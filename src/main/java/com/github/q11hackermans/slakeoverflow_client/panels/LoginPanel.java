@@ -15,17 +15,17 @@ public class LoginPanel extends JPanel {
     private LoginPanelListener loginPanelListener;
 
     public LoginPanel() {
-        this.setBackground(ground1);
+        //this.setBackground(ground1);
 
         // JButton mit Text "Drück mich" wird erstellt
         JButton button = new JButton("Play");
 
         // JButton wird dem Panel hinzugefügt
-        panel.add(button);
+        //panel.add(button);
 
-        this.button.setBounds(50,100,100,30)
+        //this.button.setBounds(50,100,100,30)
 
-        meinJFrame.setVisible(true);
+        //meinJFrame.setVisible(true);
     }
 
 

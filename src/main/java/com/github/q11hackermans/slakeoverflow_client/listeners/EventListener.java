@@ -1,5 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.listeners;
 
+import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
 import net.jandie1505.connectionmanager.events.CMClientCreatedEvent;
@@ -7,6 +8,8 @@ import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.events.Dat
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class EventListener extends CMListenerAdapter {
     // CLIENT EVENTS
@@ -24,6 +27,7 @@ public class EventListener extends CMListenerAdapter {
         // WAS PASSIEREN SOLL WENN DIE VERBINDUNG ABBRICHT SCHREIBST DU HIER REIN
         event.getClient(); // SO BEKOMMST DU (MAL WIEDER) DEN CLIENT)
         event.getReason(); // SO BEKOMMST DU DEN GRUND WARUM DIE VERBINDUNG GETRENNT WURDE
+        System.exit(101);
     }
 
     // DATA IO EVENTS
@@ -34,21 +38,42 @@ public class EventListener extends CMListenerAdapter {
 
             // WENN VOM SERVER NE NACHRICHT KOMMT, BEKOMMST DU DIE HIER
 
-            String baseCommand = data.getString("cmd"); // SO HOLST DU DIR DEN STRING CMD AUS DEM JSONOBJECT RAUS
+            if(data.has("cmd")) {
+                String baseCommand = data.getString("cmd"); // SO HOLST DU DIR DEN STRING CMD AUS DEM JSONOBJECT RAUS
 
-            switch (baseCommand){
-                case "playerdata":
-                    JSONArray j = data.getJSONArray("fields");
+                switch (baseCommand) {
+                    case "playerdata":
+                        JSONArray rawData = data.getJSONArray("fields");
 
-                case "":
-                    System.out.println("");
+                        int[][] gridData = new int[rawData.length()][];
 
-                default:
-                    break;
+                        for (int i = 0; i < rawData.length(); i++) {
+                            gridData[i] = new int[rawData.getJSONArray(i).length()];
+                            for (int j = 0; j < rawData.getJSONArray(i).length(); j++) {
+                                gridData[i][j] = rawData.getJSONArray(i).getInt(j);
+                            }
+                        }
+                        GameModel.model.setMatrixData(gridData);
+                        break;
+
+                    case "status":
+                        int gameStatus = data.getInt("status");
+                        int authStatus = data.getInt("auth");
+                        break;
+
+                    case "ready":
+                        System.out.println("FERERERERETIG");
+                        break;
+
+                    default:
+                        break;
+                }
             }
         } catch(JSONException e) {
             System.out.println("Received data in wrong format. Disconnecting...");
             event.getClient().close();
+        } catch (NumberFormatException e){
+            System.out.println("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
         }
     }
 }

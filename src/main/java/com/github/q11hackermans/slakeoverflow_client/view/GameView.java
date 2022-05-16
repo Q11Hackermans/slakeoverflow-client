@@ -6,7 +6,6 @@ import javax.swing.*;
 import com.github.q11hackermans.slakeoverflow_client.listeners.GameModelListener;
 import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
-import com.github.q11hackermans.slakeoverflow_client.observe.GameObserver;
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
@@ -15,9 +14,11 @@ import java.awt.event.*;
 public class GameView extends JFrame implements GameModelListener, LoginPanelListener {
 
     private GamePanel gamePanel = null;
+    private GameModel gameModel;
     private LoginPanel loginPanel = null;
 
-    public GameView() {
+    public GameView(GameModel model) {
+        this.gameModel = model;
         this.createWindow();
         //this.displayLoginPanel();
 
@@ -40,6 +41,7 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
         this.setResizable(true);
         this.setSize(500, 500);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setVisible(false);
     }
 
     // PANELS
@@ -90,8 +92,8 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
 
 
     @Override
-    public void updateGame(int[][] i) {
-        this.renderGame(i);
+    public void updateMatrix() {
+        this.renderGame(gameModel.getGameMatrix());
     }
 
     @Override
@@ -129,10 +131,5 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
     @Override
     public void lobbyClosed() {
 
-    }
-
-    @Override
-    public int[][] nextFrame() {
-        return new int[0][];
     }
 }

@@ -16,19 +16,17 @@ public class GameController implements KeyListener {
         }
 
         public GameController() throws IOException {
-                this.gameView = new GameView();
-                this.gameModel = new GameModel("", 0);
+                this.gameModel = new GameModel("127.0.0.1", 26677);
+                this.gameView = new GameView(gameModel);
 
                 this.gameModel.setListener(gameView);
-
-                gameModel.setData();
 
                 this.gameView.addKeyListener(this);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-                this.gameModel.getKey(e);
+                this.gameModel.handleKeyInput(e);
         }
 
         @Override
