@@ -11,7 +11,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import java.awt.event.*;
 
 @Deprecated
-public class GameView extends JFrame implements GameModelListener, LoginPanelListener, View {
+public class GameView extends JFrame implements GameModelListener, View {
 
     private GamePanel gamePanel = null;
     private GameModel gameModel;
@@ -119,14 +119,6 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
     }
 
     // LISTENERS use
-
-    /*
-    Check for changes on the login screen & update send host + port to model if changed
-     */
-    @Override
-    public void onLogin(String host, int port) {
-
-    }
 
     @Override
     public void lobbyJoined() {
