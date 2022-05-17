@@ -1,47 +1,55 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
+import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import javax.swing.*;
-import java.awt.* ;
-import java.awt.event.* ;
+import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
-
-    private int port=0;
-    private String host = null;
-
     private LoginPanelListener loginPanelListener;
+    private final JButton button;
+    private final JTextField host;
+    private final JTextField port;
 
-    public LoginPanel() {
-        //this.setBackground(ground1);
+    public LoginPanel(ActionListener actionListener) {
+
+        this.setBackground(Colors.GROUND_1);
 
         // JButton mit Text "Drück mich" wird erstellt
-        JButton button = new JButton("Play");
+
+        button = new JButton("Play");
+        host = new JTextField();
+        port = new JTextField();
+
+
+        button.addActionListener(actionListener);
+
+
+//        this.setLayout();
 
         // JButton wird dem Panel hinzugefügt
-        //panel.add(button);
+        this.add(button);
 
-        //this.button.setBounds(50,100,100,30)
+        this.add(new JLabel("Host"));
+        this.add(host);
 
-        //meinJFrame.setVisible(true);
+
+        this.add(new JLabel("Port"));
+        this.add(port);
+
+
+        //this.button.setBounds(50,100,100,30); (?)
+
+        this.setVisible(true);
     }
 
-
-    public LoginPanelListener getLoginPanelListener() {
-        return loginPanelListener;
+    public String getHost() {
+        return host.getText();
     }
 
-    public void setLoginPanelListener(LoginPanelListener loginPanelListener) {
-        this.loginPanelListener = loginPanelListener;
-    }
-
-    public void login(){
-        if (host != null && port != 0){
-            this.loginPanelListener.onLogin(host, port);
-        }else{
-            Logger.error("host and/or port have to be specified");
-        }
+    public String getPort() {
+        return port.getText();
     }
 }
