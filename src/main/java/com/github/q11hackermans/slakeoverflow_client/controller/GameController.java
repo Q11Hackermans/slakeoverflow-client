@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 import com.github.q11hackermans.slakeoverflow_client.panels.LoginPanel;
+import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
@@ -97,8 +98,8 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         @Override
         public void actionPerformed(ActionEvent e) {
                 System.out.println("action");
-                if(e.getActionCommand().equals("")){
-                        
+                if(e.getActionCommand().equals(ActionCommands.playButtonPressed)){
+                        System.out.println("New GamePanel");
                 }
         }
 }
