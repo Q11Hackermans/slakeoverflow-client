@@ -4,14 +4,14 @@ package com.github.q11hackermans.slakeoverflow_client.view;
 import javax.swing.*;
 
 import com.github.q11hackermans.slakeoverflow_client.listeners.GameModelListener;
-import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import java.awt.event.*;
 
-public class GameView extends JFrame implements GameModelListener, LoginPanelListener, View {
+@Deprecated
+public class GameView extends JFrame implements GameModelListener, View {
 
     private GamePanel gamePanel = null;
     private GameModel gameModel;
@@ -119,14 +119,6 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
     }
 
     // LISTENERS use
-
-    /*
-    Check for changes on the login screen & update send host + port to model if changed
-     */
-    @Override
-    public void onLogin(String host, int port) {
-
-    }
 
     @Override
     public void lobbyJoined() {
