@@ -1,10 +1,12 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
+import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
@@ -25,9 +27,9 @@ public class LoginPanel extends JPanel {
 
 
         button.addActionListener(actionListener);
+        button.setActionCommand(ActionCommands.playButtonPressed);
 
-
-//        this.setLayout();
+        this.setLayout(new GridLayout());
 
         // JButton wird dem Panel hinzugefügt
         this.add(button);
