@@ -105,5 +105,15 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 if(e.getActionCommand().equals(ActionCommands.playButtonPressed)){
                         System.out.println("New GamePanel");
                 }
+                switch (e.getActionCommand()){
+                        case ActionCommands.playButtonPressed:
+                                System.out.println("Playyyy");
+                                break;
+
+                        case ActionCommands.disconnectButtonPressed:
+                                System.out.println("Disconnecting from Server");
+                                this.view = new LoginPanel(this);
+                                break;
+                }
         }
 }
