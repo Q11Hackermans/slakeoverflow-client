@@ -6,6 +6,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -22,6 +23,7 @@ public class LoginPanel extends JPanel {
         // JButton mit Text "Drück mich" wird erstellt
 
         button = new JButton("Play");
+        button.setAlignmentX(0);
         host = new JTextField();
         port = new JTextField();
 
@@ -29,10 +31,10 @@ public class LoginPanel extends JPanel {
         button.addActionListener(actionListener);
         button.setActionCommand(ActionCommands.playButtonPressed);
 
-        this.setLayout(new GridLayout());
-
-        // JButton wird dem Panel hinzugefügt
-        this.add(button);
+        this.setPreferredSize(
+                new Dimension(300, 700)
+        );
+        this.setLayout(new GridLayout(10, 1, 0, 10));
 
         this.add(new JLabel("Host"));
         this.add(host);
@@ -41,6 +43,9 @@ public class LoginPanel extends JPanel {
         this.add(new JLabel("Port"));
         this.add(port);
 
+
+        // JButton wird dem Panel hinzugefügt
+        this.add(button);
 
         //this.button.setBounds(50,100,100,30); (?)
 

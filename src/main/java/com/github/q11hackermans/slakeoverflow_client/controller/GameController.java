@@ -1,5 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.controller;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -22,7 +23,8 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
         public GameController() throws IOException {
                 this.view = new LoginPanel(this);
-                this.add(view);
+                this.add(view, BorderLayout.CENTER);
+
                 Logger.info("creating game window");
                 configureJFrame();
 
@@ -32,11 +34,13 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         private void configureJFrame() {
                 this.setTitle("Slakeoverflow");
                 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                this.setVisible(true);
+                //this.setLayout(new BorderLayout());
                 this.setResizable(true);
                 this.setSize(500, 500);
                 this.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 this.addKeyListener(this);
+
+                this.setVisible(true);
         }
 
         @Override
