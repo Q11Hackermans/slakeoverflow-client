@@ -15,6 +15,7 @@ public class LoginPanel extends JPanel {
     private final JTextField host;
     private final JTextField port;
 
+
     public LoginPanel(ActionListener actionListener) {
 
         this.setBackground(Colors.GROUND_1);
