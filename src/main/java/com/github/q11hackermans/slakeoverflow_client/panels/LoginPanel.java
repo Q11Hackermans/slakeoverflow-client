@@ -2,12 +2,13 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
+import com.github.q11hackermans.slakeoverflow_client.view.View;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel extends View {
     private final JButton button;
     private final JTextField host;
     private final JTextField port;
@@ -23,6 +24,7 @@ public class LoginPanel extends JPanel {
         button.setAlignmentX(0);
         host = new JTextField();
         port = new JTextField();
+        port.setText("26677");
 
 
         button.addActionListener(actionListener);
@@ -48,10 +50,18 @@ public class LoginPanel extends JPanel {
     }
 
 
+    /**
+     * Get the value of the Login-View host text-field
+     * @return String - host
+     */
     public String getHost() {
         return host.getText();
     }
 
+    /**
+     * Get the value of the Login-View port text-field
+     * @return String - port
+     */
     public String getPort() {
         return port.getText();
     }

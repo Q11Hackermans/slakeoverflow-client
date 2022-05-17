@@ -3,28 +3,33 @@ package com.github.q11hackermans.slakeoverflow_client.controller;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
+import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
+import com.github.q11hackermans.slakeoverflow_client.panels.LobbyPanel;
 import com.github.q11hackermans.slakeoverflow_client.panels.LoginPanel;
 import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
+import com.github.q11hackermans.slakeoverflow_client.view.View;
 import org.json.JSONObject;
 
 import javax.swing.*;
 
 public class GameController extends JFrame implements KeyListener, ActionListener {
-        private JPanel view;
+        private View view;
         private GameModel model;
 
 
         public static void main(String[] args) throws IOException {
                 new GameController();
+                //GameController.testGamePanel(); // Test GamePanel
+
         }
 
         public GameController() throws IOException {
-                this.view = new LoginPanel(this);
-                this.add(view, BorderLayout.CENTER);
+                this.updateView(new LoginPanel(this), BorderLayout.CENTER);
 
                 Logger.info("creating game window");
                 configureJFrame();
@@ -57,12 +62,20 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         public void keyTyped(KeyEvent e) {
         }
 
+        private void updateView(View view, Object layout){
+                this.getContentPane().removeAll();
+                this.repaint();
+                this.add(view, layout);
+                this.view = view;
+                SwingUtilities.updateComponentTreeUI(this);
+        }
+
         /**
          * Register keypresses and send them to the server
          * @param e
          */
-        public void handleKeyInput(KeyEvent e) {
-                int nextKey = 0;
+        private void handleKeyInput(KeyEvent e) {
+                int nextKey;
                 switch (e.getKeyCode()) {
                         // up
                         case 87:
@@ -102,18 +115,47 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         @Override
         public void actionPerformed(ActionEvent e) {
 //                System.out.println("action");
-                if(e.getActionCommand().equals(ActionCommands.connectButtonPressed)){
-                        System.out.println("New GamePanel");
-                }
                 switch (e.getActionCommand()){
                         case ActionCommands.connectButtonPressed:
-                                System.out.println("Playyyy");
+                                Logger.info("Connecting to Server");
+                                try {
+                                        System.out.println(this.view.getHost());
+                                        this.model = new GameModel(this.view.getHost(), Integer.parseInt(this.view.getPort()));
+                                        this.updateView(new LobbyPanel(this), BorderLayout.CENTER);
+
+                                } catch (IOException ex) {
+                                        Logger.error("Connecting to server failed!");
+                                        ex.printStackTrace();
+                                        this.model = null;
+                                        this.updateView(new LoginPanel(this), BorderLayout.CENTER);
+                                        JOptionPane.showMessageDialog(this, "Please enter a valid host and port");
+                                }
                                 break;
 
                         case ActionCommands.disconnectButtonPressed:
                                 System.out.println("Disconnecting from Server");
-                                this.view = new LoginPanel(this);
+                                this.model = null;
+                                this.updateView(new LoginPanel(this), BorderLayout.CENTER);
                                 break;
+                }
+        }
+
+        private static void testGamePanel(){
+                JFrame j = new JFrame();
+                j.setTitle("Slakeoverflow");
+                j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                j.setResizable(true);
+                j.setSize(500, 500);
+                j.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                j.setVisible(true);
+                GamePanel g = new GamePanel();
+                j.add(g);
+                g.render(new int[][] {{101},{101}});
+                try {
+                        TimeUnit.SECONDS.sleep(2);
+                        g.render(new int[][] {{101, 101},{101,101}});
+                } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                 }
         }
 }

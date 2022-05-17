@@ -11,7 +11,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import java.awt.event.*;
 
 @Deprecated
-public class GameView extends JFrame implements GameModelListener, View {
+public class GameView extends JFrame implements GameModelListener {
 
     private GamePanel gamePanel = null;
     private GameModel gameModel;

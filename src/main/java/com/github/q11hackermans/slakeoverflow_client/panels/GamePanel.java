@@ -9,11 +9,12 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
+import com.github.q11hackermans.slakeoverflow_client.view.View;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends View {
 
-    private JPanel currentFrame =null;
-    private JPanel lastFrame =null;
+    private JPanel currentFrame = null;
+    private JPanel lastFrame = null;
 
     public GamePanel() {
         createPanel();
@@ -25,14 +26,13 @@ public class GamePanel extends JPanel {
     }
 
 
-
     // RENDERING
 
     /*
     create background and apply sprites depending on received fieldState
      */
 
-    public void render(int[][] fields){
+    public void render(int[][] fields) {
         Logger.info("creating background JPanel");
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
         wrapper.setPreferredSize(new Dimension(fields.length * 20, fields.length * 20));
@@ -61,25 +61,27 @@ public class GamePanel extends JPanel {
                 // add sprite
                 nextPanel.add(new JLabel(Assets.getSpriteFromCode(fields[i][j])));
                 // https://stackoverflow.com/questions/11069807/jpanel-doesnt-update-until-resize-jframe | need to call revalidate() for updates to show up
-                nextPanel.revalidate();
+                //nextPanel.revalidate();
 
                 wrapper.add(nextPanel);
-                wrapper.revalidate();
+                //wrapper.revalidate();
             }
         }
+
+        SwingUtilities.updateComponentTreeUI(wrapper); // should replace the tow revalidate() functions above!!
+        wrapper.repaint();
 
         this.applyNextFrame(wrapper);
     }
 
 
-
     /*
     remove last frame and replace with next frame
      */
-    public void applyNextFrame(JPanel nextFrame){
+    public void applyNextFrame(JPanel nextFrame) {
         this.lastFrame = this.currentFrame;
         this.currentFrame = nextFrame;
-        if (lastFrame != null){
+        if (lastFrame != null) {
             this.remove(lastFrame);
         }
         this.add(this.currentFrame);
