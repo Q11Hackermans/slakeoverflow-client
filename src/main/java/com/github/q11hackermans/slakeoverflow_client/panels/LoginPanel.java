@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
-    private LoginPanelListener loginPanelListener;
     private final JButton button;
     private final JTextField host;
     private final JTextField port;
