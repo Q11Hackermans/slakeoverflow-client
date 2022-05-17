@@ -4,7 +4,6 @@ import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -27,7 +26,7 @@ public class LoginPanel extends JPanel {
 
 
         button.addActionListener(actionListener);
-        button.setActionCommand(ActionCommands.playButtonPressed);
+        button.setActionCommand(ActionCommands.connectButtonPressed);
 
         this.setPreferredSize(
                 new Dimension(300, 700)
