@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 
-public class GameController extends JFrame implements KeyListener {
+public class GameController extends JFrame implements KeyListener, ActionListener {
         private JPanel view;
         private GameModel model;
 
@@ -21,17 +21,21 @@ public class GameController extends JFrame implements KeyListener {
         }
 
         public GameController() throws IOException {
-                this.view = new LoginPanel();
+                this.view = new LoginPanel(this);
                 this.add(view);
                 Logger.info("creating game window");
+                configureJFrame();
 
+                //this.gameModel = new GameModel("127.0.0.1", 26677);
+        }
+
+        private void configureJFrame() {
                 this.setTitle("Slakeoverflow");
                 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 this.setVisible(true);
                 this.setResizable(true);
                 this.setSize(500, 500);
                 this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                //this.gameModel = new GameModel("127.0.0.1", 26677);
                 this.addKeyListener(this);
         }
 
@@ -88,5 +92,10 @@ public class GameController extends JFrame implements KeyListener {
                         s.put("direction",nextKey);
                         model.sendKeyInput(s);
                 }
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
 }
