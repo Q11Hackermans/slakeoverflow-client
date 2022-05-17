@@ -24,14 +24,18 @@ public class GameController extends JFrame implements KeyListener {
                 this.view = new LoginPanel();
                 this.add(view);
                 Logger.info("creating game window");
+                configureJFrame();
 
+                //this.gameModel = new GameModel("127.0.0.1", 26677);
+        }
+
+        private void configureJFrame() {
                 this.setTitle("Slakeoverflow");
                 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 this.setVisible(true);
                 this.setResizable(true);
                 this.setSize(500, 500);
                 this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                //this.gameModel = new GameModel("127.0.0.1", 26677);
                 this.addKeyListener(this);
         }
 
