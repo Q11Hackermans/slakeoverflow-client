@@ -1,9 +1,7 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
-import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
 import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
-import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import javax.swing.*;
 import java.awt.*;

@@ -4,13 +4,13 @@ package com.github.q11hackermans.slakeoverflow_client.view;
 import javax.swing.*;
 
 import com.github.q11hackermans.slakeoverflow_client.listeners.GameModelListener;
-import com.github.q11hackermans.slakeoverflow_client.listeners.LoginPanelListener;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import java.awt.event.*;
 
+@Deprecated
 public class GameView extends JFrame implements GameModelListener, LoginPanelListener, View {
 
     private GamePanel gamePanel = null;
