@@ -3,12 +3,17 @@ package com.github.q11hackermans.slakeoverflow_client.controller;
 import java.awt.event.*;
 import java.io.IOException;
 
-import com.github.q11hackermans.slakeoverflow_client.view.GameView;
+import com.github.q11hackermans.slakeoverflow_client.panels.LoginPanel;
+import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
+import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
+import org.json.JSONObject;
 
-public class GameController implements KeyListener {
-        private final GameView gameView;
-        private final GameModel gameModel;
+import javax.swing.*;
+
+public class GameController extends JFrame implements KeyListener {
+        private JPanel view;
+        private GameModel model;
 
 
         public static void main(String[] args) throws IOException {
@@ -16,17 +21,23 @@ public class GameController implements KeyListener {
         }
 
         public GameController() throws IOException {
-                this.gameModel = new GameModel("127.0.0.1", 26677);
-                this.gameView = new GameView(gameModel);
+                this.view = new LoginPanel();
+                this.add(view);
+                Logger.info("creating game window");
 
-                this.gameModel.setListener(gameView);
-
-                this.gameView.addKeyListener(this);
+                this.setTitle("Slakeoverflow");
+                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                this.setVisible(true);
+                this.setResizable(true);
+                this.setSize(500, 500);
+                this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                //this.gameModel = new GameModel("127.0.0.1", 26677);
+                this.addKeyListener(this);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-                this.gameModel.handleKeyInput(e);
+                this.handleKeyInput(e);
         }
 
         @Override
@@ -37,4 +48,45 @@ public class GameController implements KeyListener {
         public void keyTyped(KeyEvent e) {
         }
 
+        /**
+         * Register keypresses and send them to the server
+         * @param e
+         */
+        public void handleKeyInput(KeyEvent e) {
+                int nextKey = 0;
+                switch (e.getKeyCode()) {
+                        // up
+                        case 87:
+                                nextKey = KeyBinds.PLAYER_UP;
+                                break;
+
+                        // down
+                        case 83:
+                                nextKey = KeyBinds.PLAYER_DOWN;
+                                break;
+
+                        // left
+                        case 65:
+                                nextKey = KeyBinds.PLAYER_LEFT;
+                                break;
+
+                        // right
+                        case 68:
+                                nextKey = KeyBinds.PLAYER_RIGHT;
+                                break;
+
+                        default:
+                                Logger.info("key not found");
+                                nextKey = -1;
+                                break;
+                }
+
+                if (nextKey != -1) {
+                        Logger.info("key "+ nextKey + " pressed");
+                        JSONObject s = new JSONObject();
+                        s.put("cmd","game_direction_change");
+                        s.put("direction",nextKey);
+                        model.sendKeyInput(s);
+                }
+        }
 }

@@ -53,7 +53,7 @@ public class EventListener extends CMListenerAdapter {
                                 gridData[i][j] = rawData.getJSONArray(i).getInt(j);
                             }
                         }
-                        GameModel.model.setMatrixData(gridData);
+                        //model.setMatrixData(gridData);
                         break;
 
                     case "status":

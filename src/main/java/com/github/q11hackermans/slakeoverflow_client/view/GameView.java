@@ -11,7 +11,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 
 import java.awt.event.*;
 
-public class GameView extends JFrame implements GameModelListener, LoginPanelListener {
+public class GameView extends JFrame implements GameModelListener, LoginPanelListener, View {
 
     private GamePanel gamePanel = null;
     private GameModel gameModel;
@@ -41,7 +41,7 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
         this.setResizable(true);
         this.setSize(500, 500);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(false);
+        //this.setVisible(false);
     }
 
     // PANELS

@@ -7,6 +7,7 @@ import java.util.List;
 import com.github.q11hackermans.slakeoverflow_client.listeners.EventListener;
 import com.github.q11hackermans.slakeoverflow_client.listeners.GameModelListener;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
+import com.github.q11hackermans.slakeoverflow_client.view.GameView;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
 import com.github.q11hackermans.slakeoverflow_client.utility.KeyBinds;
@@ -47,47 +48,13 @@ public class GameModel{
 
     /**
      * Register keypresses and send them to the server
-     * @param e
+     * @param input
      */
-    public void handleKeyInput(KeyEvent e) {
-        int nextKey = 0;
-        switch (e.getKeyCode()) {
-            // up
-            case 87:
-                nextKey = KeyBinds.PLAYER_UP;
-                break;
-
-            // down
-            case 83:
-                nextKey = KeyBinds.PLAYER_DOWN;
-                break;
-
-            // left
-            case 65:
-                nextKey = KeyBinds.PLAYER_LEFT;
-                break;
-
-            // right
-            case 68:
-                nextKey = KeyBinds.PLAYER_RIGHT;
-                break;
-
-            default:
-                Logger.info("key not found");
-                nextKey = -1;
-                break;
-        }
-
-        if (nextKey != -1) {
-            Logger.info("key "+ nextKey + " pressed");
-            JSONObject s = new JSONObject();
-            s.put("cmd","game_direction_change");
-            s.put("direction",nextKey);
-            try {
-                dataIOStreamHandler.writeUTF(s.toString());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+    public void sendKeyInput(JSONObject input) {
+        try {
+            dataIOStreamHandler.writeUTF(input.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
