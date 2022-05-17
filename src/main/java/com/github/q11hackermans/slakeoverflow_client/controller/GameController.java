@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 
-public class GameController extends JFrame implements KeyListener {
+public class GameController extends JFrame implements KeyListener, ActionListener {
         private JPanel view;
         private GameModel model;
 
@@ -21,7 +21,7 @@ public class GameController extends JFrame implements KeyListener {
         }
 
         public GameController() throws IOException {
-                this.view = new LoginPanel();
+                this.view = new LoginPanel(this);
                 this.add(view);
                 Logger.info("creating game window");
                 configureJFrame();
@@ -92,5 +92,10 @@ public class GameController extends JFrame implements KeyListener {
                         s.put("direction",nextKey);
                         model.sendKeyInput(s);
                 }
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
 }
