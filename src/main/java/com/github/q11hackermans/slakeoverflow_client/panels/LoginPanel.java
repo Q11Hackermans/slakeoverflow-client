@@ -4,7 +4,6 @@ import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -29,26 +28,25 @@ public class LoginPanel extends JPanel {
         button.addActionListener(actionListener);
         button.setActionCommand(ActionCommands.playButtonPressed);
 
-        this.setPreferredSize(
-                new Dimension(300, 700)
-        );
-        this.setLayout(new GridLayout(10, 1, 0, 10));
-
         this.add(new JLabel("Host"));
         this.add(host);
 
 
         this.add(new JLabel("Port"));
         this.add(port);
-
-
-        // JButton wird dem Panel hinzugefügt
         this.add(button);
-
-        //this.button.setBounds(50,100,100,30); (?)
-
-        this.setVisible(true);
+        this.configureJPanel();
     }
+
+    public void configureJPanel() {
+        this.setVisible(true);
+
+        this.setPreferredSize(
+                new Dimension(300, 700)
+        );
+        this.setLayout(new GridLayout(10, 1, 0, 10));
+    }
+
 
     public String getHost() {
         return host.getText();
