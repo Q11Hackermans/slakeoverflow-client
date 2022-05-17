@@ -10,7 +10,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Numbers;
 import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
-public class GamePanel extends JPanel implements  Panel {
+public class GamePanel extends JPanel {
 
     private JPanel currentFrame =null;
     private JPanel lastFrame =null;
