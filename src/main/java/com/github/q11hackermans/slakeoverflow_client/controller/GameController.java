@@ -96,6 +96,9 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+                System.out.println("action");
+                if(e.getActionCommand().equals("")){
+                        
+                }
         }
 }

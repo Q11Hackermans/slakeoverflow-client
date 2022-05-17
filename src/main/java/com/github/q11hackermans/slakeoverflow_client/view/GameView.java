@@ -73,7 +73,12 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
      * handles server host, port (later: username)
      */
     public void displayLoginPanel() {
-        this.loginPanel = new LoginPanel();
+        this.loginPanel = new LoginPanel(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         this.add(this.loginPanel);
 
 
@@ -110,7 +115,7 @@ public class GameView extends JFrame implements GameModelListener, LoginPanelLis
     // LISTENERS register
     public void registerListeners() {
         Logger.info("registering listeners");
-        loginPanel.setLoginPanelListener(this);
+        //loginPanel.setLoginPanelListener(this);
     }
 
     // LISTENERS use
