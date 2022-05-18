@@ -28,13 +28,11 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
         }
 
-        public GameController() throws IOException {
+        public GameController() {
                 this.updateView(new LoginPanel(this), BorderLayout.CENTER);
 
                 Logger.info("creating game window");
                 configureJFrame();
-
-                //this.gameModel = new GameModel("127.0.0.1", 26677);
         }
 
         private void configureJFrame() {
@@ -72,7 +70,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
         /**
          * Register keypresses and send them to the server
-         * @param e
+         * @param e - KeyEvent
          */
         private void handleKeyInput(KeyEvent e) {
                 int nextKey;
