@@ -3,7 +3,7 @@ package com.github.q11hackermans.slakeoverflow_client.model;
 import java.io.IOException;
 import java.util.List;
 
-import com.github.q11hackermans.slakeoverflow_client.listeners.EventListener;
+import com.github.q11hackermans.slakeoverflow_client.listeners.ModelEventListener;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
@@ -25,7 +25,7 @@ public class GameModel{
     public GameModel(String host, int port) throws IOException {
         this.gameStatus = 0;
         gameMatrix = new int[][] {{0},{0}};
-        this.cmcClient = new CMCClient(host, port, List.of(new EventListener()));
+        this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener()));
         this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, false);
     }
 

@@ -25,6 +25,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         public static void main(String[] args) throws IOException {
                 new GameController();
                 //GameController.testGamePanel(); // Test GamePanel
+                //GameController.testLobbyPanel(); // Test LobbyPanel
 
         }
 
@@ -118,6 +119,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                                 Logger.info("Connecting to Server");
                                 try {
                                         System.out.println(this.view.getHost());
+                                        System.out.println(this.view.getPort());
                                         this.model = new GameModel(this.view.getHost(), Integer.parseInt(this.view.getPort()));
                                         this.updateView(new LobbyPanel(this), BorderLayout.CENTER);
 
@@ -155,5 +157,22 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                 }
+        }
+        private static void testLobbyPanel(){
+                JFrame j = new JFrame();
+                j.setTitle("Slakeoverflow");
+                j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                j.setResizable(true);
+                j.setSize(500, 500);
+                j.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                j.setVisible(true);
+                LobbyPanel g = new LobbyPanel(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                System.out.println(e.getActionCommand());
+
+                        }
+                });
+                j.add(g);
         }
 }

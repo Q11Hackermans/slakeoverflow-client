@@ -1,6 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.listeners;
 
-import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
+import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
 import net.jandie1505.connectionmanager.events.CMClientCreatedEvent;
@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-public class EventListener extends CMListenerAdapter {
+public class ModelEventListener extends CMListenerAdapter {
     // CLIENT EVENTS
     @Override
     public void onClientCreated(CMClientCreatedEvent event) {
@@ -33,6 +33,8 @@ public class EventListener extends CMListenerAdapter {
     public void onUTFReceived(DataIOUTFReceivedEvent event) {
         try {
             JSONObject data = new JSONObject(event.getData());
+
+            Logger.info("Model Event listener-data: " + data);
 
             // WENN VOM SERVER NE NACHRICHT KOMMT, BEKOMMST DU DIE HIER
 

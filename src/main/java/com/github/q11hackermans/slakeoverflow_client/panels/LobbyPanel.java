@@ -31,6 +31,10 @@ public class LobbyPanel extends View {
         this.disconnect.addActionListener(actionListener);
         this.disconnect.setActionCommand(ActionCommands.disconnectButtonPressed);
 
+        this.add(playerMode);
+        this.add(spectatorMode);
+        this.add(disconnect);
+
     }
 
 
