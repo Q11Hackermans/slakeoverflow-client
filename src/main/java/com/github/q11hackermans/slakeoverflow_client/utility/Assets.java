@@ -15,9 +15,12 @@ public class Assets {
         public static final ImageIcon PLAYER_BODY_OWN = new ImageIcon("assets/player_body_own.png");
 
 
-        public static final ImageIcon PLAYER_HEAD_ENEMY = new ImageIcon("assets/player_head_other.png");
-        public static final ImageIcon PLAYER_BODY_ENEMY = new ImageIcon("assets/player_body_other.png");
-        
+        //enemy player
+        public static final ImageIcon PLAYER_HEAD_ENEMY = new ImageIcon("assets/player_head_enemy.png");
+        public static final ImageIcon PLAYER_BODY_ENEMY = new ImageIcon("assets/player_body_enemy.png");
+
+
+        //items
         public static final ImageIcon ITEM_APPLE = new ImageIcon("assets/item_apple.png");
 
 
@@ -33,9 +36,9 @@ public class Assets {
 
             // color codes for other player(s) | 200-299
             case 201:
-                return PLAYER_HEAD_OTHER;
+                return PLAYER_HEAD_ENEMY;
             case 202:
-                return PLAYER_BODY_OTHER;
+                return PLAYER_BODY_ENEMY;
 
             // items eg. apples | 300-399
             case 301:
