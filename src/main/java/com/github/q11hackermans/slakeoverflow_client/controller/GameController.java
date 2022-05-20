@@ -23,8 +23,8 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
 
         public static void main(String[] args) throws IOException {
-                //new GameController();
-                GameController.testGamePanel(); // Test GamePanel
+                new GameController();
+                //GameController.testGamePanel(); // Test GamePanel
                 //GameController.testLobbyPanel(); // Test LobbyPanel
 
         }
