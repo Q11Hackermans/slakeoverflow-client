@@ -7,12 +7,16 @@ import javax.swing.*;
 
 public class Assets {
 
+
+
+
+        //own player
         public static final ImageIcon PLAYER_HEAD_OWN = new ImageIcon("assets/player_head_own.png");
         public static final ImageIcon PLAYER_BODY_OWN = new ImageIcon("assets/player_body_own.png");
-        //public static final ImageIcon PLAYER_TAIL = new ImageIcon("assets/player_head.png");
 
-        public static final ImageIcon PLAYER_HEAD_OTHER = new ImageIcon("assets/player_head_other.png");
-        public static final ImageIcon PLAYER_BODY_OTHER = new ImageIcon("assets/player_body_other.png");
+
+        public static final ImageIcon PLAYER_HEAD_ENEMY = new ImageIcon("assets/player_head_other.png");
+        public static final ImageIcon PLAYER_BODY_ENEMY = new ImageIcon("assets/player_body_other.png");
         
         public static final ImageIcon ITEM_APPLE = new ImageIcon("assets/item_apple.png");
 
