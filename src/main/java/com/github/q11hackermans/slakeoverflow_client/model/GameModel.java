@@ -8,6 +8,7 @@ import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
+import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamType;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOType;
 import org.json.JSONObject;
 
@@ -26,7 +27,7 @@ public class GameModel{
         this.gameStatus = 0;
         gameMatrix = new int[][] {{0},{0}};
         this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener()));
-        this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, false);
+        this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.DEFAULT_TIMED);
     }
 
     /**
