@@ -137,6 +137,13 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                                 this.model = null;
                                 this.updateView(new LoginPanel(this), BorderLayout.CENTER);
                                 break;
+
+                        case ActionCommands.spectatorButtonPressed:
+                                System.out.println("Spectating game Server");
+                                this.model = null;
+                                this.updateView(new LoginPanel(this), BorderLayout.CENTER);
+                                JOptionPane.showMessageDialog(this, "Ghosting is not allowed on this server!");
+                                break;
                 }
         }
 
