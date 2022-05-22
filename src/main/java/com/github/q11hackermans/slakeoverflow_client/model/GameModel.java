@@ -3,7 +3,9 @@ package com.github.q11hackermans.slakeoverflow_client.model;
 import java.io.IOException;
 import java.util.List;
 
+import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
 import com.github.q11hackermans.slakeoverflow_client.listeners.ModelEventListener;
+import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
@@ -18,33 +20,59 @@ public class GameModel{
 
     private int gameStatus;
 
+    private GamePanel gamePanel;
+    private GameController gameController;
+
     private CMCClient  cmcClient;
     private DataIOStreamHandler dataIOStreamHandler;
 
 
 
-    public GameModel(String host, int port) throws IOException {
+
+    public GameModel(String host, int port, GamePanel gamePanel,GameController gameController) throws IOException {
         this.gameStatus = 0;
         gameMatrix = new int[][] {{0},{0}};
-        this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener()));
-        this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.DEFAULT_TIMED);
+        this.gamePanel = gamePanel;
+        this.gameController = gameController;
+        this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener(this)));
+        cmcClient.getInputStream().setTimeInterval(2);
+        this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.MULTI_STREAM_HANDLER_CONSUMING);
+        this.dataIOStreamHandler.addEventListener(new ModelEventListener(this));
     }
 
     /**
      * Receive data from the server
      */
-    public void setMatrixData(int[][] gridData) {
+    public void setGameMatrix(int[][] gridData) {
         Logger.info("matrix data set");
         gameMatrix = gridData;
+        this.gamePanel.render(gameMatrix);
     }
 
     /**
-     * Register keypresses and send them to the server
-     * @param input
+     * Send key presses to the server
+     * @param nextKey
      */
-    public void sendKeyInput(JSONObject input) {
+    public void sendKeyInput(int nextKey) {
         try {
-            dataIOStreamHandler.writeUTF(input.toString());
+            Logger.info("key "+ nextKey + " pressed");
+            JSONObject keyObj = new JSONObject();
+            keyObj.put("cmd","game_direction_change");
+            keyObj.put("direction",nextKey);
+            dataIOStreamHandler.writeUTF(keyObj.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void authPlayer(int type){
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "auth");
+            output.put("type", type);
+            output.put("username", "player");
+            dataIOStreamHandler.writeUTF(output.toString());
+            Logger.debug("Auth: " + type);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -54,6 +82,26 @@ public class GameModel{
 
     public int[][] getGameMatrix() {
         return gameMatrix;
+    }
+
+    public void gameControllerDisconnect(){
+        this.gameController.disconnectFromServerError();
+    }
+
+    public void gameControllerSwitchToGamePanel(){
+        this.gameController.switchToGamePanel();
+    }
+
+    public void gameControllerSwitchToLobbyPanel(){
+        this.gameController.switchToLobbyPanel();
+    }
+
+    public void disconnect(){
+        this.cmcClient.close();
+    }
+
+    public void setGamePanel(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
     }
 
 

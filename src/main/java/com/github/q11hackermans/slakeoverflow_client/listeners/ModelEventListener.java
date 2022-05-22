@@ -1,5 +1,8 @@
 package com.github.q11hackermans.slakeoverflow_client.listeners;
 
+import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
+import com.github.q11hackermans.slakeoverflow_client.utility.ConnectionType;
+import com.github.q11hackermans.slakeoverflow_client.utility.GameState;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
@@ -12,6 +15,12 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 public class ModelEventListener extends CMListenerAdapter {
+
+    private GameModel gameModel;
+
+    public ModelEventListener(GameModel gameModel){
+        this.gameModel = gameModel;
+    }
     // CLIENT EVENTS
     @Override
     public void onClientCreated(CMClientCreatedEvent event) {
@@ -25,7 +34,7 @@ public class ModelEventListener extends CMListenerAdapter {
         // WAS PASSIEREN SOLL WENN DIE VERBINDUNG ABBRICHT SCHREIBST DU HIER REIN
         event.getClient(); // SO BEKOMMST DU (MAL WIEDER) DEN CLIENT)
         event.getReason(); // SO BEKOMMST DU DEN GRUND WARUM DIE VERBINDUNG GETRENNT WURDE
-        System.exit(101);
+        gameModel.gameControllerDisconnect();
     }
 
     // DATA IO EVENTS
@@ -34,7 +43,7 @@ public class ModelEventListener extends CMListenerAdapter {
         try {
             JSONObject data = new JSONObject(event.getData());
 
-            Logger.info("Model Event listener-data: " + data);
+            // Logger.info("Model Event listener-data: " + data.toString());
 
             // WENN VOM SERVER NE NACHRICHT KOMMT, BEKOMMST DU DIE HIER
 
@@ -53,12 +62,14 @@ public class ModelEventListener extends CMListenerAdapter {
                                 gridData[i][j] = rawData.getJSONArray(i).getInt(j);
                             }
                         }
-                        //model.setMatrixData(gridData);
+                        this.gameModel.setGameMatrix(gridData);
                         break;
 
                     case "status":
                         int gameStatus = data.getInt("status");
                         int authStatus = data.getInt("auth");
+                        System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus);
+                        this.handleStatusMessage(data);
                         break;
 
                     case "ready":
@@ -70,10 +81,23 @@ public class ModelEventListener extends CMListenerAdapter {
                 }
             }
         } catch(JSONException e) {
-            System.out.println("Received data in wrong format. Disconnecting...");
-            event.getClient().close();
+            Logger.error("Received data in wrong format. Disconnecting...");
+            e.printStackTrace();
+            this.gameModel.gameControllerDisconnect();
         } catch (NumberFormatException e){
-            System.out.println("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
+            Logger.error("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
         }
+    }
+
+    private void handleStatusMessage(JSONObject data){
+        int gameStatus = data.getInt("status");
+        int authStatus = data.getInt("auth");
+
+        if(gameStatus == GameState.RUNNING && authStatus == ConnectionType.PLAYER){
+            this.gameModel.gameControllerSwitchToGamePanel();
+        } else if (gameStatus != GameState.RUNNING || authStatus != ConnectionType.PLAYER){
+            this.gameModel.gameControllerSwitchToLobbyPanel();
+        }
+
     }
 }

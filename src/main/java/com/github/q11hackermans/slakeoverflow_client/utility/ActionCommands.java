@@ -5,4 +5,5 @@ public class ActionCommands {
     public static final String spectatorButtonPressed = "spectatorButtonPressed";
     public static final String connectButtonPressed = "connectButtonPressed";
     public static final String disconnectButtonPressed = "disconnectButtonPressed";
+    public static final String backToLobbyButton = "backToLobbyButton";
 }

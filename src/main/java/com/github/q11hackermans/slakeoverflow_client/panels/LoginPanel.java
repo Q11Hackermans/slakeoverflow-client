@@ -7,6 +7,7 @@ import com.github.q11hackermans.slakeoverflow_client.view.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 
 public class LoginPanel extends View {
     private final JButton button;
@@ -14,7 +15,7 @@ public class LoginPanel extends View {
     private final JTextField port;
 
 
-    public LoginPanel(ActionListener actionListener) {
+    public LoginPanel(ActionListener actionListener, KeyListener keyListener) {
 
         this.setBackground(Colors.GROUND_1);
 
@@ -24,8 +25,10 @@ public class LoginPanel extends View {
         button.setAlignmentX(0);
         host = new JTextField();
         port = new JTextField();
-        port.setText("26677");
 
+
+        port.setText("26677");
+        host.setText("127.0.0.1");
 
         button.addActionListener(actionListener);
         button.setActionCommand(ActionCommands.connectButtonPressed);
@@ -38,6 +41,9 @@ public class LoginPanel extends View {
         this.add(port);
         this.add(button);
         this.configureJPanel();
+
+        this.host.addKeyListener(keyListener);
+        this.port.addKeyListener(keyListener);
     }
 
     public void configureJPanel() {
