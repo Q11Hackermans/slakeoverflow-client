@@ -53,14 +53,14 @@ public class ModelEventListener extends CMListenerAdapter {
                 switch (baseCommand) {
                     case "playerdata":
                         JSONArray rawData = data.getJSONArray("fields");
+                        //System.out.println(rawData.toString());
 
-                        int[][] gridData = new int[rawData.length()][];
-
-                        for (int i = 0; i < rawData.length(); i++) {
-                            gridData[i] = new int[rawData.getJSONArray(i).length()];
-                            for (int j = 0; j < rawData.getJSONArray(i).length(); j++) {
-                                gridData[i][j] = rawData.getJSONArray(i).getInt(j);
-                            }
+                        int[][] gridData = new int[60][40];
+                        for (Object jo: rawData) {
+                            JSONArray jj= (JSONArray) jo;
+                            try{
+                                gridData[jj.getInt(0)][jj.getInt(1)] = jj.getInt(2);
+                            }catch (IndexOutOfBoundsException ignored){}
                         }
                         this.gameModel.setGameMatrix(gridData);
                         break;

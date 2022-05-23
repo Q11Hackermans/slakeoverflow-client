@@ -2,6 +2,7 @@ package com.github.q11hackermans.slakeoverflow_client.controller;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Dimension2D;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -47,6 +48,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 this.setSize(500, 500);
                 this.setExtendedState(JFrame.NORMAL);
                 this.addKeyListener(this);
+                this.setResizable(true);
 
                 this.setVisible(true);
         }
@@ -158,6 +160,14 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 }
         }
 
+        public void resizeJFrame(int xSize, int ySize){
+                this.setSize(xSize, ySize);
+        }
+
+        public Dimension2D getJFrameDimensions(){
+                return this.getSize();
+        }
+
         private void playButtonPressed() {
                 this.model.authPlayer(1);
         }
@@ -165,7 +175,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         public void switchToGamePanel(){
                 if(!(this.view instanceof GamePanel)) {
                         Logger.debug("switching to game panel");
-                        this.view = new GamePanel(this, this);
+                        this.view = new GamePanel(this, this, this);
                         this.model.setGamePanel((GamePanel) this.view);
                         this.updateView(this.view);
                 }
@@ -225,27 +235,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 j.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 j.setVisible(true);
                 j.setLayout(new BorderLayout());
-                GamePanel g = new GamePanel(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                        }
-                }, new KeyListener() {
-                        @Override
-                        public void keyTyped(KeyEvent e) {
-
-                        }
-
-                        @Override
-                        public void keyPressed(KeyEvent e) {
-
-                        }
-
-                        @Override
-                        public void keyReleased(KeyEvent e) {
-
-                        }
-                });
+                GamePanel g = new GamePanel(null, null, null);
                 j.add(g);
                 g.render(new int[][] {{101},{101}});
                 try {
