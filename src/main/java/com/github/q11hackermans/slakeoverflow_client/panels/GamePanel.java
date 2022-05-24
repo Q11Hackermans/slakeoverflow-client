@@ -87,19 +87,19 @@ public class GamePanel extends View {
                 JLabel next = new JLabel("as");
 
                 if (Numbers.isEven(i)) {
-                    if (Numbers.isEven(j)) {
+                    if (!Numbers.isEven(j)) {
                         next.setBackground(Colors.GROUND_1);
                     } else {
                         next.setBackground(Colors.GROUND_2);
                     }
                 } else {
                     if (Numbers.isEven(j)) {
-                        next.setBackground(Colors.GROUND_2);
-                    } else {
                         next.setBackground(Colors.GROUND_1);
+                    } else {
+                        next.setBackground(Colors.GROUND_2);
                     }
                 }
-
+                next.setOpaque(true);
                 background[i][j] = next;
             }
         }
