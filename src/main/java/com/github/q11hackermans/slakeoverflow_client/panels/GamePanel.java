@@ -28,10 +28,10 @@ public class GamePanel extends View {
 
     public GamePanel(ActionListener actionListener, KeyListener keyListener, GameController gameController) {
         this.gameController = gameController;
-        this.createPanel(actionListener, keyListener);
-        this.addKeyListener(keyListener);
         this.width = 60;
         this.height = 40;
+        this.createPanel(actionListener, keyListener);
+        this.addKeyListener(keyListener);
     }
 
     private void createPanel(ActionListener actionListener, KeyListener keyListener) {
@@ -61,8 +61,16 @@ public class GamePanel extends View {
         panel_1.add(frame);
 
         this.matrix = generateBackground(this.height, this.width); // apparently the server sends a 40x60 matrix
+        System.out.println("generated");
 
-        for ()
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                this.frame.add(matrix[i][j]);
+            }
+        }
+        frame.revalidate();
+        SwingUtilities.updateComponentTreeUI(this);
+        frame.repaint();
     }
 
 
@@ -76,7 +84,7 @@ public class GamePanel extends View {
             for (int j = 0; j < height; j++) {
 
 
-                JLabel next = new JLabel();
+                JLabel next = new JLabel("as");
 
                 if (Numbers.isEven(i)) {
                     if (Numbers.isEven(j)) {
@@ -92,7 +100,7 @@ public class GamePanel extends View {
                     }
                 }
 
-                background[width][height] = next;
+                background[i][j] = next;
             }
         }
 
@@ -105,7 +113,7 @@ public class GamePanel extends View {
 
     public void render(int[][] fields) {
 
-        Logger.info("creating background JPanel, size:" + fields.length + ", " + fields[0].length);
+        /*Logger.info("creating background JPanel, size:" + fields.length + ", " + fields[0].length);
         JPanel newFrame = new JPanel();
         newFrame.setLayout(new GridLayout(fields.length, fields[0].length, 0, 0));
 
@@ -140,6 +148,7 @@ public class GamePanel extends View {
 
         SwingUtilities.updateComponentTreeUI(this); // should replace the tow revalidate() functions above!!
         this.frame.repaint();
+        */
     }
 
 
