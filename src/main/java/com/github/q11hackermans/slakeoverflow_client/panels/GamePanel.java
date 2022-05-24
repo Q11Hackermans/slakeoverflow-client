@@ -18,17 +18,20 @@ public class GamePanel extends View {
     private GameController gameController;
     private JPanel frame;
 
-    private JLabel[][] background;
+    private int width, height;
+
+    private JLabel[][] matrix;
 
     public GamePanel() {
 
     }
 
     public GamePanel(ActionListener actionListener, KeyListener keyListener, GameController gameController) {
-        this.background = generateBackground(40,60); // apparently the server sends a 40x60 matrix
         this.gameController = gameController;
         this.createPanel(actionListener, keyListener);
         this.addKeyListener(keyListener);
+        this.width = 60;
+        this.height = 40;
     }
 
     private void createPanel(ActionListener actionListener, KeyListener keyListener) {
@@ -54,14 +57,19 @@ public class GamePanel extends View {
 
         frame = new JPanel();
         //frame.setBackground(Color.GRAY);
+        frame.setLayout(new GridLayout(this.height, this.width, 0, 0));
         panel_1.add(frame);
+
+        this.matrix = generateBackground(this.height, this.width); // apparently the server sends a 40x60 matrix
+
+        for ()
     }
 
 
     // RENDERING
 
 
-    public JLabel[][] generateBackground(int height, int width) {
+    private JLabel[][] generateBackground(int height, int width) {
         JLabel[][] background = new JLabel[width][height];
 
         for (int i = 0; i < width; i++) {
