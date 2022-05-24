@@ -57,6 +57,37 @@ public class GamePanel extends View {
 
     // RENDERING
 
+
+    public JLabel[][] generateBackground(int height, int width) {
+        JLabel[][] background = new JLabel[width][height];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+
+
+                JLabel next = new JLabel();
+
+                if (Numbers.isEven(i)) {
+                    if (Numbers.isEven(j)) {
+                        next.setBackground(Colors.GROUND_1);
+                    } else {
+                        next.setBackground(Colors.GROUND_2);
+                    }
+                } else {
+                    if (Numbers.isEven(j)) {
+                        next.setBackground(Colors.GROUND_2);
+                    } else {
+                        next.setBackground(Colors.GROUND_1);
+                    }
+                }
+
+                background[width][height] = next;
+            }
+        }
+
+        return background;
+    }
+
     /*
     create background and apply sprites depending on received fieldState
      */
@@ -65,7 +96,7 @@ public class GamePanel extends View {
 
         Logger.info("creating background JPanel, size:" + fields.length + ", " + fields[0].length);
         JPanel newFrame = new JPanel();
-        newFrame.setLayout(new GridLayout(fields.length, fields[0].length,0,0));
+        newFrame.setLayout(new GridLayout(fields.length, fields[0].length, 0, 0));
 
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[0].length; j++) {
