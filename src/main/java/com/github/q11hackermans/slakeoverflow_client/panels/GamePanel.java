@@ -18,11 +18,14 @@ public class GamePanel extends View {
     private GameController gameController;
     private JPanel frame;
 
+    private JLabel[][] background;
+
     public GamePanel() {
 
     }
 
     public GamePanel(ActionListener actionListener, KeyListener keyListener, GameController gameController) {
+        this.background = generateBackground(40,60); // apparently the server sends a 40x60 matrix
         this.gameController = gameController;
         this.createPanel(actionListener, keyListener);
         this.addKeyListener(keyListener);
