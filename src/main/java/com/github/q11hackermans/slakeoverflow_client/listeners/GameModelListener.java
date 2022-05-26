@@ -8,6 +8,7 @@ public interface GameModelListener {
     public void startGame();
 
     public void lobbyJoined();
+
     public void lobbyClosed();
 
 }

@@ -4,10 +4,10 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 import javax.swing.*;
 
-import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
 import com.github.q11hackermans.slakeoverflow_client.utility.*;
 import com.github.q11hackermans.slakeoverflow_client.view.View;
 
@@ -15,8 +15,9 @@ public class GamePanel extends View {
 
     private JPanel currentFrame = null;
     private JPanel lastFrame = null;
-    private GameController gameController;
-    private JPanel frame;
+
+    private JPanel matrixFrame;
+    private JLabel map;
 
     private int width, height;
 
@@ -26,15 +27,13 @@ public class GamePanel extends View {
 
     }
 
-    public GamePanel(ActionListener actionListener, KeyListener keyListener, GameController gameController) {
-        this.gameController = gameController;
-        this.width = 60;
-        this.height = 40;
-        this.createPanel(actionListener, keyListener);
-        this.addKeyListener(keyListener);
+    public GamePanel(ActionListener actionListener) {
+        this.width = 59; // one smaller than the matrix (60)
+        this.height = 39; // one smaller than the matrix (40)
+        this.createPanel(actionListener);
     }
 
-    private void createPanel(ActionListener actionListener, KeyListener keyListener) {
+    private void createPanel(ActionListener actionListener) {
         setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
@@ -51,26 +50,27 @@ public class GamePanel extends View {
         btnNewButton_1.setActionCommand(ActionCommands.disconnectButtonPressed);
         panel.add(btnNewButton_1);
 
-        JPanel panel_1 = new JPanel();
-        add(panel_1, BorderLayout.CENTER);
-        panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+        this.matrixFrame = new JPanel();
+        add(this.matrixFrame, BorderLayout.CENTER);
+        this.matrixFrame.setLayout(new GridLayout(0, 1, 0, 0));
 
-        frame = new JPanel();
-        //frame.setBackground(Color.GRAY);
-        frame.setLayout(new GridLayout(this.height, this.width, 0, 0));
-        panel_1.add(frame);
-
-        this.matrix = generateBackground(this.height, this.width); // apparently the server sends a 40x60 matrix
         System.out.println("generated");
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                this.frame.add(matrix[i][j]);
-            }
-        }
-        frame.revalidate();
+        JPanel startMapPanel = new JPanel();
+        startMapPanel.setLayout(null);
+
+        this.map = new JLabel(Assets.MAP);
+        this.map.setBounds(0, 0, 1200, 800);
+        startMapPanel.add(this.map);
+
+        //JLabel jl2 = new JLabel(Assets.ITEM_APPLE);
+        //jl2.setBounds(200,200,20,20);
+
+        this.matrixFrame.add(startMapPanel);
+
+        this.matrixFrame.revalidate();
         SwingUtilities.updateComponentTreeUI(this);
-        frame.repaint();
+        this.matrixFrame.repaint();
     }
 
 
@@ -84,19 +84,19 @@ public class GamePanel extends View {
             for (int j = 0; j < height; j++) {
 
 
-                JLabel next = new JLabel("as");
+                JLabel next = new JLabel();
 
                 if (Numbers.isEven(i)) {
-                    if (!Numbers.isEven(j)) {
+                    if (Numbers.isEven(j)) {
                         next.setBackground(Colors.GROUND_1);
                     } else {
                         next.setBackground(Colors.GROUND_2);
                     }
                 } else {
                     if (Numbers.isEven(j)) {
-                        next.setBackground(Colors.GROUND_1);
-                    } else {
                         next.setBackground(Colors.GROUND_2);
+                    } else {
+                        next.setBackground(Colors.GROUND_1);
                     }
                 }
                 next.setOpaque(true);
@@ -112,43 +112,21 @@ public class GamePanel extends View {
      */
 
     public void render(int[][] fields) {
+        //System.out.println(Arrays.deepToString(fields));
 
-        /*Logger.info("creating background JPanel, size:" + fields.length + ", " + fields[0].length);
-        JPanel newFrame = new JPanel();
-        newFrame.setLayout(new GridLayout(fields.length, fields[0].length, 0, 0));
-
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[0].length; j++) {
-                JLabel jL = new JLabel(Assets.getSpriteFromCode(fields[i][j]));
-
-                // background
-                if (Numbers.isEven(i)) {
-                    if (Numbers.isEven(j)) {
-                        jL.setBackground(Colors.GROUND_1);
-                    } else {
-                        jL.setBackground(Colors.GROUND_2);
-                    }
-                } else {
-                    if (Numbers.isEven(j)) {
-                        jL.setBackground(Colors.GROUND_2);
-                    } else {
-                        jL.setBackground(Colors.GROUND_1);
-                    }
+        JPanel nextFrame = new JPanel();
+        nextFrame.setLayout(null);
+        for (int x = 0; x < fields.length; x++) {
+            for (int y = 0; y < fields[0].length; y++) {
+                if (fields[x][y] > 0) {
+                    JLabel nextSprite = new JLabel(Assets.getSpriteFromCode(fields[x][y]));
+                    nextSprite.setBounds((x * 20), (y * 20), 20, 20);
+                    nextFrame.add(nextSprite);
                 }
-                jL.setOpaque(true);
-                newFrame.add(jL);
             }
         }
-        this.add(newFrame);
-        SwingUtilities.updateComponentTreeUI(this); // should replace the tow revalidate() functions above!!
-        this.frame.repaint();
-        this.frame.removeAll();
-        this.remove(frame);
-        this.frame = newFrame;
-
-        SwingUtilities.updateComponentTreeUI(this); // should replace the tow revalidate() functions above!!
-        this.frame.repaint();
-        */
+        nextFrame.add(this.map);
+        this.applyNextFrame(nextFrame);
     }
 
 
@@ -159,9 +137,12 @@ public class GamePanel extends View {
         this.lastFrame = this.currentFrame;
         this.currentFrame = nextFrame;
         if (lastFrame != null) {
-            this.remove(lastFrame);
+            this.matrixFrame.removeAll();
         }
-        this.add(this.currentFrame);
-        this.revalidate();
+        this.matrixFrame.add(this.currentFrame);
+        this.matrixFrame.revalidate();
+        SwingUtilities.updateComponentTreeUI(this);
+        this.matrixFrame.repaint();
+        //System.out.println("next Frame");
     }
 }

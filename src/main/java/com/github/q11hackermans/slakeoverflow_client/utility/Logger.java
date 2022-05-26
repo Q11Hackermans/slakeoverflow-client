@@ -1,7 +1,7 @@
 package com.github.q11hackermans.slakeoverflow_client.utility;
 
 public class Logger {
-    public static void writeLine(String message, String color){
+    public static void writeLine(String message, String color) {
         System.out.println(color + message + Colors.CONSOLE_RESET);
     }
 
@@ -17,7 +17,7 @@ public class Logger {
         writeLine("INFO   | " + message, Colors.CONSOLE_INFO);
     }
 
-    public static void debug(String message){
+    public static void debug(String message) {
         writeLine("DEBUG  | " + message, Colors.CONSOLE_DEBUG);
     }
 }

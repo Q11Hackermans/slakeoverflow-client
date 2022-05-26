@@ -18,9 +18,10 @@ public class ModelEventListener extends CMListenerAdapter {
 
     private GameModel gameModel;
 
-    public ModelEventListener(GameModel gameModel){
+    public ModelEventListener(GameModel gameModel) {
         this.gameModel = gameModel;
     }
+
     // CLIENT EVENTS
     @Override
     public void onClientCreated(CMClientCreatedEvent event) {
@@ -47,7 +48,7 @@ public class ModelEventListener extends CMListenerAdapter {
 
             // WENN VOM SERVER NE NACHRICHT KOMMT, BEKOMMST DU DIE HIER
 
-            if(data.has("cmd")) {
+            if (data.has("cmd")) {
                 String baseCommand = data.getString("cmd"); // SO HOLST DU DIR DEN STRING CMD AUS DEM JSONOBJECT RAUS
 
                 switch (baseCommand) {
@@ -56,11 +57,12 @@ public class ModelEventListener extends CMListenerAdapter {
                         //System.out.println(rawData.toString());
 
                         int[][] gridData = new int[60][40];
-                        for (Object jo: rawData) {
-                            JSONArray jj= (JSONArray) jo;
-                            try{
+                        for (Object jo : rawData) {
+                            JSONArray jj = (JSONArray) jo;
+                            try {
                                 gridData[jj.getInt(0)][jj.getInt(1)] = jj.getInt(2);
-                            }catch (IndexOutOfBoundsException ignored){}
+                            } catch (IndexOutOfBoundsException ignored) {
+                            }
                         }
                         this.gameModel.setGameMatrix(gridData);
                         break;
@@ -68,7 +70,7 @@ public class ModelEventListener extends CMListenerAdapter {
                     case "status":
                         int gameStatus = data.getInt("status");
                         int authStatus = data.getInt("auth");
-                        System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus);
+                        //System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus);
                         this.handleStatusMessage(data);
                         break;
 
@@ -80,22 +82,22 @@ public class ModelEventListener extends CMListenerAdapter {
                         break;
                 }
             }
-        } catch(JSONException e) {
+        } catch (JSONException e) {
             Logger.error("Received data in wrong format. Disconnecting...");
             e.printStackTrace();
             this.gameModel.gameControllerDisconnect();
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             Logger.error("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
         }
     }
 
-    private void handleStatusMessage(JSONObject data){
+    private void handleStatusMessage(JSONObject data) {
         int gameStatus = data.getInt("status");
         int authStatus = data.getInt("auth");
 
-        if(gameStatus == GameState.RUNNING && authStatus == ConnectionType.PLAYER){
+        if (gameStatus == GameState.RUNNING && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();
-        } else if (gameStatus != GameState.RUNNING || authStatus != ConnectionType.PLAYER){
+        } else if (gameStatus != GameState.RUNNING || authStatus != ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToLobbyPanel();
         }
 

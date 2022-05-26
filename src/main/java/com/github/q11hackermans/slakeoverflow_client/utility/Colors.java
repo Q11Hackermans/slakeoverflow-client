@@ -40,5 +40,4 @@ public class Colors {
     public static final String CONSOLE_INFO = CONSOLE_RESET; // no color
 
 
-
 }

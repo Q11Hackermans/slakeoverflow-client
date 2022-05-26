@@ -14,7 +14,7 @@ import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStre
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOType;
 import org.json.JSONObject;
 
-public class GameModel{
+public class GameModel {
 
     private int[][] gameMatrix;
 
@@ -23,15 +23,13 @@ public class GameModel{
     private GamePanel gamePanel;
     private GameController gameController;
 
-    private CMCClient  cmcClient;
+    private CMCClient cmcClient;
     private DataIOStreamHandler dataIOStreamHandler;
 
 
-
-
-    public GameModel(String host, int port, GamePanel gamePanel,GameController gameController) throws IOException {
+    public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
-        gameMatrix = new int[][] {{0},{0}};
+        gameMatrix = new int[][]{{0}, {0}};
         this.gamePanel = gamePanel;
         this.gameController = gameController;
         this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener(this)));
@@ -44,28 +42,29 @@ public class GameModel{
      * Receive data from the server
      */
     public void setGameMatrix(int[][] gridData) {
-        Logger.info("matrix data set");
+        //Logger.info("matrix data set");
         gameMatrix = gridData;
         this.gamePanel.render(gameMatrix);
     }
 
     /**
      * Send key presses to the server
+     *
      * @param nextKey
      */
     public void sendKeyInput(int nextKey) {
         try {
-            Logger.info("key "+ nextKey + " pressed");
+            //Logger.info("key " + nextKey + " pressed");
             JSONObject keyObj = new JSONObject();
-            keyObj.put("cmd","game_direction_change");
-            keyObj.put("direction",nextKey);
+            keyObj.put("cmd", "game_direction_change");
+            keyObj.put("direction", nextKey);
             dataIOStreamHandler.writeUTF(keyObj.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void authPlayer(int type){
+    public void authPlayer(int type) {
         try {
             JSONObject output = new JSONObject();
             output.put("cmd", "auth");
@@ -84,32 +83,35 @@ public class GameModel{
         return gameMatrix;
     }
 
-    public void gameControllerDisconnect(){
+    public void gameControllerDisconnect() {
         this.gameController.disconnectFromServerError();
     }
 
-    public void gameControllerSwitchToGamePanel(){
+    public void gameControllerSwitchToGamePanel() {
         this.gameController.switchToGamePanel();
     }
 
-    public void gameControllerSwitchToLobbyPanel(){
+    public void gameControllerSwitchToLobbyPanel() {
         this.gameController.switchToLobbyPanel();
     }
 
-    public void disconnect(){
+    public void disconnect() {
         this.cmcClient.close();
     }
 
-    public void setGamePanel(GamePanel gamePanel){
+    public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 
 
     //EVENTS
-    public void lobbyJoined(){}
-    public void lobbyClosed(){}
+    public void lobbyJoined() {
+    }
 
-    public int[][] nextFrame(int[][] i){
+    public void lobbyClosed() {
+    }
+
+    public int[][] nextFrame(int[][] i) {
         return i;
     }
 }

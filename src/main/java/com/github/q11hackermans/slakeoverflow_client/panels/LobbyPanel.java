@@ -7,6 +7,7 @@ import javax.print.attribute.standard.JobName;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 
 public class LobbyPanel extends View {
 
@@ -15,7 +16,7 @@ public class LobbyPanel extends View {
     private JButton disconnect;
 
 
-    public LobbyPanel(ActionListener actionListener){
+    public LobbyPanel(ActionListener actionListener) {
         playerMode = new JButton("Join as Player");
         spectatorMode = new JButton("Join as Spectator");
         disconnect = new JButton("Disconnect");
@@ -23,7 +24,7 @@ public class LobbyPanel extends View {
 
         this.playerMode.addActionListener(actionListener);
         this.playerMode.setActionCommand(ActionCommands.playButtonPressed);
-        
+
 
         this.spectatorMode.addActionListener(actionListener);
         this.spectatorMode.setActionCommand(ActionCommands.spectatorButtonPressed);
@@ -36,7 +37,6 @@ public class LobbyPanel extends View {
         this.add(disconnect);
 
     }
-
 
 
     public void configureJPanel() {

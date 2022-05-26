@@ -2,9 +2,9 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import java.awt.event.ActionListener;
 
-public class GamePanelDummy extends GamePanel{
+public class GamePanelDummy extends GamePanel {
 
-    public GamePanelDummy(){
+    public GamePanelDummy() {
 
     }
 
