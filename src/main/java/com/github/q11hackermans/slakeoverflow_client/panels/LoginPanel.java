@@ -61,7 +61,7 @@ public class LoginPanel extends View {
         gbc_loginMsgLabel.gridy = 1;
         add(loginMsgLabel, gbc_loginMsgLabel);
 
-        JLabel slakeGifLabel = new JLabel("New label");
+        JLabel slakeGifLabel = new JLabel("GIF");
         GridBagConstraints gbc_slakeGifLabel = new GridBagConstraints();
         gbc_slakeGifLabel.gridheight = 2;
         gbc_slakeGifLabel.gridwidth = 6;
