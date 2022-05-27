@@ -77,8 +77,8 @@ public class GameModel {
         }
     }
 
-    //SETTERS/GETTERS
 
+    //SETTERS/GETTERS
     public int[][] getGameMatrix() {
         return gameMatrix;
     }
@@ -89,6 +89,10 @@ public class GameModel {
 
     public void gameControllerSwitchToGamePanel() {
         this.gameController.switchToGamePanel();
+    }
+
+    public void gameControllerSwitchToUnAuthPanel() {
+        this.gameController.switchToUnAuthPanel();
     }
 
     public void gameControllerSwitchToLobbyPanel() {
@@ -107,8 +111,8 @@ public class GameModel {
         this.gamePanel = gamePanel;
     }
 
-
     //EVENTS
+
     public void lobbyJoined() {
     }
 

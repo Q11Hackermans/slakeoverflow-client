@@ -12,12 +12,13 @@ public class LobbyPanel extends View {
     private JButton playerMode;
     private JButton spectatorMode;
     private JButton disconnect;
-
+    private JButton login;
 
     public LobbyPanel(ActionListener actionListener) {
         playerMode = new JButton("Join as Player");
         spectatorMode = new JButton("Join as Spectator");
         disconnect = new JButton("Disconnect");
+        login = new JButton("Login");
 
 
         this.playerMode.addActionListener(actionListener);
@@ -30,9 +31,13 @@ public class LobbyPanel extends View {
         this.disconnect.addActionListener(actionListener);
         this.disconnect.setActionCommand(ActionCommands.disconnectButtonPressed);
 
+        this.login.addActionListener(actionListener);
+        this.login.setActionCommand(ActionCommands.toLoginViewButton);
+
         this.add(playerMode);
         this.add(spectatorMode);
         this.add(disconnect);
+        this.add(login);
 
     }
 

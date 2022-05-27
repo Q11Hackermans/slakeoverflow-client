@@ -170,6 +170,14 @@ public class GameController extends JFrame implements KeyListener, ActionListene
             case ActionCommands.registerButton:
                 System.out.println("register Server");
                 break;
+
+            case ActionCommands.backToLobbyFromLoginButton:
+                this.backToLobbyFromLoginButtonPressed();
+                break;
+
+            case ActionCommands.toLoginViewButton:
+                this.switchToLoginPanel();
+                break;
         }
     }
 
@@ -180,6 +188,10 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
     public Dimension2D getJFrameDimensions() {
         return this.getSize();
+    }
+
+    private void backToLobbyFromLoginButtonPressed() {
+        this.switchToLobbyPanel();
     }
 
     private void connectButtonPressed() {
@@ -209,6 +221,13 @@ public class GameController extends JFrame implements KeyListener, ActionListene
             this.view = new GamePanel(this);
             this.model.setGamePanel((GamePanel) this.view);
             this.updateView(this.view);
+        }
+    }
+
+    public void switchToUnAuthPanel() {
+        if (!(this.view instanceof LobbyPanel || this.view instanceof  LoginPanel)) {
+            Logger.debug("switching to lobby panel");
+            this.updateView(new LobbyPanel(this));
         }
     }
 

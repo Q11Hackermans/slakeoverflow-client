@@ -11,8 +11,7 @@ public class LoginPanel extends View {
 
     private JButton loginButton;
     private JButton registerButton;
-    private JButton disconnectButton;
-    private JButton playAsGuestButton;
+    private JButton backToLobbyButton;
 
     private JFormattedTextField usernameField;
     private JPasswordField passwordField;
@@ -24,11 +23,8 @@ public class LoginPanel extends View {
     }
 
     private void configureButtons(ActionListener actionListener){
-        this.disconnectButton.addActionListener(actionListener);
-        this.disconnectButton.setActionCommand(ActionCommands.disconnectButtonPressed);
-
-        this.playAsGuestButton.addActionListener(actionListener);
-        this.playAsGuestButton.setActionCommand(ActionCommands.playAsGuestButton);
+        this.backToLobbyButton.addActionListener(actionListener);
+        this.backToLobbyButton.setActionCommand(ActionCommands.backToLobbyFromLoginButton);
 
         this.loginButton.addActionListener(actionListener);
         this.loginButton.setActionCommand(ActionCommands.loginButton);
@@ -46,7 +42,7 @@ public class LoginPanel extends View {
         setLayout(gridBagLayout);
 
         JLabel welcomeMsgLabel = new JLabel("Hi, welcome at Slakomaina");
-        welcomeMsgLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        welcomeMsgLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         GridBagConstraints gbc_welcomeMsgLabel = new GridBagConstraints();
         gbc_welcomeMsgLabel.gridwidth = 3;
         gbc_welcomeMsgLabel.anchor = GridBagConstraints.WEST;
@@ -56,7 +52,7 @@ public class LoginPanel extends View {
         add(welcomeMsgLabel, gbc_welcomeMsgLabel);
 
         JLabel loginMsgLabel = new JLabel("Please log in or sign up");
-        loginMsgLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        loginMsgLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         GridBagConstraints gbc_loginMsgLabel = new GridBagConstraints();
         gbc_loginMsgLabel.gridwidth = 2;
         gbc_loginMsgLabel.anchor = GridBagConstraints.WEST;
@@ -93,23 +89,17 @@ public class LoginPanel extends View {
         gbc_passwordLabel.gridy = 4;
         add(passwordLabel, gbc_passwordLabel);
 
-        disconnectButton = new JButton("Disconnect");
-        GridBagConstraints gbc_disconnectButton = new GridBagConstraints();
-        gbc_disconnectButton.anchor = GridBagConstraints.NORTHEAST;
-        gbc_disconnectButton.insets = new Insets(0, 0, 0, 5);
-        gbc_disconnectButton.gridx = 3;
-        gbc_disconnectButton.gridy = 6;
-        add(disconnectButton, gbc_disconnectButton);
-
-        playAsGuestButton = new JButton("Play as Guest");
+        backToLobbyButton = new JButton("Back to Lobby");
+        backToLobbyButton.setMnemonic('b');
         GridBagConstraints gbc_playAsGuestButton = new GridBagConstraints();
         gbc_playAsGuestButton.anchor = GridBagConstraints.NORTHWEST;
         gbc_playAsGuestButton.insets = new Insets(0, 0, 0, 5);
         gbc_playAsGuestButton.gridx = 4;
         gbc_playAsGuestButton.gridy = 6;
-        add(playAsGuestButton, gbc_playAsGuestButton);
+        add(backToLobbyButton, gbc_playAsGuestButton);
 
         registerButton = new JButton("Register");
+        registerButton.setMnemonic('r');
         GridBagConstraints gbc_registerButton = new GridBagConstraints();
         gbc_registerButton.insets = new Insets(0, 0, 0, 5);
         gbc_registerButton.anchor = GridBagConstraints.NORTHEAST;
@@ -141,6 +131,7 @@ public class LoginPanel extends View {
         add(passwordField, gbc_passwordField);
 
         loginButton = new JButton("Log in");
+        loginButton.setMnemonic('l');
         GridBagConstraints gbc_loginButton = new GridBagConstraints();
         gbc_loginButton.gridwidth = 2;
         gbc_loginButton.insets = new Insets(0, 0, 0, 5);
@@ -148,6 +139,5 @@ public class LoginPanel extends View {
         gbc_loginButton.gridx = 6;
         gbc_loginButton.gridy = 6;
         add(loginButton, gbc_loginButton);
-
     }
 }
