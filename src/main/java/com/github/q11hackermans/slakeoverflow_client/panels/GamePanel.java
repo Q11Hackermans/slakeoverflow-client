@@ -16,7 +16,7 @@ public class GamePanel extends View {
     private JPanel lastFrame = null;
 
     private JPanel matrixFrame;
-    private JLabel map;
+    private JLabel map1;
 
     private int width, height;
 
@@ -58,9 +58,9 @@ public class GamePanel extends View {
         JPanel startMapPanel = new JPanel();
         startMapPanel.setLayout(null);
 
-        this.map = new JLabel(Assets.MAP);
-        this.map.setBounds(0, 0, 1200, 800);
-        startMapPanel.add(this.map);
+        this.map1 = new JLabel(Assets.MAP1);
+        this.map1.setBounds(0, 0, 1200, 800);
+        startMapPanel.add(this.map1);
 
         //JLabel jl2 = new JLabel(Assets.ITEM_APPLE);
         //jl2.setBounds(200,200,20,20);
@@ -74,41 +74,6 @@ public class GamePanel extends View {
 
 
     // RENDERING
-
-
-    private JLabel[][] generateBackground(int height, int width) {
-        JLabel[][] background = new JLabel[width][height];
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-
-
-                JLabel next = new JLabel();
-
-                if (Numbers.isEven(i)) {
-                    if (Numbers.isEven(j)) {
-                        next.setBackground(Colors.GROUND_1);
-                    } else {
-                        next.setBackground(Colors.GROUND_2);
-                    }
-                } else {
-                    if (Numbers.isEven(j)) {
-                        next.setBackground(Colors.GROUND_2);
-                    } else {
-                        next.setBackground(Colors.GROUND_1);
-                    }
-                }
-                next.setOpaque(true);
-                background[i][j] = next;
-            }
-        }
-
-        return background;
-    }
-
-    /*
-    create background and apply sprites depending on received fieldState
-     */
 
     public void render(int[][] fields) {
         //System.out.println(Arrays.deepToString(fields));
@@ -124,7 +89,7 @@ public class GamePanel extends View {
                 }
             }
         }
-        nextFrame.add(this.map);
+        nextFrame.add(this.map1);
         this.applyNextFrame(nextFrame);
     }
 

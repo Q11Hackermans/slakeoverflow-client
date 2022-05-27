@@ -2,7 +2,6 @@
 
 package com.github.q11hackermans.slakeoverflow_client.utility;
 
-import javax.management.loading.PrivateMLet;
 import javax.swing.*;
 
 public abstract class Assets {
@@ -10,7 +9,8 @@ public abstract class Assets {
     /// SPRITES
 
     // MAP
-    public static final ImageIcon MAP = new ImageIcon("assets/map.png");
+    public static final ImageIcon MAP1 = new ImageIcon("assets/map.png");
+    public static final ImageIcon MAP2 = new ImageIcon("assets/map2.png");
     public static final ImageIcon BORDER = new ImageIcon("assets/border.png");
 
     // OWN PLAYER

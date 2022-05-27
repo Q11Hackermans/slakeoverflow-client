@@ -98,7 +98,7 @@ public class ModelEventListener extends CMListenerAdapter {
         if ((gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();
         } else if (!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER) {
-            this.gameModel.gameControllerSwitchToLoginPanel();
+            this.gameModel.gameControllerSwitchToLobbyPanel();
         }
 
     }
