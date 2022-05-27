@@ -6,10 +6,7 @@ import java.awt.geom.Dimension2D;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
-import com.github.q11hackermans.slakeoverflow_client.panels.GamePanelDummy;
-import com.github.q11hackermans.slakeoverflow_client.panels.LobbyPanel;
-import com.github.q11hackermans.slakeoverflow_client.panels.LoginPanel;
+import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Direction;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
@@ -29,6 +26,9 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         new GameController();
         //GameController.testGamePanel(); // Test GamePanel
         //GameController.testLobbyPanel(); // Test LobbyPanel
+        GameController.testStorePanel(); // Test LobbyPanel
+
+
 
     }
 
@@ -132,13 +132,20 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     public void actionPerformed(ActionEvent e) {
 //        System.out.println("action");
         switch (e.getActionCommand()) {
+            //redirects
             case ActionCommands.backToLobbyButton:
                 this.backToLobbyPressed();
+                break;
+
+            case ActionCommands.backToStoreButton:
+                this.backToStorePressed();
                 break;
 
             case ActionCommands.playButtonPressed:
                 this.playButtonPressed();
                 break;
+
+
 
             case ActionCommands.connectButtonPressed:
                 Logger.info("Connecting to Server");
@@ -163,8 +170,11 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 this.disconnectFromServer();
                 JOptionPane.showMessageDialog(this, "Ghosting is not allowed on this server!");
                 break;
+
+
         }
     }
+
 
     public void resizeJFrame(int xSize, int ySize) {
         this.setSize(xSize, ySize);
@@ -178,12 +188,25 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         this.model.authPlayer(1);
     }
 
+
+    private void backToStorePressed() {
+        this.switchToStorePanel();
+    }
+
     public void switchToGamePanel() {
         if (!(this.view instanceof GamePanel)) {
             Logger.debug("switching to game panel");
             this.view = new GamePanel(this);
             this.model.setGamePanel((GamePanel) this.view);
             this.updateView(this.view);
+        }
+    }
+
+
+    public void switchToStorePanel() {
+        if (!(this.view instanceof StorePanel)) {
+            Logger.debug("switching to game panel");
+            this.updateView(new StorePanel(this));
         }
     }
 
@@ -261,6 +284,19 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setExtendedState(JFrame.MAXIMIZED_BOTH);
         j.setVisible(true);
         LobbyPanel g = new LobbyPanel(null);
+        j.add(g);
+    }
+
+
+    private static void testStorePanel() {
+        JFrame j = new JFrame();
+        j.setTitle("Slakeoverflow");
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(true);
+        j.setSize(500, 500);
+        j.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        j.setVisible(true);
+        StorePanel g = new StorePanel(null);
         j.add(g);
     }
 }

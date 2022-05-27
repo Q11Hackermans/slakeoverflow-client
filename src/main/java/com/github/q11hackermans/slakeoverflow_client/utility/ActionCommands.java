@@ -6,4 +6,7 @@ public class ActionCommands {
     public static final String connectButtonPressed = "connectButtonPressed";
     public static final String disconnectButtonPressed = "disconnectButtonPressed";
     public static final String backToLobbyButton = "backToLobbyButton";
+
+    public static final String backToStoreButton = "backToStoreButton";
+
 }
