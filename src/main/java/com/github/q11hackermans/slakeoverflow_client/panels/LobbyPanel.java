@@ -1,13 +1,11 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
-import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
+import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.view.View;
 
-import javax.print.attribute.standard.JobName;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 
 public class LobbyPanel extends View {
 

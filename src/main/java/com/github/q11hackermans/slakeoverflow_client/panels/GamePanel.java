@@ -3,11 +3,10 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
 
 import javax.swing.*;
 
+import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.*;
 import com.github.q11hackermans.slakeoverflow_client.view.View;
 

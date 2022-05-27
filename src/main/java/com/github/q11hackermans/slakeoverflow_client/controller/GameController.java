@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
-import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
-import com.github.q11hackermans.slakeoverflow_client.utility.Direction;
+import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
+import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.view.View;
@@ -26,9 +26,8 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         new GameController();
         //GameController.testGamePanel(); // Test GamePanel
         //GameController.testLobbyPanel(); // Test LobbyPanel
-        GameController.testStorePanel(); // Test LobbyPanel
-
-
+        //GameController.testStorePanel(); // Test LobbyPanel
+        //GameController.testLoginPanel(); // Test LoginPanel
 
     }
 
@@ -37,7 +36,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         this.disconnecting = false;
         configureJFrame();
 
-        this.switchToLoginPanel();
+        this.switchToStartPanel();
     }
 
     private void configureJFrame() {
@@ -86,7 +85,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         int nextKey = -1;
         switch (e.getKeyCode()) {
             case 10:
-                if (view instanceof LoginPanel) {
+                if (view instanceof StartPanel) {
                     try {
                         this.connectToSever();
                     } catch (IOException ex) {
@@ -145,19 +144,8 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 this.playButtonPressed();
                 break;
 
-
-
             case ActionCommands.connectButtonPressed:
-                Logger.info("Connecting to Server");
-                try {
-                    this.connectToSever();
-
-                } catch (IOException ex) {
-                    Logger.error("Connecting to server failed!");
-                    ex.printStackTrace();
-                    this.disconnectFromServer();
-                    JOptionPane.showMessageDialog(this, "Please enter a valid host and port");
-                }
+                this.connectButtonPressed();
                 break;
 
             case ActionCommands.disconnectButtonPressed:
@@ -171,7 +159,17 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 JOptionPane.showMessageDialog(this, "Ghosting is not allowed on this server!");
                 break;
 
+            case ActionCommands.playAsGuestButton:
+                System.out.println("play as guest");
+                break;
 
+            case ActionCommands.loginButton:
+                System.out.println("login Server");
+                break;
+
+            case ActionCommands.registerButton:
+                System.out.println("register Server");
+                break;
         }
     }
 
@@ -184,10 +182,22 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         return this.getSize();
     }
 
+    private void connectButtonPressed() {
+        Logger.info("Connecting to Server");
+        try {
+            this.connectToSever();
+
+        } catch (IOException ex) {
+            Logger.error("Connecting to server failed!");
+            ex.printStackTrace();
+            this.disconnectFromServer();
+            JOptionPane.showMessageDialog(this, "Please enter a valid host and port");
+        }
+    }
+
     private void playButtonPressed() {
         this.model.authPlayer(1);
     }
-
 
     private void backToStorePressed() {
         this.switchToStorePanel();
@@ -201,7 +211,6 @@ public class GameController extends JFrame implements KeyListener, ActionListene
             this.updateView(this.view);
         }
     }
-
 
     public void switchToStorePanel() {
         if (!(this.view instanceof StorePanel)) {
@@ -224,15 +233,22 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         }
     }
 
+    public void switchToStartPanel() {
+        if (!(this.view instanceof StartPanel)) {
+            Logger.debug("switching to start panel");
+            this.updateView(new StartPanel(this));
+        }
+    }
+
     private void backToLobbyPressed() {
         this.model.authPlayer(0);
     }
 
     private void connectToSever() throws IOException {
-        System.out.println(this.view.getHost());
-        System.out.println(this.view.getPort());
+        //System.out.println(this.view.getHost());
+        //System.out.println(this.view.getPort());
         this.model = new GameModel(this.view.getHost(), Integer.parseInt(this.view.getPort()), new GamePanelDummy(), this);
-        this.switchToLobbyPanel();
+        //this.switchToLoginPanel();
     }
 
     public void disconnectFromServerError() {
@@ -243,16 +259,17 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     private void disconnectFromServer() {
-        this.disconnecting = true;
-        try {
-            this.model.disconnect();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
+        if(!disconnecting) {
+            this.disconnecting = true;
+            try {
+                this.model.disconnect();
+            } catch (NullPointerException ex) {
+                ex.printStackTrace();
+            }
+            this.model = null;
+            this.disconnecting = false;
+            this.switchToStartPanel();
         }
-        this.model = null;
-        this.disconnecting = false;
-        this.switchToLoginPanel();
-
     }
 
     private static void testGamePanel() {
@@ -297,6 +314,17 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setExtendedState(JFrame.MAXIMIZED_BOTH);
         j.setVisible(true);
         StorePanel g = new StorePanel(null);
+        j.add(g);
+    }
+
+    private static void testLoginPanel() {
+        JFrame j = new JFrame();
+        j.setTitle("Slakeoverflow");
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(true);
+        j.setSize(500, 500);
+        j.setVisible(true);
+        LoginPanel g = new LoginPanel(null);
         j.add(g);
     }
 }

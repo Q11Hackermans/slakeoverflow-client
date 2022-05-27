@@ -5,7 +5,7 @@ package com.github.q11hackermans.slakeoverflow_client.utility;
 import javax.management.loading.PrivateMLet;
 import javax.swing.*;
 
-public class Assets {
+public abstract class Assets {
 
     /// SPRITES
 

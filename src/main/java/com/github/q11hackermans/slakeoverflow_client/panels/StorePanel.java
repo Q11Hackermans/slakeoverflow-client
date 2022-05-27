@@ -1,6 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
-import com.github.q11hackermans.slakeoverflow_client.utility.ActionCommands;
+import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.view.View;
 
 import javax.swing.*;

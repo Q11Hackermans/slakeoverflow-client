@@ -1,6 +1,6 @@
-package com.github.q11hackermans.slakeoverflow_client.utility;
+package com.github.q11hackermans.slakeoverflow_client.constants;
 
-public final class Direction {
+public abstract class Direction {
     public static final int NORTH = 0;
     public static final int SOUTH = 2;
     public static final int EAST = 1;

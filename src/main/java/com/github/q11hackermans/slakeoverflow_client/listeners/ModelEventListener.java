@@ -1,8 +1,8 @@
 package com.github.q11hackermans.slakeoverflow_client.listeners;
 
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
-import com.github.q11hackermans.slakeoverflow_client.utility.ConnectionType;
-import com.github.q11hackermans.slakeoverflow_client.utility.GameState;
+import com.github.q11hackermans.slakeoverflow_client.constants.ConnectionType;
+import com.github.q11hackermans.slakeoverflow_client.constants.GameState;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
@@ -98,7 +98,7 @@ public class ModelEventListener extends CMListenerAdapter {
         if ((gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();
         } else if (!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER) {
-            this.gameModel.gameControllerSwitchToLobbyPanel();
+            this.gameModel.gameControllerSwitchToLoginPanel();
         }
 
     }

@@ -5,7 +5,7 @@ import javax.swing.*;
 public abstract class View extends JPanel {
 
     /**
-     * Get the value of the Login-View host text-field
+     * Get the value of the Start-Panel host text-field
      *
      * @return String - host
      */
@@ -14,7 +14,7 @@ public abstract class View extends JPanel {
     }
 
     /**
-     * Get the value of the Login-View port text-field
+     * Get the value of the Start-Panel port text-field
      *
      * @return String - port
      */

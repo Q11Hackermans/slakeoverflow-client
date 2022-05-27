@@ -1,6 +1,6 @@
-package com.github.q11hackermans.slakeoverflow_client.utility;
+package com.github.q11hackermans.slakeoverflow_client.constants;
 
-public final class ConnectionType {
+public abstract class ConnectionType {
     public static final int UNAUTHENTICATED = 0;
     public static final int PLAYER = 1;
     public static final int SPECTATOR = 2;

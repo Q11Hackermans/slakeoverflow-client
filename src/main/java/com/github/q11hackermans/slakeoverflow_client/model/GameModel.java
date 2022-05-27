@@ -95,6 +95,10 @@ public class GameModel {
         this.gameController.switchToLobbyPanel();
     }
 
+    public void gameControllerSwitchToLoginPanel() {
+        this.gameController.switchToLoginPanel();
+    }
+
     public void disconnect() {
         this.cmcClient.close();
     }
