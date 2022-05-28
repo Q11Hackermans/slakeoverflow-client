@@ -3,6 +3,7 @@ package com.github.q11hackermans.slakeoverflow_client.model;
 import java.io.IOException;
 import java.util.List;
 
+import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
 import com.github.q11hackermans.slakeoverflow_client.listeners.ModelEventListener;
 import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
@@ -20,6 +21,7 @@ public class GameModel {
 
     private int gameStatus;
     private long accountId;
+    private int lastSentKeyInput;
 
     private GamePanel gamePanel;
     private GameController gameController;
@@ -31,6 +33,7 @@ public class GameModel {
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
         this.accountId = -1;
+        this.lastSentKeyInput = -1;
         gameMatrix = new int[][]{{0}, {0}};
         this.gamePanel = gamePanel;
         this.gameController = gameController;
@@ -47,6 +50,7 @@ public class GameModel {
         //Logger.info("matrix data set");
         gameMatrix = gridData;
         this.gamePanel.render(gameMatrix);
+        this.lastSentKeyInput = -1;
     }
 
     /**
@@ -56,11 +60,19 @@ public class GameModel {
      */
     public void sendKeyInput(int nextKey) {
         try {
-            //Logger.info("key " + nextKey + " pressed");
-            JSONObject keyObj = new JSONObject();
-            keyObj.put("cmd", "game_direction_change");
-            keyObj.put("direction", nextKey);
-            dataIOStreamHandler.writeUTF(keyObj.toString());
+            if(nextKey != lastSentKeyInput) {
+                //Logger.info("key " + nextKey + " pressed");
+                JSONObject keyObj = new JSONObject();
+                keyObj.put("cmd", "game_direction_change");
+                keyObj.put("direction", nextKey);
+                if (nextKey == Direction.SPEED){
+                    keyObj = new JSONObject();
+                    keyObj.put("cmd", "game_snake_speed_boost");
+                }
+                dataIOStreamHandler.writeUTF(keyObj.toString());
+                System.out.println("keysend");
+                lastSentKeyInput = nextKey;
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }

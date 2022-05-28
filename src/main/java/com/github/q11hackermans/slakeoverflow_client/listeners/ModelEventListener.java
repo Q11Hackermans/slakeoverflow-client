@@ -71,7 +71,7 @@ public class ModelEventListener extends CMListenerAdapter {
                         int gameStatus = data.getInt("status");
                         int authStatus = data.getInt("auth");
                         long accountId = data.getLong("account");
-                        System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus + ", account: " + accountId + ", Message: " + data);
+                        //System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus + ", account: " + accountId + ", Message: " + data);
                         this.handleStatusMessage(data);
                         break;
 

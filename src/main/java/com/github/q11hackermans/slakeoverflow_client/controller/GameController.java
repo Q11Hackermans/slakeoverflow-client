@@ -117,8 +117,13 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 nextKey = Direction.EAST;
                 break;
 
+            case 32:
+                nextKey = Direction.SPEED;
+                break;
+
             default:
                 Logger.info("key not found");
+                //System.out.println(e);
                 break;
         }
 
@@ -208,6 +213,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     private void loginButtonPressed(){
         this.model.login(this.view.getUsername(), this.view.getPasswordHash());
     }
+
     private void logoutButtonPressed(){
         this.model.logout();
     }
@@ -257,7 +263,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     public void switchToLobbyPanel() {
-        if (!(this.view instanceof LobbyPanel) || ((LobbyPanel) this.view).isLoginButtonVisible() != this.model.isLoggedIn()) {
+        if (!(this.view instanceof LobbyPanel) || ((LobbyPanel) this.view).isLoginButtonVisible() == this.model.isLoggedIn()) {
             Logger.debug("switching to lobby panel");
             this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
         }
