@@ -36,7 +36,7 @@ public class LoginPanel extends View {
         this.registerButton.setActionCommand(ActionCommands.registerButton);
     }
 
-    public void configureJPanel() {
+    private void configureJPanel() {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] {158, 173, 101, 56, 77, 53, 292, 3, 202};
         gridBagLayout.rowHeights = new int[]{17, 94, 412, 12, 36, 10, 33, 0};

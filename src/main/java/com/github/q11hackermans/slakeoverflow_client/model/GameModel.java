@@ -184,16 +184,4 @@ public class GameModel {
     public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
-
-    //EVENTS
-
-    public void lobbyJoined() {
-    }
-
-    public void lobbyClosed() {
-    }
-
-    public int[][] nextFrame(int[][] i) {
-        return i;
-    }
 }

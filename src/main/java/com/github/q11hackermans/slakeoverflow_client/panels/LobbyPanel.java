@@ -55,7 +55,7 @@ public class LobbyPanel extends View {
         return loginButtonVisible;
     }
 
-    public void configureJPanel() {
+    private void configureJPanel() {
         this.setVisible(true);
 
         this.setPreferredSize(

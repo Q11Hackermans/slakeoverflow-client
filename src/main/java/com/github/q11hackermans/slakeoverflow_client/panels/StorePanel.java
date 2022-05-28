@@ -24,7 +24,7 @@ public class StorePanel extends View {
     }
 
 
-    public void configureJPanel() {
+    private void configureJPanel() {
         this.setVisible(true);
 
         this.setPreferredSize(
