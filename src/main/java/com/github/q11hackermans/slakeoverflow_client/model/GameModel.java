@@ -70,7 +70,6 @@ public class GameModel {
                     keyObj.put("cmd", "game_snake_speed_boost");
                 }
                 dataIOStreamHandler.writeUTF(keyObj.toString());
-                System.out.println("keysend");
                 lastSentKeyInput = nextKey;
             }
         } catch (IOException ex) {
