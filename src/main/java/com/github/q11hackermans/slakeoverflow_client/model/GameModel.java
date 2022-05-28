@@ -133,6 +133,16 @@ public class GameModel {
         }
     }
 
+    public void getServerInfo() {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "get_server_info");
+            dataIOStreamHandler.writeUTF(output.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     //SETTERS/GETTERS-
     public int[][] getGameMatrix() {
