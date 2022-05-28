@@ -12,13 +12,14 @@ public class LobbyPanel extends View {
     private JButton playerMode;
     private JButton spectatorMode;
     private JButton disconnect;
-    private JButton login;
+    private JButton loginViewButton;
+    private boolean loginButtonVisible;
 
-    public LobbyPanel(ActionListener actionListener) {
+    public LobbyPanel(ActionListener actionListener, boolean isLoggedIn) {
         playerMode = new JButton("Join as Player");
         spectatorMode = new JButton("Join as Spectator");
         disconnect = new JButton("Disconnect");
-        login = new JButton("Login");
+        loginViewButton = new JButton();
 
 
         this.playerMode.addActionListener(actionListener);
@@ -31,16 +32,28 @@ public class LobbyPanel extends View {
         this.disconnect.addActionListener(actionListener);
         this.disconnect.setActionCommand(ActionCommands.disconnectButtonPressed);
 
-        this.login.addActionListener(actionListener);
-        this.login.setActionCommand(ActionCommands.toLoginViewButton);
+        this.loginViewButton.addActionListener(actionListener);
+
+        if (isLoggedIn){
+            this.loginViewButton.setText("Logout");
+            this.loginViewButton.setActionCommand(ActionCommands.logoutButton);
+            this.loginButtonVisible = false;
+        } else {
+            this.loginViewButton.setText("Login");
+            this.loginViewButton.setActionCommand(ActionCommands.toLoginViewButton);
+            this.loginButtonVisible = true;
+        }
 
         this.add(playerMode);
         this.add(spectatorMode);
         this.add(disconnect);
-        this.add(login);
+        this.add(loginViewButton);
 
     }
 
+    public boolean isLoginButtonVisible() {
+        return loginButtonVisible;
+    }
 
     public void configureJPanel() {
         this.setVisible(true);

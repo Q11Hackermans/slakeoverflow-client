@@ -19,6 +19,7 @@ public class GameModel {
     private int[][] gameMatrix;
 
     private int gameStatus;
+    private long accountId;
 
     private GamePanel gamePanel;
     private GameController gameController;
@@ -29,6 +30,7 @@ public class GameModel {
 
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
+        this.accountId = -1;
         gameMatrix = new int[][]{{0}, {0}};
         this.gamePanel = gamePanel;
         this.gameController = gameController;
@@ -69,7 +71,6 @@ public class GameModel {
             JSONObject output = new JSONObject();
             output.put("cmd", "auth");
             output.put("type", type);
-            output.put("username", "player");
             dataIOStreamHandler.writeUTF(output.toString());
             Logger.debug("Auth: " + type);
         } catch (IOException ex) {
@@ -77,10 +78,62 @@ public class GameModel {
         }
     }
 
+    public void login(String username, String password) {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "login");
+            output.put("username", username);
+            output.put("password", password);
+            dataIOStreamHandler.writeUTF(output.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
-    //SETTERS/GETTERS
+    public void logout() {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "logout");
+            dataIOStreamHandler.writeUTF(output.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void registerAccount(String username, String password) {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "register");
+            output.put("username", username);
+            output.put("password", password);
+            dataIOStreamHandler.writeUTF(output.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void getUserInfo() {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "get_user_info");
+            dataIOStreamHandler.writeUTF(output.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    //SETTERS/GETTERS-
     public int[][] getGameMatrix() {
         return gameMatrix;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
+
+    public boolean isLoggedIn() {
+        return accountId > -1;
     }
 
     public void gameControllerDisconnect() {

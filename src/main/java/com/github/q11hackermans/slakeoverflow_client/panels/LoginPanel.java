@@ -6,6 +6,9 @@ import com.github.q11hackermans.slakeoverflow_client.view.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginPanel extends View {
 
@@ -140,4 +143,28 @@ public class LoginPanel extends View {
         gbc_loginButton.gridy = 6;
         add(loginButton, gbc_loginButton);
     }
+
+    @Override
+    public String getUsername(){
+        return this.usernameField.getText();
+    }
+
+    @Override
+    public String getPasswordHash(){
+        String password = String.valueOf(this.passwordField.getPassword());
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+            StringBuilder builder = new StringBuilder();
+            for (byte aByte : bytes) {
+                builder.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+
+            //System.out.println(builder.toString());
+            return builder.toString();
+        } catch(NoSuchAlgorithmException ignored) {}
+        return "";
+    }
+
 }

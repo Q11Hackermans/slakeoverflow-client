@@ -70,7 +70,8 @@ public class ModelEventListener extends CMListenerAdapter {
                     case "status":
                         int gameStatus = data.getInt("status");
                         int authStatus = data.getInt("auth");
-                        //System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus);
+                        long accountId = data.getLong("account");
+                        System.out.println("Game status:" + gameStatus + ", auth status:" + authStatus + ", account: " + accountId + ", Message: " + data);
                         this.handleStatusMessage(data);
                         break;
 
@@ -94,11 +95,16 @@ public class ModelEventListener extends CMListenerAdapter {
     private void handleStatusMessage(JSONObject data) {
         int gameStatus = data.getInt("status");
         int authStatus = data.getInt("auth");
+        long accountId = data.getLong("account");
+
+        this.gameModel.setAccountId(accountId);
 
         if ((gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();
-        } else if (!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER) {
+        } else if ((!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER) && !(this.gameModel.isLoggedIn())) {
             this.gameModel.gameControllerSwitchToUnAuthPanel();
+        } else if ((!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER)) {
+            this.gameModel.gameControllerSwitchToLobbyPanel();
         }
 
     }

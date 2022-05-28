@@ -13,6 +13,14 @@ public abstract class View extends JPanel {
         return "";
     }
 
+    public String getUsername() {
+        return "";
+    }
+
+    public String getPasswordHash() {
+        return "";
+    }
+
     /**
      * Get the value of the Start-Panel port text-field
      *

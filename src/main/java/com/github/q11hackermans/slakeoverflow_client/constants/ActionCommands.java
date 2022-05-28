@@ -12,5 +12,6 @@ public abstract class ActionCommands {
     public static final String registerButton = "registerButton";
     public static final String backToStoreButton = "backToStoreButton";
     public static final String toLoginViewButton = "toLoginViewButton";
+    public static final String logoutButton = "logoutButton";
 
 }
