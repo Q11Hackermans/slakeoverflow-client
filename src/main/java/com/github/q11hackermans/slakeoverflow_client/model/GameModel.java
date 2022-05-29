@@ -141,8 +141,6 @@ public class GameModel {
         }
     }
 
-
-    //SETTERS/GETTERS-
     public void gameControllerDisconnect() {
         this.gameController.disconnectFromServerError();
     }
@@ -197,5 +195,9 @@ public class GameModel {
 
     public void setServerName(String serverName) {
         this.serverName = serverName;
+    }
+
+    public GameController getGameController() {
+        return gameController;
     }
 }
