@@ -21,6 +21,7 @@ public class GameModel {
 
     private int gameStatus;
     private long accountId;
+    private  String serverName;
     private int lastSentKeyInput;
 
     private GamePanel gamePanel;
@@ -33,6 +34,7 @@ public class GameModel {
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
         this.accountId = -1;
+        this.serverName = "Slakomania";
         this.lastSentKeyInput = -1;
         gameMatrix = new int[][]{{0}, {0}};
         this.gamePanel = gamePanel;
@@ -41,16 +43,8 @@ public class GameModel {
         cmcClient.getInputStream().setTimeInterval(2);
         this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.MULTI_STREAM_HANDLER_CONSUMING);
         this.dataIOStreamHandler.addEventListener(new ModelEventListener(this));
-    }
 
-    /**
-     * Receive data from the server
-     */
-    public void setGameMatrix(int[][] gridData) {
-        //Logger.info("matrix data set");
-        gameMatrix = gridData;
-        this.gamePanel.render(gameMatrix);
-        this.lastSentKeyInput = -1;
+        this.requestServerInfo();
     }
 
     /**
@@ -111,6 +105,10 @@ public class GameModel {
         }
     }
 
+    public void disconnect() {
+        this.cmcClient.close();
+    }
+
     public void registerAccount(String username, String password) {
         try {
             JSONObject output = new JSONObject();
@@ -123,7 +121,7 @@ public class GameModel {
         }
     }
 
-    public void getUserInfo() {
+    public void requestUserInfo() {
         try {
             JSONObject output = new JSONObject();
             output.put("cmd", "get_user_info");
@@ -133,7 +131,7 @@ public class GameModel {
         }
     }
 
-    public void getServerInfo() {
+    public void requestServerInfo() {
         try {
             JSONObject output = new JSONObject();
             output.put("cmd", "get_server_info");
@@ -145,18 +143,6 @@ public class GameModel {
 
 
     //SETTERS/GETTERS-
-    public int[][] getGameMatrix() {
-        return gameMatrix;
-    }
-
-    public void setAccountId(long accountId) {
-        this.accountId = accountId;
-    }
-
-    public boolean isLoggedIn() {
-        return accountId > -1;
-    }
-
     public void gameControllerDisconnect() {
         this.gameController.disconnectFromServerError();
     }
@@ -177,11 +163,39 @@ public class GameModel {
         this.gameController.switchToLoginPanel();
     }
 
-    public void disconnect() {
-        this.cmcClient.close();
-    }
+
+
+    // Getter - Setter
 
     public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+    }
+    /**
+     * Receive data from the server
+     */
+    public void setGameMatrix(int[][] gridData) {
+        //Logger.info("matrix data set");
+        gameMatrix = gridData;
+        this.gamePanel.render(gameMatrix);
+        this.lastSentKeyInput = -1;
+    }
+
+    public int[][] getGameMatrix() {
+        return gameMatrix;
+    }
+    public boolean isLoggedIn() {
+        return accountId > -1;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
 }

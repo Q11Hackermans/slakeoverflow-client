@@ -79,7 +79,12 @@ public class ModelEventListener extends CMListenerAdapter {
                         System.out.println("FERERERERETIG");
                         break;
 
+                    case "server_info":
+                        this.handleServerInfo(data);
+                        break;
+
                     default:
+                        System.out.println(data);
                         break;
                 }
             }
@@ -90,6 +95,11 @@ public class ModelEventListener extends CMListenerAdapter {
         } catch (NumberFormatException e) {
             Logger.error("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
         }
+    }
+
+    private void handleServerInfo(JSONObject data) {
+        this.gameModel.setServerName(data.getJSONObject("server_settings").getString("server_name"));
+        //System.out.println(data);
     }
 
     private void handleStatusMessage(JSONObject data) {

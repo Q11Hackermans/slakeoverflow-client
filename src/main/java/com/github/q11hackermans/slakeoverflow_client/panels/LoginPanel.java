@@ -20,8 +20,8 @@ public class LoginPanel extends View {
     private JPasswordField passwordField;
 
 
-    public LoginPanel(ActionListener actionListener) {
-        this.configureJPanel();
+    public LoginPanel(ActionListener actionListener, String serverName) {
+        this.configureJPanel(serverName);
         this.configureButtons(actionListener);
     }
 
@@ -36,7 +36,7 @@ public class LoginPanel extends View {
         this.registerButton.setActionCommand(ActionCommands.registerButton);
     }
 
-    private void configureJPanel() {
+    private void configureJPanel(String serverName) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] {158, 173, 101, 56, 77, 53, 292, 3, 202};
         gridBagLayout.rowHeights = new int[]{17, 94, 412, 12, 36, 10, 33, 0};
@@ -44,7 +44,7 @@ public class LoginPanel extends View {
         gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
 
-        JLabel welcomeMsgLabel = new JLabel("Hi, welcome at Slakomaina");
+        JLabel welcomeMsgLabel = new JLabel("Hi, welcome at " + serverName + "!");
         welcomeMsgLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         GridBagConstraints gbc_welcomeMsgLabel = new GridBagConstraints();
         gbc_welcomeMsgLabel.gridwidth = 3;

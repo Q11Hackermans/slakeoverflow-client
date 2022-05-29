@@ -272,7 +272,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     public void switchToLoginPanel() {
         if (!(this.view instanceof LoginPanel)) {
             Logger.debug("switching to login panel");
-            this.updateView(new LoginPanel(this));
+            this.updateView(new LoginPanel(this, this.model.getServerName()));
         }
     }
 
@@ -367,7 +367,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setResizable(true);
         j.setSize(500, 500);
         j.setVisible(true);
-        LoginPanel g = new LoginPanel(null);
+        LoginPanel g = new LoginPanel(null, "taest");
         j.add(g);
     }
 }
