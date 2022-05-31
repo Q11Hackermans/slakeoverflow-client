@@ -3,6 +3,8 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -18,6 +20,11 @@ public class GamePanel extends View {
     private JPanel matrixFrame;
     private JLabel map1;
 
+
+    // chat
+    private List<String> chatMessages;
+    private JLayeredPane pane;
+    private JPanel chat;
     private int width, height;
 
     private JLabel[][] matrix;
@@ -33,12 +40,16 @@ public class GamePanel extends View {
     }
 
     private void createPanel(ActionListener actionListener) {
+        chatMessages = new ArrayList<>();
+
         setLayout(new BorderLayout(0, 0));
+
 
         JPanel panel = new JPanel();
         add(panel, BorderLayout.NORTH);
         panel.setLayout(new GridLayout(0, 3, 0, 0));
 
+        // actions
         JButton btnNewButton = new JButton("Back to Lobby");
         btnNewButton.addActionListener(actionListener);
         btnNewButton.setActionCommand(ActionCommands.backToLobbyButton);
@@ -48,6 +59,24 @@ public class GamePanel extends View {
         btnNewButton_1.addActionListener(actionListener);
         btnNewButton_1.setActionCommand(ActionCommands.disconnectButtonPressed);
         panel.add(btnNewButton_1);
+
+        // overlays
+
+        pane = new JLayeredPane();
+        pane.setBounds(0, 0, 1200, 800);
+        pane.setBackground(
+                Color.BLACK
+        );
+        chat = new JPanel(new BorderLayout());
+        chat.setPreferredSize(new Dimension(600, 300));
+        chat.setBackground(
+                Colors.OVERLAY_BACKGOUNR
+        );
+        chat.setBounds(800,600, 600, 300);
+        pane.add(chat);
+
+        pane.repaint();
+        add(pane);
 
         this.matrixFrame = new JPanel();
         add(this.matrixFrame, BorderLayout.CENTER);
@@ -60,7 +89,7 @@ public class GamePanel extends View {
 
         this.map1 = new JLabel(Assets.MAP1);
         this.map1.setBounds(0, 0, 1200, 800);
-        startMapPanel.add(this.map1);
+        startMapPanel.add(this.map1, 0, 0);
 
         //JLabel jl2 = new JLabel(Assets.ITEM_APPLE);
         //jl2.setBounds(200,200,20,20);
@@ -108,5 +137,28 @@ public class GamePanel extends View {
         SwingUtilities.updateComponentTreeUI(this);
         this.matrixFrame.repaint();
         //System.out.println("next Frame");
+    }
+
+    public void applyNextMessage(String msg) {
+        chatMessages.add(msg);
+
+        if (chatMessages.size() >= 11) {
+            chatMessages.remove(0);
+        }
+
+
+        //remove all current messages
+        this.chat.removeAll();
+
+
+        for (int i = 0; i < chatMessages.size(); i++) {
+            this.chat.add(new JLabel(chatMessages.get(i).toString()));
+        }
+
+
+
+        this.chat.repaint();
+        this.pane.repaint();
+        this.repaint();
     }
 }

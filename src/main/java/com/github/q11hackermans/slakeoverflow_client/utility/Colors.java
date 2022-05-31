@@ -39,5 +39,7 @@ public class Colors {
     public static final String CONSOLE_ERROR = "\033[0;31m"; // red
     public static final String CONSOLE_INFO = CONSOLE_RESET; // no color
 
+    // chat overlay colors
+    public static final Color OVERLAY_BACKGOUNR = new Color(0, 0, 0, 50);
 
 }
