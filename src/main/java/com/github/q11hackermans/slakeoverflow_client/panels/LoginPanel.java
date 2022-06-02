@@ -1,7 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
-import com.github.q11hackermans.slakeoverflow_client.view.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class LoginPanel extends View {
+public class LoginPanel extends UnauthenticatedPanel {
 
     private JButton loginButton;
     private JButton registerButton;

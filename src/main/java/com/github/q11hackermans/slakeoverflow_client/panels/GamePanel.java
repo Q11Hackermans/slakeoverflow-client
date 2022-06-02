@@ -10,9 +10,8 @@ import javax.swing.*;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.*;
-import com.github.q11hackermans.slakeoverflow_client.view.View;
 
-public class GamePanel extends View {
+public class GamePanel extends Panel {
 
     private JPanel currentFrame = null;
     private JPanel lastFrame = null;
@@ -67,7 +66,7 @@ public class GamePanel extends View {
         pane.setBackground(
                 Color.BLACK
         );
-        chat = new JPanel(new BorderLayout());
+        chat = new JPanel(new GridLayout(11,0,0,0));
         chat.setPreferredSize(new Dimension(600, 300));
         chat.setBackground(
                 Colors.OVERLAY_BACKGOUNR

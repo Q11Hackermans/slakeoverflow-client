@@ -1,13 +1,12 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
-import com.github.q11hackermans.slakeoverflow_client.view.View;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class LobbyPanel extends View {
+public class LobbyPanel extends UnauthenticatedPanel {
 
     private JButton playerMode;
     private JButton spectatorMode;

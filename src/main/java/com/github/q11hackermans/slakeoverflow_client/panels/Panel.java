@@ -1,8 +1,8 @@
-package com.github.q11hackermans.slakeoverflow_client.view;
+package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import javax.swing.*;
 
-public abstract class View extends JPanel {
+public abstract class Panel extends JPanel {
 
     /**
      * Get the value of the Start-Panel host text-field

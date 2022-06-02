@@ -2,13 +2,12 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
-import com.github.q11hackermans.slakeoverflow_client.view.View;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class StartPanel extends View {
+public class StartPanel extends Panel {
     private final JButton button;
     private final JTextField host;
     private final JTextField port;
