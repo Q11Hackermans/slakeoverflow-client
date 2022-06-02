@@ -16,7 +16,7 @@ public class StorePanel extends UnauthenticatedPanel {
 
 
         this.backToLobby.addActionListener(actionListener);
-        backToLobby.setActionCommand(ActionCommands.backToLobbyButton);
+        backToLobby.setActionCommand(ActionCommands.toLobbyButton);
 
         this.add(backToLobby);
 

@@ -12,6 +12,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private JButton spectatorMode;
     private JButton disconnect;
     private JButton loginViewButton;
+    private JButton storeViewButton;
     private boolean loginButtonVisible;
 
     public LobbyPanel(ActionListener actionListener, boolean isLoggedIn) {
@@ -19,6 +20,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
         spectatorMode = new JButton("Join as Spectator");
         disconnect = new JButton("Disconnect");
         loginViewButton = new JButton();
+        storeViewButton = new JButton("Store");
 
 
         this.playerMode.addActionListener(actionListener);
@@ -32,21 +34,25 @@ public class LobbyPanel extends UnauthenticatedPanel {
         this.disconnect.setActionCommand(ActionCommands.disconnectButtonPressed);
 
         this.loginViewButton.addActionListener(actionListener);
-
-        if (isLoggedIn){
-            this.loginViewButton.setText("Logout");
-            this.loginViewButton.setActionCommand(ActionCommands.logoutButton);
-            this.loginButtonVisible = false;
-        } else {
-            this.loginViewButton.setText("Login");
-            this.loginViewButton.setActionCommand(ActionCommands.toLoginViewButton);
-            this.loginButtonVisible = true;
-        }
+        this.storeViewButton.addActionListener(actionListener);
 
         this.add(playerMode);
         this.add(spectatorMode);
         this.add(disconnect);
         this.add(loginViewButton);
+
+        if (isLoggedIn){
+            this.loginViewButton.setText("Logout");
+            this.loginViewButton.setActionCommand(ActionCommands.logoutButton);
+            this.loginButtonVisible = false;
+
+            this.storeViewButton.setActionCommand(ActionCommands.toStoreViewButton);
+            this.add(this.storeViewButton);
+        } else {
+            this.loginViewButton.setText("Login");
+            this.loginViewButton.setActionCommand(ActionCommands.toLoginViewButton);
+            this.loginButtonVisible = true;
+        }
 
     }
 

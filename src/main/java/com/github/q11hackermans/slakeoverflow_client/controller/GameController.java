@@ -132,6 +132,10 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 this.backToLobbyPressed();
                 break;
 
+            case ActionCommands.toLobbyButton:
+                this.toLobbyButtonPressed();
+                break;
+
             case ActionCommands.backToStoreButton:
                 this.backToStorePressed();
                 break;
@@ -181,6 +185,11 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 this.logoutButtonPressed();
                 System.out.println("Logout");
                 break;
+
+            case ActionCommands.toStoreViewButton:
+                this.switchToStorePanel();
+                System.out.println("Store");
+                break;
         }
     }
 
@@ -208,6 +217,10 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
     private void registerButtonPressed(){
         this.model.registerAccount(this.panel.getUsername(), this.panel.getPasswordHash());
+    }
+
+    private void toLobbyButtonPressed(){
+        this.switchToLobbyPanel();
     }
 
     private void loginButtonPressed(){
@@ -253,7 +266,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     public void switchToUnAuthPanel() {
-        if(!(this.panel instanceof  UnauthenticatedPanel) || (this.panel instanceof  LobbyPanel && ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn())){
+        if(!(this.panel instanceof  UnauthenticatedPanel) || (this.panel instanceof  LobbyPanel && ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) || (this.panel instanceof LoginPanel && this.model.isLoggedIn())){
             Logger.debug("switching to lobby panel");
             this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
         }

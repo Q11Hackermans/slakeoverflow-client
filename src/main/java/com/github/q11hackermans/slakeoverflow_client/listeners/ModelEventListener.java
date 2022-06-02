@@ -111,10 +111,8 @@ public class ModelEventListener extends CMListenerAdapter {
 
         if ((gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();
-        } else if ((!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER) && !(this.gameModel.isLoggedIn())) {
-            this.gameModel.gameControllerSwitchToUnAuthPanel();
         } else if ((!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER)) {
-            this.gameModel.gameControllerSwitchToLobbyPanel();
+            this.gameModel.gameControllerSwitchToUnAuthPanel();
         }
 
     }
