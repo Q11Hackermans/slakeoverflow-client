@@ -11,16 +11,16 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private JButton playerMode;
     private JButton spectatorMode;
     private JButton disconnect;
-    private JButton loginViewButton;
-    private JButton storeViewButton;
+    private JButton loginPanelButton;
+    private JButton storePanelButton;
     private boolean loginButtonVisible;
 
     public LobbyPanel(ActionListener actionListener, boolean isLoggedIn) {
         playerMode = new JButton("Join as Player");
         spectatorMode = new JButton("Join as Spectator");
         disconnect = new JButton("Disconnect");
-        loginViewButton = new JButton();
-        storeViewButton = new JButton("Store");
+        loginPanelButton = new JButton();
+        storePanelButton = new JButton("Store");
 
 
         this.playerMode.addActionListener(actionListener);
@@ -33,24 +33,24 @@ public class LobbyPanel extends UnauthenticatedPanel {
         this.disconnect.addActionListener(actionListener);
         this.disconnect.setActionCommand(ActionCommands.disconnectButtonPressed);
 
-        this.loginViewButton.addActionListener(actionListener);
-        this.storeViewButton.addActionListener(actionListener);
+        this.loginPanelButton.addActionListener(actionListener);
+        this.storePanelButton.addActionListener(actionListener);
 
         this.add(playerMode);
         this.add(spectatorMode);
         this.add(disconnect);
-        this.add(loginViewButton);
+        this.add(loginPanelButton);
 
         if (isLoggedIn){
-            this.loginViewButton.setText("Logout");
-            this.loginViewButton.setActionCommand(ActionCommands.logoutButton);
+            this.loginPanelButton.setText("Logout");
+            this.loginPanelButton.setActionCommand(ActionCommands.logoutButton);
             this.loginButtonVisible = false;
 
-            this.storeViewButton.setActionCommand(ActionCommands.toStoreViewButton);
-            this.add(this.storeViewButton);
+            this.storePanelButton.setActionCommand(ActionCommands.toStoreViewButton);
+            this.add(this.storePanelButton);
         } else {
-            this.loginViewButton.setText("Login");
-            this.loginViewButton.setActionCommand(ActionCommands.toLoginViewButton);
+            this.loginPanelButton.setText("Login");
+            this.loginPanelButton.setActionCommand(ActionCommands.toLoginViewButton);
             this.loginButtonVisible = true;
         }
 
