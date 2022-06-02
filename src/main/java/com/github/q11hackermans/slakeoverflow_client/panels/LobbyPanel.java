@@ -39,7 +39,6 @@ public class LobbyPanel extends UnauthenticatedPanel {
         this.add(playerMode);
         this.add(spectatorMode);
         this.add(disconnect);
-        this.add(loginPanelButton);
 
         if (isLoggedIn){
             this.loginPanelButton.setText("Logout");
@@ -53,6 +52,8 @@ public class LobbyPanel extends UnauthenticatedPanel {
             this.loginPanelButton.setActionCommand(ActionCommands.toLoginViewButton);
             this.loginButtonVisible = true;
         }
+
+        this.add(loginPanelButton);
 
     }
 
