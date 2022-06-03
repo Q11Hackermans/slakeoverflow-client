@@ -82,8 +82,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                }
-                if (panel instanceof LobbyPanel) {
+                } else if (panel instanceof LobbyPanel) {
                     this.playButtonPressed();
                 }
                 break;
