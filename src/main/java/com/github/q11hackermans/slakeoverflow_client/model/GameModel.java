@@ -200,4 +200,8 @@ public class GameModel {
     public GameController getGameController() {
         return gameController;
     }
+
+    public GamePanel getGamePanel() {
+        return this.gamePanel;
+    }
 }
