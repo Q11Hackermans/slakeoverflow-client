@@ -22,7 +22,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     private boolean disconnecting;
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { // mvn clean install -U - resolve dependencies
         new GameController();
         //GameController.testGamePanel(); // Test GamePanel
         //GameController.testLobbyPanel(); // Test LobbyPanel
