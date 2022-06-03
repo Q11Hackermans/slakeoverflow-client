@@ -61,6 +61,9 @@ public class ModelEventListener extends CMListenerAdapter {
                             JSONArray jj = (JSONArray) jo;
                             try {
                                 gridData[jj.getInt(0)][jj.getInt(1)] = jj.getInt(2);
+                                if(jj.length() > 3 && jj.getBoolean(3)) {
+                                    this.gameModel.getGamePanel().switchAltMap();
+                                }
                             } catch (IndexOutOfBoundsException ignored) {
                             }
                         }
