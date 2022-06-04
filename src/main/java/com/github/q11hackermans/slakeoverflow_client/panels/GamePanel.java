@@ -1,15 +1,20 @@
 //@blame Joshua3212
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.List;
+import com.github.q11hackermans.slakeoverflow_client.components.Layout;
+import com.github.q11hackermans.slakeoverflow_client.components.SButton;
+import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
+import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
+import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
-import com.github.q11hackermans.slakeoverflow_client.utility.*;
+import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.CTA_HEIGHT;
+import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.FULL_WIDTH;
 
 public class GamePanel extends Panel {
 
@@ -48,19 +53,24 @@ public class GamePanel extends Panel {
 
         JPanel panel = new JPanel();
         add(panel, BorderLayout.NORTH);
-        panel.setLayout(new GridLayout(0, 3, 0, 0));
+        panel.setLayout(new BorderLayout(0, 0));
 
-        // actions
-        JButton btnNewButton = new JButton("Back to Lobby");
+        // buttons
+        Layout buttonsPanel = new Layout(FULL_WIDTH, CTA_HEIGHT * 2); // *5 makes the button a bit taller
+
+        SButton btnNewButton = new SButton("Back to Lobby");
         btnNewButton.addActionListener(actionListener);
         btnNewButton.setActionCommand(ActionCommands.backToLobbyButton);
-        panel.add(btnNewButton);
+        btnNewButton.setWidth(FULL_WIDTH / 2);
+        buttonsPanel.addComponentToColumn(btnNewButton);
 
-        JButton btnNewButton_1 = new JButton("Disconnect from Server");
+        SButton btnNewButton_1 = new SButton("Disconnect from Server");
         btnNewButton_1.addActionListener(actionListener);
         btnNewButton_1.setActionCommand(ActionCommands.disconnectButtonPressed);
-        panel.add(btnNewButton_1);
+        btnNewButton.setWidth(FULL_WIDTH / 2);
+        buttonsPanel.addComponentToColumn(btnNewButton_1);
 
+        panel.add(buttonsPanel);
         // overlays
 
         pane = new JLayeredPane();
@@ -68,12 +78,12 @@ public class GamePanel extends Panel {
         pane.setBackground(
                 Color.BLACK
         );
-        chat = new JPanel(new GridLayout(11,0,0,0));
+        chat = new JPanel(new GridLayout(11, 0, 0, 0));
         chat.setPreferredSize(new Dimension(600, 300));
         chat.setBackground(
-                Colors.OVERLAY_BACKGOUNR
+                Colors.OVERLAY_BACKGROUND
         );
-        chat.setBounds(800,600, 600, 300);
+        chat.setBounds(800, 600, 600, 300);
         pane.add(chat);
 
         pane.repaint();
@@ -125,7 +135,7 @@ public class GamePanel extends Panel {
             }
         }
 
-        if(this.altMap) {
+        if (this.altMap) {
             nextFrame.add(this.map1);
             nextFrame.add(this.map2);
         } else {
@@ -168,9 +178,8 @@ public class GamePanel extends Panel {
 
 
         for (int i = 0; i < chatMessages.size(); i++) {
-            this.chat.add(new JLabel(chatMessages.get(i).toString()));
+            this.chat.add(new JLabel(chatMessages.get(i)));
         }
-
 
 
         this.chat.repaint();

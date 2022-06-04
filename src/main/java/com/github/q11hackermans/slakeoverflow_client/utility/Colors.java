@@ -8,9 +8,6 @@ public class Colors {
 
     // GAMEFIELD COLORS
     public static final Color GROUND_1 = Color.decode("#4aa832");
-    public static final Color GROUND_2 = Color.decode("#017821");
-    public static final Color BG = Color.decode("#356e26");
-
     //apple colors
     public static final Color apple_red = Color.decode("#e71f1f");
     public static final Color apple_brown = Color.decode("#c35d2d");
@@ -40,6 +37,6 @@ public class Colors {
     public static final String CONSOLE_INFO = CONSOLE_RESET; // no color
 
     // chat overlay colors
-    public static final Color OVERLAY_BACKGOUNR = new Color(0, 0, 0, 50);
+    public static final Color OVERLAY_BACKGROUND = new Color(0, 0, 0, 50);
 
 }
