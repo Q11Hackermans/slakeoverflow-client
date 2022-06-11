@@ -12,6 +12,7 @@ import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.panels.Panel;
+import de.d3rhase.txtlogger.TxtLogger;
 
 import javax.swing.*;
 
@@ -28,10 +29,11 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         //GameController.testLobbyPanel(); // Test LobbyPanel
         //GameController.testStorePanel(); // Test LobbyPanel
         //GameController.testLoginPanel(); // Test LoginPanel
-
     }
 
     public GameController() {
+        de.d3rhase.interfaces.Logger tl = new TxtLogger("Bla", true);
+        tl.ok("TEST","Textle");
         Logger.info("creating game window");
         this.disconnecting = false;
         configureJFrame();
