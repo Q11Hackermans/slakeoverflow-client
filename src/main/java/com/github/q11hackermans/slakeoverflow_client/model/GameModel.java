@@ -7,7 +7,7 @@ import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
 import com.github.q11hackermans.slakeoverflow_client.listeners.ModelEventListener;
 import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
-import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
+import com.github.q11hackermans.slakeoverflow_client.utility.OldLogger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
@@ -77,7 +77,7 @@ public class GameModel {
             output.put("cmd", "auth");
             output.put("type", type);
             dataIOStreamHandler.writeUTF(output.toString());
-            Logger.debug("Auth: " + type);
+            OldLogger.debug("Auth: " + type);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

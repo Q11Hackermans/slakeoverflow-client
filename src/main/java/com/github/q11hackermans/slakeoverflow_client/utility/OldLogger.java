@@ -1,6 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.utility;
 
-public class Logger {
+public class OldLogger {
     public static void writeLine(String message, String color) {
         System.out.println(color + message + Colors.CONSOLE_RESET);
     }

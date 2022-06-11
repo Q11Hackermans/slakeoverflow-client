@@ -1,6 +1,6 @@
 package com.github.q11hackermans.slakeoverflow_client.components;
 
-import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
+import com.github.q11hackermans.slakeoverflow_client.utility.OldLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +34,7 @@ public class SButton extends JButton {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Logger.debug("ehy");
+                OldLogger.debug("ehy");
                 self.setBackground(BUTTON_ON_FOCUS);
                 self.setBorder(
                         BorderFactory.createMatteBorder(CTA_PADDING_Y, CTA_PADDING_X, CTA_PADDING_Y, CTA_PADDING_X, BUTTON_ON_FOCUS)

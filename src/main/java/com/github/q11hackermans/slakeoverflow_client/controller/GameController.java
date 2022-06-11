@@ -9,9 +9,9 @@ import java.util.concurrent.TimeUnit;
 import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
-import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.panels.Panel;
+import de.d3rhase.interfaces.Logger;
 import de.d3rhase.txtlogger.TxtLogger;
 
 import javax.swing.*;
@@ -21,6 +21,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     private GameModel model;
 
     private boolean disconnecting;
+    public static Logger logger;
 
 
     public static void main(String[] args) throws IOException { // mvn clean install -U - resolve dependencies
@@ -32,9 +33,8 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     public GameController() {
-        de.d3rhase.interfaces.Logger tl = new TxtLogger("Bla", true);
-        tl.ok("TEST","Textle");
-        Logger.info("creating game window");
+        logger = new TxtLogger("GameController", true);
+        logger.info("CONSTRUCTOR", "creating game window");
         this.disconnecting = false;
         configureJFrame();
 
@@ -114,7 +114,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 break;
 
             default:
-                Logger.info("key not found");
+                logger.info("HANDLE-KEY-INPUT", "key not found");
                 //System.out.println(e);
                 break;
         }
@@ -233,12 +233,12 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     private void connectButtonPressed() {
-        Logger.info("Connecting to Server");
+        logger.info("CONNECT-BUTTON-PRESSED", "Connecting to Server");
         try {
             this.connectToSever();
 
         } catch (IOException ex) {
-            Logger.error("Connecting to server failed!");
+            logger.error("CONNECT-BUTTON-PRESSED", "Connecting to server failed!");
             ex.printStackTrace();
             this.disconnectFromServer();
             JOptionPane.showMessageDialog(this, "Please enter a valid host and port");
@@ -259,7 +259,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
     public void switchToGamePanel() {
         if (!(this.panel instanceof GamePanel)) {
-            Logger.debug("switching to game panel");
+            logger.debug("SWITCH-TO-GAMEPANEL", "switching to game panel");
             this.panel = new GamePanel(this);
             this.model.setGamePanel((GamePanel) this.panel);
             this.updateView(this.panel);
@@ -268,35 +268,35 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 
     public void switchToUnAuthPanel() {
         if(!(this.panel instanceof  UnauthenticatedPanel) || (this.panel instanceof  LobbyPanel && ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) || (this.panel instanceof LoginPanel && this.model.isLoggedIn())){
-            Logger.debug("switching to lobby panel");
+            logger.debug("SWITCH-TO-AUTHPANEL", "switching to lobby panel");
             this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
         }
     }
 
     public void switchToStorePanel() {
         if (!(this.panel instanceof StorePanel)) {
-            Logger.debug("switching to game panel");
+            logger.debug("SWITCH-TO-STOREPANEL", "switching to game panel");
             this.updateView(new StorePanel(this));
         }
     }
 
     public void switchToLobbyPanel() {
         if (!(this.panel instanceof LobbyPanel) || ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) {
-            Logger.debug("switching to lobby panel");
+            logger.debug("SWITCH-TO-LOBBYPANEL", "switching to lobby panel");
             this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
         }
     }
 
     public void switchToLoginPanel() {
         if (!(this.panel instanceof LoginPanel)) {
-            Logger.debug("switching to login panel");
+            logger.debug("SWITCH-TO-LOGINPANEL", "switching to login panel");
             this.updateView(new LoginPanel(this, this.model.getServerName()));
         }
     }
 
     public void switchToStartPanel() {
         if (!(this.panel instanceof StartPanel)) {
-            Logger.debug("switching to start panel");
+            logger.debug("SWITCH-TO-STARTPANEL", "switching to start panel");
             this.updateView(new StartPanel(this));
         }
     }

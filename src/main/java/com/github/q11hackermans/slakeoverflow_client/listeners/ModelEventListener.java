@@ -3,7 +3,7 @@ package com.github.q11hackermans.slakeoverflow_client.listeners;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.constants.ConnectionType;
 import com.github.q11hackermans.slakeoverflow_client.constants.GameState;
-import com.github.q11hackermans.slakeoverflow_client.utility.Logger;
+import com.github.q11hackermans.slakeoverflow_client.utility.OldLogger;
 import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
 import net.jandie1505.connectionmanager.events.CMClientCreatedEvent;
@@ -92,11 +92,11 @@ public class ModelEventListener extends CMListenerAdapter {
                 }
             }
         } catch (JSONException e) {
-            Logger.error("Received data in wrong format. Disconnecting...");
+            OldLogger.error("Received data in wrong format. Disconnecting...");
             e.printStackTrace();
             this.gameModel.gameControllerDisconnect();
         } catch (NumberFormatException e) {
-            Logger.error("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
+            OldLogger.error("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
         }
     }
 
