@@ -1,4 +1,3 @@
-//@blame Joshua3212
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.components.Layout;
