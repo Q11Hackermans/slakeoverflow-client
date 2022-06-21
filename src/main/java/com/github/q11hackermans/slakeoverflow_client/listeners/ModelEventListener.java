@@ -1,8 +1,8 @@
 package com.github.q11hackermans.slakeoverflow_client.listeners;
 
-import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.constants.ConnectionType;
 import com.github.q11hackermans.slakeoverflow_client.constants.GameState;
+import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.utility.OldLogger;
 import net.jandie1505.connectionmanager.CMListenerAdapter;
 import net.jandie1505.connectionmanager.events.CMClientClosedEvent;
@@ -61,9 +61,6 @@ public class ModelEventListener extends CMListenerAdapter {
                             JSONArray jj = (JSONArray) jo;
                             try {
                                 gridData[jj.getInt(0)][jj.getInt(1)] = jj.getInt(2);
-                                if(jj.length() > 3 && jj.getBoolean(3)) {
-                                    this.gameModel.getGamePanel().switchAltMap();
-                                }
                             } catch (IndexOutOfBoundsException ignored) {
                             }
                         }
@@ -112,9 +109,9 @@ public class ModelEventListener extends CMListenerAdapter {
 
         this.gameModel.setAccountId(accountId);
 
-        if ((gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
+        if ((gameStatus == GameState.RUNNING || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();
-        } else if ((!(gameStatus == GameState.RUNNING  || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER)) {
+        } else if ((!(gameStatus == GameState.RUNNING || gameStatus == GameState.PAUSED) || authStatus != ConnectionType.PLAYER)) {
             this.gameModel.gameControllerSwitchToUnAuthPanel();
         }
 

@@ -24,7 +24,6 @@ public class GamePanel extends Panel {
     private JPanel matrixFrame;
     private JLabel map1;
     private JLabel map2;
-    private boolean altMap;
 
 
     // chat
@@ -105,7 +104,6 @@ public class GamePanel extends Panel {
         this.map2 = new JLabel(Assets.MAP2);
         this.map2.setBounds(0, 0, 1200, 800);
 
-        this.altMap = false;
 
         //JLabel jl2 = new JLabel(Assets.ITEM_APPLE);
         //jl2.setBounds(200,200,20,20);
@@ -135,13 +133,10 @@ public class GamePanel extends Panel {
             }
         }
 
-        if (this.altMap) {
-            nextFrame.add(this.map1);
-            nextFrame.add(this.map2);
-        } else {
-            nextFrame.add(this.map2);
-            nextFrame.add(this.map1);
-        }
+
+        nextFrame.add(this.map1);
+        nextFrame.add(this.map2);
+
 
         //nextFrame.add(this.map1);
 
@@ -187,7 +182,4 @@ public class GamePanel extends Panel {
         this.repaint();
     }
 
-    public void switchAltMap() {
-        this.altMap = !this.altMap;
-    }
 }
