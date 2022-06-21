@@ -1,4 +1,3 @@
-//@blame Joshua3212
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.components.Layout;
@@ -42,6 +41,7 @@ public class GamePanel extends Panel {
         this.width = 59; // one smaller than the matrix (60)
         this.height = 39; // one smaller than the matrix (40)
         this.createPanel(actionListener);
+        this.applyNextMessage("");
     }
 
     private void createPanel(ActionListener actionListener) {
@@ -77,8 +77,9 @@ public class GamePanel extends Panel {
         pane.setBackground(
                 Color.BLACK
         );
+
         chat = new JPanel(new GridLayout(11, 0, 0, 0));
-        chat.setPreferredSize(new Dimension(600, 300));
+        chat.setPreferredSize(new Dimension(600, 400));
         chat.setBackground(
                 Colors.OVERLAY_BACKGROUND
         );
@@ -91,8 +92,6 @@ public class GamePanel extends Panel {
         this.matrixFrame = new JPanel();
         add(this.matrixFrame, BorderLayout.CENTER);
         this.matrixFrame.setLayout(new GridLayout(0, 1, 0, 0));
-
-        System.out.println("generated");
 
         JPanel startMapPanel = new JPanel();
         startMapPanel.setLayout(null);
@@ -161,7 +160,11 @@ public class GamePanel extends Panel {
     }
 
     public void applyNextMessage(String msg) {
-        chatMessages.add(msg);
+
+        if (msg != "") {
+            chatMessages.add(msg);
+        }
+
 
         if (chatMessages.size() >= 11) {
             chatMessages.remove(0);
@@ -175,6 +178,13 @@ public class GamePanel extends Panel {
         for (int i = 0; i < chatMessages.size(); i++) {
             this.chat.add(new JLabel(chatMessages.get(i)));
         }
+
+        // add hint for writing a new chat message
+
+        this.chat.add(new JLabel(
+
+                "<html> <font color='#d3d3d3'>(t to write a new message) </font></html>"
+        ));
 
 
         this.chat.repaint();
