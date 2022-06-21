@@ -11,7 +11,7 @@ public abstract class ActionCommands {
     public static final String backToStoreButton = "backToStoreButton";
     public static final String toLoginViewButton = "toLoginViewButton";
     public static final String logoutButton = "logoutButton";
-    public static final  String toStoreViewButton = "toShopViewButton";
-    public static final  String toLobbyButton = "toLobbyButton";
-    public static final  String unAuthPlayer = "unAuthPlayer";
+    public static final String toStoreViewButton = "toShopViewButton";
+    public static final String toLobbyButton = "toLobbyButton";
+    public static final String unAuthPlayer = "unAuthPlayer";
 }
