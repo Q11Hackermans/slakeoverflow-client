@@ -23,6 +23,7 @@ public class GameModel {
     private long accountId;
     private  String serverName;
     private int lastSentKeyInput;
+    private int coinBalance;
 
     private GamePanel gamePanel;
     private GameController gameController;
