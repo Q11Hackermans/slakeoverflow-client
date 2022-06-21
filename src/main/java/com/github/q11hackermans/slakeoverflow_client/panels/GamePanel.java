@@ -59,7 +59,7 @@ public class GamePanel extends Panel {
 
         SButton btnNewButton = new SButton("Back to Lobby");
         btnNewButton.addActionListener(actionListener);
-        btnNewButton.setActionCommand(ActionCommands.backToLobbyButton);
+        btnNewButton.setActionCommand(ActionCommands.unAuthPlayer);
         btnNewButton.setWidth(FULL_WIDTH / 2);
         buttonsPanel.addComponentToColumn(btnNewButton);
 

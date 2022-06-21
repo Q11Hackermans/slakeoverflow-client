@@ -26,7 +26,7 @@ public class LoginPanel extends UnauthenticatedPanel {
 
     private void configureButtons(ActionListener actionListener){
         this.backToLobbyButton.addActionListener(actionListener);
-        this.backToLobbyButton.setActionCommand(ActionCommands.backToLobbyFromLoginButton);
+        this.backToLobbyButton.setActionCommand(ActionCommands.toLobbyButton);
 
         this.loginButton.addActionListener(actionListener);
         this.loginButton.setActionCommand(ActionCommands.loginButton);

@@ -129,10 +129,6 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 //        System.out.println("action");
         switch (e.getActionCommand()) {
             //redirects
-            case ActionCommands.backToLobbyButton:
-                this.backToLobbyPressed();
-                break;
-
             case ActionCommands.toLobbyButton:
                 this.toLobbyButtonPressed();
                 break;
@@ -174,10 +170,6 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 System.out.println("register Server");
                 break;
 
-            case ActionCommands.backToLobbyFromLoginButton:
-                this.backToLobbyFromLoginButtonPressed();
-                break;
-
             case ActionCommands.toLoginViewButton:
                 this.switchToLoginPanel();
                 break;
@@ -190,6 +182,10 @@ public class GameController extends JFrame implements KeyListener, ActionListene
             case ActionCommands.toStoreViewButton:
                 this.switchToStorePanel();
                 System.out.println("Store");
+                break;
+
+            case ActionCommands.unAuthPlayer:
+                this.unAuthPlayerPressed();
                 break;
         }
     }
@@ -249,7 +245,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         this.model.authPlayer(1);
     }
 
-    private void backToLobbyPressed() {
+    private void unAuthPlayerPressed() {
         this.model.authPlayer(0);
     }
 
