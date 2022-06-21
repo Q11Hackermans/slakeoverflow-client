@@ -71,6 +71,22 @@ public class GameModel {
         }
     }
 
+    /**
+     * Send chat message to the server
+     *
+     * @param message
+     */
+    public void sendChatMessage(String message) {
+        try {
+            JSONObject chatObj = new JSONObject();
+            chatObj.put("cmd", "chat");
+            chatObj.put("msg", message);
+            dataIOStreamHandler.writeUTF(chatObj.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void authPlayer(int type) {
         try {
             JSONObject output = new JSONObject();
