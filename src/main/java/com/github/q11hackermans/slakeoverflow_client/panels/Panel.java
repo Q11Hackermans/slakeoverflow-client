@@ -29,4 +29,6 @@ public abstract class Panel extends JPanel {
     public String getPort() {
         return "";
     }
+
+    public abstract boolean isUpToDate(Panel panel);
 }

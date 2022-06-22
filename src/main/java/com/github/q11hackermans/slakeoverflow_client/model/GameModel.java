@@ -17,25 +17,29 @@ import org.json.JSONObject;
 
 public class GameModel {
 
-    private int[][] gameMatrix;
 
-    private int gameStatus;
     private long accountId;
     private  String serverName;
-    private int lastSentKeyInput;
     private int coinBalance;
 
+    private String username;
+
+    private int gameStatus;
+
+    private int lastSentKeyInput;
+    private int[][] gameMatrix;
     private GamePanel gamePanel;
+
     private GameController gameController;
-
     private CMCClient cmcClient;
-    private DataIOStreamHandler dataIOStreamHandler;
 
+    private DataIOStreamHandler dataIOStreamHandler;
 
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
         this.accountId = -1;
         this.serverName = "Slakomania";
+        this.username = "LOADING";
         this.lastSentKeyInput = -1;
         gameMatrix = new int[][]{{0}, {0}};
         this.gamePanel = gamePanel;
@@ -46,58 +50,6 @@ public class GameModel {
         this.dataIOStreamHandler.addEventListener(new ModelEventListener(this));
 
         this.requestServerInfo();
-    }
-
-    /**
-     * Send key presses to the server
-     *
-     * @param nextKey
-     */
-    public void sendKeyInput(int nextKey) {
-        try {
-            if(nextKey != lastSentKeyInput) {
-                //Logger.info("key " + nextKey + " pressed");
-                JSONObject keyObj = new JSONObject();
-                keyObj.put("cmd", "game_direction_change");
-                keyObj.put("direction", nextKey);
-                if (nextKey == Direction.SPEED){
-                    keyObj = new JSONObject();
-                    keyObj.put("cmd", "game_snake_speed_boost");
-                }
-                dataIOStreamHandler.writeUTF(keyObj.toString());
-                lastSentKeyInput = nextKey;
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * Send chat message to the server
-     *
-     * @param message
-     */
-    public void sendChatMessage(String message) {
-        try {
-            JSONObject chatObj = new JSONObject();
-            chatObj.put("cmd", "chat");
-            chatObj.put("msg", message);
-            dataIOStreamHandler.writeUTF(chatObj.toString());
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void authPlayer(int type) {
-        try {
-            JSONObject output = new JSONObject();
-            output.put("cmd", "auth");
-            output.put("type", type);
-            dataIOStreamHandler.writeUTF(output.toString());
-            OldLogger.debug("Auth: " + type);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     public void login(String username, String password) {
@@ -124,6 +76,65 @@ public class GameModel {
 
     public void disconnect() {
         this.cmcClient.close();
+    }
+
+    /**
+     * Send key presses to the server
+     *
+     * @param nextKey
+     */
+    public void sendKeyInput(int nextKey) {
+        try {
+            if(nextKey != lastSentKeyInput) {
+                //Logger.info("key " + nextKey + " pressed");
+                JSONObject keyObj = new JSONObject();
+                keyObj.put("cmd", "game_direction_change");
+                keyObj.put("direction", nextKey);
+                if (nextKey == Direction.SPEED){
+                    keyObj = new JSONObject();
+                    keyObj.put("cmd", "game_snake_speed_boost");
+                }
+                dataIOStreamHandler.writeUTF(keyObj.toString());
+                lastSentKeyInput = nextKey;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void authPlayer(int type) {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "auth");
+            output.put("type", type);
+            dataIOStreamHandler.writeUTF(output.toString());
+            OldLogger.debug("Auth: " + type);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void unauthPlayer() {
+        this.authPlayer(0);
+    }
+
+    public void authPlayer() {
+        this.authPlayer(1);
+    }
+    /**
+     * Send chat message to the server
+     *
+     * @param message
+     */
+    public void sendChatMessage(String message) {
+        try {
+            JSONObject chatObj = new JSONObject();
+            chatObj.put("cmd", "chat");
+            chatObj.put("msg", message);
+            dataIOStreamHandler.writeUTF(chatObj.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void registerAccount(String username, String password) {
@@ -158,7 +169,7 @@ public class GameModel {
         }
     }
 
-    public void gameControllerDisconnect() {
+    public void gameControllerDisconnectError() {
         this.gameController.disconnectFromServerError();
     }
 
@@ -167,7 +178,7 @@ public class GameModel {
     }
 
     public void gameControllerSwitchToUnAuthPanel() {
-        this.gameController.switchToUnAuthPanel();
+        this.gameController.switchToUnauthPanel();
     }
 
     public void gameControllerSwitchToLobbyPanel() {
@@ -180,11 +191,12 @@ public class GameModel {
 
 
 
-    // Getter - Setter
 
+    // Getter - Setter
     public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
+
     /**
      * Receive data from the server
      */
@@ -194,10 +206,10 @@ public class GameModel {
         this.gamePanel.render(gameMatrix);
         this.lastSentKeyInput = -1;
     }
-
     public int[][] getGameMatrix() {
         return gameMatrix;
     }
+
     public boolean isLoggedIn() {
         return accountId > -1;
     }
@@ -220,5 +232,18 @@ public class GameModel {
 
     public GamePanel getGamePanel() {
         return this.gamePanel;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        if (username.equals("")){
+            this.username = "LOADING";
+        }
+        else {
+            this.username = username;
+        }
     }
 }

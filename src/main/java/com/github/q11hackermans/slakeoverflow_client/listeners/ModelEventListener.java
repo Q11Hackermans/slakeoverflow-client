@@ -35,7 +35,7 @@ public class ModelEventListener extends CMListenerAdapter {
         // WAS PASSIEREN SOLL WENN DIE VERBINDUNG ABBRICHT SCHREIBST DU HIER REIN
         event.getClient(); // SO BEKOMMST DU (MAL WIEDER) DEN CLIENT)
         event.getReason(); // SO BEKOMMST DU DEN GRUND WARUM DIE VERBINDUNG GETRENNT WURDE
-        gameModel.gameControllerDisconnect();
+        gameModel.gameControllerDisconnectError();
     }
 
     // DATA IO EVENTS
@@ -83,6 +83,11 @@ public class ModelEventListener extends CMListenerAdapter {
                         this.handleServerInfo(data);
                         break;
 
+                    case "user_info":
+                        this.handleUserInfo(data);
+                        System.out.println(data);
+                        break;
+
                     default:
                         System.out.println(data);
                         break;
@@ -91,7 +96,7 @@ public class ModelEventListener extends CMListenerAdapter {
         } catch (JSONException e) {
             OldLogger.error("Received data in wrong format. Disconnecting...");
             e.printStackTrace();
-            this.gameModel.gameControllerDisconnect();
+            this.gameModel.gameControllerDisconnectError();
         } catch (NumberFormatException e) {
             OldLogger.error("NumberFormatException in data receive Event listener: " + Arrays.toString(e.getStackTrace()));
         }
@@ -99,6 +104,11 @@ public class ModelEventListener extends CMListenerAdapter {
 
     private void handleServerInfo(JSONObject data) {
         this.gameModel.setServerName(data.getJSONObject("server_settings").getString("server_name"));
+        //System.out.println(data);
+    }
+
+    private void handleUserInfo(JSONObject data) {
+        this.gameModel.setUsername(data.getString("account_name"));
         //System.out.println(data);
     }
 

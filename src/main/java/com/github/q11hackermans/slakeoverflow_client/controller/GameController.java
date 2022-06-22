@@ -77,7 +77,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setSize(500, 500);
         j.setExtendedState(JFrame.MAXIMIZED_BOTH);
         j.setVisible(true);
-        LobbyPanel g = new LobbyPanel(null, false);
+        LobbyPanel g = new LobbyPanel(null, null);
         j.add(g);
         j.repaint();
     }
@@ -101,7 +101,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setResizable(false);
         j.setSize(1210, 865);
         j.setVisible(true);
-        LoginPanel g = new LoginPanel(null, "taest");
+        LoginPanel g = new LoginPanel(null, "taest", null);
         j.add(g);
         j.repaint();
     }
@@ -313,11 +313,11 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     private void playButtonPressed() {
-        this.model.authPlayer(1);
+        this.model.authPlayer();
     }
 
     private void unAuthPlayerPressed() {
-        this.model.authPlayer(0);
+        this.model.unauthPlayer();
     }
 
     private void backToStorePressed() {
@@ -333,10 +333,10 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         }
     }
 
-    public void switchToUnAuthPanel() {
-        if (!(this.panel instanceof UnauthenticatedPanel) || (this.panel instanceof LobbyPanel && ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) || (this.panel instanceof LoginPanel && this.model.isLoggedIn())) {
-            logger.debug("SWITCH-TO-AUTHPANEL", "switching to lobby panel");
-            this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
+    public void switchToUnauthPanel() {
+        if (!(this.panel instanceof UnauthenticatedPanel) || (!this.panel.isUpToDate(this.panel))) {
+            logger.debug("SWITCH-TO-UNAUTHPANEL", "switching to lobby panel");
+            this.updateView(new LobbyPanel(this, this.model));
         }
     }
 
@@ -350,14 +350,14 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     public void switchToLobbyPanel() {
         if (!(this.panel instanceof LobbyPanel) || ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) {
             logger.debug("SWITCH-TO-LOBBYPANEL", "switching to lobby panel");
-            this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
+            this.updateView(new LobbyPanel(this, this.model));
         }
     }
 
     public void switchToLoginPanel() {
         if (!(this.panel instanceof LoginPanel)) {
             logger.debug("SWITCH-TO-LOGINPANEL", "switching to login panel");
-            this.updateView(new LoginPanel(this, this.model.getServerName()));
+            this.updateView(new LoginPanel(this, this.model.getServerName(), this.model));
         }
     }
 

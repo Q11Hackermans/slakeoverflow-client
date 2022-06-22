@@ -67,4 +67,9 @@ public class StartPanel extends Panel {
     public String getPort() {
         return port.getText();
     }
+
+    @Override
+    public boolean isUpToDate(Panel panel) {
+        return true;
+    }
 }

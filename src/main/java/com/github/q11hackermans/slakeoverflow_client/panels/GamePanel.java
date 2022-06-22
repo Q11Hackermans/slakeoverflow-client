@@ -1,3 +1,4 @@
+//@blame Joshua3212
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.components.Layout;
@@ -165,31 +166,27 @@ public class GamePanel extends Panel {
             chatMessages.add(msg);
         }
 
-
         if (chatMessages.size() >= 11) {
             chatMessages.remove(0);
         }
 
-
         //remove all current messages
         this.chat.removeAll();
-
 
         for (int i = 0; i < chatMessages.size(); i++) {
             this.chat.add(new JLabel(chatMessages.get(i)));
         }
 
         // add hint for writing a new chat message
-
-        this.chat.add(new JLabel(
-
-                "<html> <font color='#d3d3d3'>(t to write a new message) </font></html>"
-        ));
-
+        this.chat.add(new JLabel("<html> <font color='#d3d3d3'>(t to write a new message) </font></html>"));
 
         this.chat.repaint();
         this.pane.repaint();
         this.repaint();
     }
 
+    @Override
+    public boolean isUpToDate(Panel panel) {
+        return panel.getClass() == this.getClass();
+    }
 }

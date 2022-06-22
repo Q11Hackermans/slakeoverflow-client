@@ -204,4 +204,9 @@ public class StorePanel extends UnauthenticatedPanel {
         add(creatorCodeButton, gbc_creatorCodeButton);
 
     }
+
+    @Override
+    public boolean isUpToDate(Panel panel) {
+        return false;
+    }
 }
