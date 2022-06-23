@@ -1,25 +1,42 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
+import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
+import com.github.q11hackermans.slakeoverflow_client.model.ShopItem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class StorePanel extends UnauthenticatedPanel {
 
+    private String creatorCode;
+    private int coinBalance;
+    private int activeItem;
+    private HashMap<Integer, ShopItem> items;
+
+    private JPanel itemPanel;
     private JTextField creatorCodeTextField;
     private JButton backToLobbyBtn;
     private JLabel accountBalanceLabel;
     private JButton creatorCodeButton;
+    private GameModel gameModel;
+    private ActionListener actionListener;
 
-    public StorePanel(ActionListener actionListener) {
+
+    public StorePanel(ActionListener actionListener, GameModel gameModel) {
+        this.gameModel = gameModel;
+        this.actionListener = actionListener;
+        this.getGameModelData();
         this.configureJPanel();
-        this.configureJButtons(actionListener);
+        this.configureJButtons();
+        this.gameModel.requestUserInfo();
     }
 
-    private void configureJButtons(ActionListener actionListener){
-        this.backToLobbyBtn.addActionListener(actionListener);
+    private void configureJButtons(){
+        this.backToLobbyBtn.addActionListener(this.actionListener);
         this.backToLobbyBtn.setActionCommand(ActionCommands.toLobbyButton);
     }
 
@@ -42,7 +59,7 @@ public class StorePanel extends UnauthenticatedPanel {
         gbc_backToLobbyBtn.gridy = 0;
         add(backToLobbyBtn, gbc_backToLobbyBtn);
 
-        accountBalanceLabel = new JLabel("Balance: 500 Coins");
+        accountBalanceLabel = new JLabel("Balance: " + this.coinBalance + " Coins");
         accountBalanceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         accountBalanceLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
         GridBagConstraints gbc_accountBalanceLabel = new GridBagConstraints();
@@ -53,6 +70,7 @@ public class StorePanel extends UnauthenticatedPanel {
         add(accountBalanceLabel, gbc_accountBalanceLabel);
 
         JScrollPane itemsScrollPanel = new JScrollPane();
+        itemsScrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         itemsScrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         GridBagConstraints gbc_itemsScrollPanel = new GridBagConstraints();
         gbc_itemsScrollPanel.gridwidth = 4;
@@ -63,116 +81,11 @@ public class StorePanel extends UnauthenticatedPanel {
         add(itemsScrollPanel, gbc_itemsScrollPanel);
 
         JPanel panel = new JPanel();
+        this.itemPanel = panel;
         itemsScrollPanel.setViewportView(panel);
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JPanel panel_1 = new JPanel();
-        panel.add(panel_1);
-        GridBagLayout gbl_panel_1 = new GridBagLayout();
-        gbl_panel_1.columnWidths = new int[]{19, 408, 133, 450, 32, 45, 0};
-        gbl_panel_1.rowHeights = new int[]{335, 0, 0};
-        gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-        gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-        panel_1.setLayout(gbl_panel_1);
-
-        JLabel lblNewLabel_1 = new JLabel("New label");
-        GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-        gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTHWEST;
-        gbc_lblNewLabel_1.gridwidth = 4;
-        gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-        gbc_lblNewLabel_1.gridx = 1;
-        gbc_lblNewLabel_1.gridy = 0;
-        panel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
-
-        JLabel lblNewLabel_2 = new JLabel("Default - Price: 500 Coins");
-        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-        gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel_2.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel_2.gridx = 3;
-        gbc_lblNewLabel_2.gridy = 1;
-        panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
-
-        JButton btnNewButton_2 = new JButton("Selected");
-        btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-        gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
-        gbc_btnNewButton_2.gridx = 4;
-        gbc_btnNewButton_2.gridy = 1;
-        panel_1.add(btnNewButton_2, gbc_btnNewButton_2);
-
-        JPanel panel_2 = new JPanel();
-        panel.add(panel_2);
-        GridBagLayout gbl_panel_2 = new GridBagLayout();
-        gbl_panel_2.columnWidths = new int[]{19, 408, 133, 450, 32, 45, 0};
-        gbl_panel_2.rowHeights = new int[]{335, 0, 0};
-        gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-        gbl_panel_2.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-        panel_2.setLayout(gbl_panel_2);
-
-        JLabel lblNewLabel_1_1 = new JLabel("New label");
-        GridBagConstraints gbc_lblNewLabel_1_1 = new GridBagConstraints();
-        gbc_lblNewLabel_1_1.anchor = GridBagConstraints.NORTHWEST;
-        gbc_lblNewLabel_1_1.gridwidth = 4;
-        gbc_lblNewLabel_1_1.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel_1_1.gridx = 1;
-        gbc_lblNewLabel_1_1.gridy = 0;
-        panel_2.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
-
-        JLabel lblNewLabel_2_1 = new JLabel("Pro - Price: 5000 Coins");
-        lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-        GridBagConstraints gbc_lblNewLabel_2_1 = new GridBagConstraints();
-        gbc_lblNewLabel_2_1.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel_2_1.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel_2_1.gridx = 3;
-        gbc_lblNewLabel_2_1.gridy = 1;
-        panel_2.add(lblNewLabel_2_1, gbc_lblNewLabel_2_1);
-
-        JButton btnNewButton_2_1 = new JButton("Buy");
-        btnNewButton_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        GridBagConstraints gbc_btnNewButton_2_1 = new GridBagConstraints();
-        gbc_btnNewButton_2_1.insets = new Insets(0, 0, 0, 5);
-        gbc_btnNewButton_2_1.gridx = 4;
-        gbc_btnNewButton_2_1.gridy = 1;
-        panel_2.add(btnNewButton_2_1, gbc_btnNewButton_2_1);
-
-        JPanel panel_3 = new JPanel();
-        panel.add(panel_3);
-        GridBagLayout gbl_panel_3 = new GridBagLayout();
-        gbl_panel_3.columnWidths = new int[]{19, 408, 133, 450, 32, 45, 0};
-        gbl_panel_3.rowHeights = new int[]{335, 0, 0};
-        gbl_panel_3.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-        gbl_panel_3.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-        panel_3.setLayout(gbl_panel_3);
-
-        JLabel lblNewLabel_1_2 = new JLabel("New label");
-        GridBagConstraints gbc_lblNewLabel_1_2 = new GridBagConstraints();
-        gbc_lblNewLabel_1_2.anchor = GridBagConstraints.NORTHWEST;
-        gbc_lblNewLabel_1_2.gridwidth = 4;
-        gbc_lblNewLabel_1_2.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel_1_2.gridx = 1;
-        gbc_lblNewLabel_1_2.gridy = 0;
-        panel_3.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
-
-        JLabel lblNewLabel_2_2 = new JLabel("ULTRA - Price: 50000 Coins");
-        lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-        GridBagConstraints gbc_lblNewLabel_2_2 = new GridBagConstraints();
-        gbc_lblNewLabel_2_2.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel_2_2.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel_2_2.gridx = 3;
-        gbc_lblNewLabel_2_2.gridy = 1;
-        panel_3.add(lblNewLabel_2_2, gbc_lblNewLabel_2_2);
-
-        JButton btnNewButton_2_2 = new JButton("Buy");
-        btnNewButton_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        GridBagConstraints gbc_btnNewButton_2_2 = new GridBagConstraints();
-        gbc_btnNewButton_2_2.insets = new Insets(0, 0, 0, 5);
-        gbc_btnNewButton_2_2.gridx = 4;
-        gbc_btnNewButton_2_2.gridy = 1;
-        panel_3.add(btnNewButton_2_2, gbc_btnNewButton_2_2);
+        this.configureItemPanel();
 
         JLabel creatorCode = new JLabel("Creatorcode:");
         creatorCode.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -202,11 +115,95 @@ public class StorePanel extends UnauthenticatedPanel {
         gbc_creatorCodeButton.gridx = 4;
         gbc_creatorCodeButton.gridy = 3;
         add(creatorCodeButton, gbc_creatorCodeButton);
+    }
 
+    private void configureItemPanel(){
+        this.items.forEach((id, it) -> {
+            JPanel panel_1 = new JPanel();
+            this.itemPanel.add(panel_1);
+            GridBagLayout gbl_panel_1 = new GridBagLayout();
+            gbl_panel_1.columnWidths = new int[]{19, 408, 133, 450, 32, 45, 0};
+            gbl_panel_1.rowHeights = new int[]{335, 0, 0};
+            gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+            gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+            panel_1.setLayout(gbl_panel_1);
+
+            JLabel lblNewLabel_1 = new JLabel("Pack Overview - here - PNG");
+            GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+            gbc_lblNewLabel_1.gridwidth = 4;
+            gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+            gbc_lblNewLabel_1.gridx = 1;
+            gbc_lblNewLabel_1.gridy = 0;
+            panel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
+
+            JLabel lblNewLabel_0 = new JLabel("ID - " + it.getId());
+            lblNewLabel_0.setFont(new Font("Tahoma", Font.BOLD, 10));
+            GridBagConstraints gbc_lblNewLabel_0 = new GridBagConstraints();
+            gbc_lblNewLabel_0.anchor = GridBagConstraints.WEST;
+            gbc_lblNewLabel_0.insets = new Insets(0, 0, 0, 5);
+            gbc_lblNewLabel_0.gridx = 1;
+            gbc_lblNewLabel_0.gridy = 1;
+            panel_1.add(lblNewLabel_0, gbc_lblNewLabel_0);
+
+            JLabel lblNewLabel_2 = new JLabel("Item - Price: " + it.getPrice() + " Coins");
+            lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+            lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+            GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+            gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
+            gbc_lblNewLabel_2.insets = new Insets(0, 0, 0, 5);
+            gbc_lblNewLabel_2.gridx = 3;
+            gbc_lblNewLabel_2.gridy = 1;
+            panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
+
+            JButton btnNewButton_1 = new JButton();
+
+            if (this.activeItem == id){
+                btnNewButton_1.setText("Selected");
+            } else if (it.getOwned()){
+                btnNewButton_1.setText("Owned");
+            } else {
+                btnNewButton_1.setText("Buy");
+            }
+            btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
+            btnNewButton_1.setActionCommand(it.getButtonActionCommand());
+            btnNewButton_1.addActionListener(this.actionListener);
+
+            GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+            gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
+            gbc_btnNewButton_1.gridx = 4;
+            gbc_btnNewButton_1.gridy = 1;
+            panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
+        });
+    }
+
+    private void getGameModelData(){
+        this.items = (HashMap<Integer, ShopItem>) this.gameModel.getItems();
+        this.activeItem = this.gameModel.getActiveItem();
+        this.coinBalance = this.gameModel.getCoinBalance();
+    }
+
+    public String getCreatorCode() {
+        return creatorCode;
+    }
+
+    public int getCoinBalance() {
+        return coinBalance;
+    }
+
+    public int getActiveItem() {
+        return activeItem;
+    }
+
+    public HashMap<Integer, ShopItem> getItems() {
+        return items;
     }
 
     @Override
     public boolean isUpToDate(Panel panel) {
+        if (panel.getClass() == this.getClass()){
+            return Objects.equals(((StorePanel) panel).getActiveItem(), this.gameModel.getActiveItem()) && Objects.equals(((StorePanel) panel).getCoinBalance(), this.gameModel.getCoinBalance()) && Objects.equals(((StorePanel) panel).getItems(), this.gameModel.getItems());
+        }
         return false;
     }
 }

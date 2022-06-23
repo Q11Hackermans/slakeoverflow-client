@@ -16,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Dimension2D;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class GameController extends JFrame implements KeyListener, ActionListener {
@@ -34,7 +35,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         this.switchToStartPanel();
     }
 
-    public static void main(String[] args) throws IOException { // mvn clean install -U - resolve dependencies
+    public static void main(String[] args) { // mvn clean install -U - resolve dependencies
         new GameController();
         //GameController.testGamePanel(); // Test GamePanel
         //GameController.testLobbyPanel(); // Test LobbyPanel
@@ -89,7 +90,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setResizable(false);
         j.setSize(1210, 865);
         j.setVisible(true);
-        StorePanel g = new StorePanel(null);
+        StorePanel g = new StorePanel(null, null);
         j.add(g);
         j.repaint();
     }
@@ -259,7 +260,29 @@ public class GameController extends JFrame implements KeyListener, ActionListene
             case ActionCommands.unAuthPlayer:
                 this.unAuthPlayerPressed();
                 break;
+
+            default:
+                if (!this.handleShopActionCommand(e.getActionCommand(), e)){
+                System.out.println(e.getActionCommand());
+            }
         }
+    }
+
+    private boolean handleShopActionCommand(String actionCommand, ActionEvent e){
+        if (actionCommand.contains("shopItemButton")) {
+            String[] splitCommand = actionCommand.split("-");
+            System.out.println(splitCommand[0] + " " + splitCommand[1] + " " + splitCommand[2]);
+            if(Objects.equals(splitCommand[2], "1")){
+                this.model.setActiveItem(Integer.parseInt(splitCommand[1]));
+            } else if (Objects.equals(splitCommand[2], "0")){
+                this.model.buyItem(Integer.parseInt(splitCommand[1]));
+                JButton b = (JButton) e.getSource();
+                b.setText("LOADING");
+                this.model.requestUserInfo();
+            }
+            return true;
+        }
+        return false;
     }
 
     public void resizeJFrame(int xSize, int ySize) {
@@ -336,14 +359,18 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     public void switchToUnauthPanel() {
         if (!(this.panel instanceof UnauthenticatedPanel) || (!this.panel.isUpToDate(this.panel))) {
             logger.debug("SWITCH-TO-UNAUTHPANEL", "switching to lobby panel");
-            this.updateView(new LobbyPanel(this, this.model));
+            if (this.panel instanceof StorePanel) {
+                this.updateView(new StorePanel(this, this.model));
+            } else {
+                this.updateView(new LobbyPanel(this, this.model));
+            }
         }
     }
 
     public void switchToStorePanel() {
         if (!(this.panel instanceof StorePanel)) {
             logger.debug("SWITCH-TO-STOREPANEL", "switching to game panel");
-            this.updateView(new StorePanel(this));
+            this.updateView(new StorePanel(this, this.model));
         }
     }
 
@@ -376,7 +403,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     public void disconnectFromServerError() {
-        if (!disconnecting) {
+        if (!disconnecting && this.model != null) {
             JOptionPane.showMessageDialog(this, "Your were disconnected from the server!", "Connection Error", JOptionPane.ERROR_MESSAGE);
             this.disconnectFromServer();
         }

@@ -1,7 +1,7 @@
 package com.github.q11hackermans.slakeoverflow_client.model;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
@@ -21,6 +21,8 @@ public class GameModel {
     private long accountId;
     private  String serverName;
     private int coinBalance;
+    private int activeItem;
+    private Map<Integer, ShopItem> items;
 
     private String username;
 
@@ -29,10 +31,9 @@ public class GameModel {
     private int lastSentKeyInput;
     private int[][] gameMatrix;
     private GamePanel gamePanel;
-
     private GameController gameController;
-    private CMCClient cmcClient;
 
+    private CMCClient cmcClient;
     private DataIOStreamHandler dataIOStreamHandler;
 
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
@@ -40,10 +41,15 @@ public class GameModel {
         this.accountId = -1;
         this.serverName = "Slakomania";
         this.username = "LOADING";
+        this.items = new HashMap<>();
+        this.items.put(0, new ShopItem(0, 0, true));
+        this.activeItem = 0;
+
         this.lastSentKeyInput = -1;
         gameMatrix = new int[][]{{0}, {0}};
         this.gamePanel = gamePanel;
         this.gameController = gameController;
+
         this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener(this)));
         cmcClient.getInputStream().setTimeInterval(2);
         this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.MULTI_STREAM_HANDLER_CONSUMING);
@@ -121,6 +127,7 @@ public class GameModel {
     public void authPlayer() {
         this.authPlayer(1);
     }
+
     /**
      * Send chat message to the server
      *
@@ -136,7 +143,6 @@ public class GameModel {
             ex.printStackTrace();
         }
     }
-
     public void registerAccount(String username, String password) {
         try {
             JSONObject output = new JSONObject();
@@ -169,6 +175,17 @@ public class GameModel {
         }
     }
 
+    public void buyItem(int id) {
+        try {
+            JSONObject output = new JSONObject();
+            output.put("cmd", "shop_purchase");
+            output.put("item", id);
+            dataIOStreamHandler.writeUTF(output.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void gameControllerDisconnectError() {
         this.gameController.disconnectFromServerError();
     }
@@ -193,10 +210,10 @@ public class GameModel {
 
 
     // Getter - Setter
+
     public void setGamePanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
-
     /**
      * Receive data from the server
      */
@@ -206,10 +223,10 @@ public class GameModel {
         this.gamePanel.render(gameMatrix);
         this.lastSentKeyInput = -1;
     }
+
     public int[][] getGameMatrix() {
         return gameMatrix;
     }
-
     public boolean isLoggedIn() {
         return accountId > -1;
     }
@@ -245,5 +262,44 @@ public class GameModel {
         else {
             this.username = username;
         }
+    }
+
+    public int getCoinBalance() {
+        return coinBalance;
+    }
+
+    public void setCoinBalance(int coinBalance) {
+        this.coinBalance = coinBalance;
+    }
+
+    public int getActiveItem() {
+        return activeItem;
+    }
+
+    public void setActiveItem(int activeItem) {
+        this.activeItem = activeItem;
+    }
+
+    public Map<Integer, ShopItem> getItems() {
+        return items;
+    }
+
+    public void setItemPrices(Map<Integer, Integer> itemPrices) {
+        itemPrices.forEach((id, price) -> {
+            this.items.put(id, new ShopItem(price, id));
+        });
+        System.out.println(items.toString());
+    }
+
+    public void setOwnedItems(ArrayList<Integer> ownedItems) {
+        this.items.forEach((k, v) -> {
+            if (k > 0) {
+                v.setOwned(false);
+            }
+        });
+        ownedItems.forEach(i -> {
+            this.items.get(i).setOwned(true);
+        });
+        System.out.println(this.items.toString());
     }
 }

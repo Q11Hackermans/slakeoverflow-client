@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ModelEventListener extends CMListenerAdapter {
 
@@ -85,7 +85,6 @@ public class ModelEventListener extends CMListenerAdapter {
 
                     case "user_info":
                         this.handleUserInfo(data);
-                        System.out.println(data);
                         break;
 
                     default:
@@ -104,12 +103,28 @@ public class ModelEventListener extends CMListenerAdapter {
 
     private void handleServerInfo(JSONObject data) {
         this.gameModel.setServerName(data.getJSONObject("server_settings").getString("server_name"));
-        //System.out.println(data);
+
+        JSONObject shopItems = data.getJSONObject("shop_items");
+        HashMap<Integer, Integer> itemPrices = new HashMap<>();
+        Set<String> items = shopItems.keySet();
+        items.forEach(it -> {
+            itemPrices.put(Integer.valueOf(it), shopItems.getJSONObject(it).getInt("price"));
+        });
+        this.gameModel.setItemPrices(itemPrices);
+
+        System.out.println(data);
     }
 
     private void handleUserInfo(JSONObject data) {
+        System.out.println(data);
         this.gameModel.setUsername(data.getString("account_name"));
-        //System.out.println(data);
+        this.gameModel.setCoinBalance(data.getInt("account_balance"));
+        JSONArray jsonHasItems = data.getJSONArray("shopData");
+        ArrayList<Integer> hasItems = new ArrayList<>();
+        for(int i = 0; i < jsonHasItems.length(); i ++){
+            hasItems.add(Integer.valueOf(jsonHasItems.get(i).toString()));
+        }
+        this.gameModel.setOwnedItems(hasItems);
     }
 
     private void handleStatusMessage(JSONObject data) {
