@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.CTA_HEIGHT;
 import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.FULL_WIDTH;
@@ -162,23 +163,23 @@ public class GamePanel extends Panel {
 
     public void applyNextMessage(String msg) {
 
-        if (msg != "") {
+        if (!Objects.equals(msg, "") && msg.length() < 20) {
             chatMessages.add(msg);
         }
 
-        if (chatMessages.size() >= 11) {
+        if (chatMessages.size() >= 7) {
             chatMessages.remove(0);
         }
 
         //remove all current messages
         this.chat.removeAll();
 
-        for (int i = 0; i < chatMessages.size(); i++) {
-            this.chat.add(new JLabel(chatMessages.get(i)));
+        for (int i = chatMessages.size() - 1; i >= 0; i--) {
+            this.chat.add(new JLabel("<html> <font color='#d3d3d3'>" + chatMessages.get(i) + "</font></html>"));
         }
 
         // add hint for writing a new chat message
-        this.chat.add(new JLabel("<html> <font color='#d3d3d3'>(t to write a new message) </font></html>"));
+        this.chat.add(new JLabel("<html> <font color='#d3d3d3'>(t to write a new message)</font></html>"));
 
         this.chat.repaint();
         this.pane.repaint();

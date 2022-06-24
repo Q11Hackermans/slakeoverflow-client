@@ -87,6 +87,10 @@ public class ModelEventListener extends CMListenerAdapter {
                         this.handleUserInfo(data);
                         break;
 
+                    case "message":
+                        this.gameModel.addChatMessage(data.getString("msg"));
+                        break;
+
                     default:
                         System.out.println(data);
                         break;

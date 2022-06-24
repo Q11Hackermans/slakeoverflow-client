@@ -206,6 +206,11 @@ public class GameModel {
         this.gameController.switchToLoginPanel();
     }
 
+    public void addChatMessage(String msg){
+        if (this.gamePanel != null){
+            this.gamePanel.applyNextMessage(msg);
+        }
+    }
 
 
 
