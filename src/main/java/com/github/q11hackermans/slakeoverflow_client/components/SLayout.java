@@ -3,7 +3,7 @@ package com.github.q11hackermans.slakeoverflow_client.components;
 import javax.swing.*;
 import java.awt.*;
 
-public class Layout extends JPanel {
+public class SLayout extends JPanel {
 
 
     private int gapX = 0;
@@ -11,7 +11,7 @@ public class Layout extends JPanel {
     private int columns = 0;
     private int rows = 1;
 
-    public Layout(int width, int height) {
+    public SLayout(int width, int height) {
         this.updateLayout();
         this.setBackground(Color.red);
         this.setPreferredSize(

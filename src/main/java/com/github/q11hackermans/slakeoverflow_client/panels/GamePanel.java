@@ -1,7 +1,7 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
-import com.github.q11hackermans.slakeoverflow_client.components.Layout;
 import com.github.q11hackermans.slakeoverflow_client.components.SButton;
+import com.github.q11hackermans.slakeoverflow_client.components.SLayout;
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 import com.github.q11hackermans.slakeoverflow_client.utility.Colors;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.CTA_HEIGHT;
-import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.FULL_WIDTH;
+import static com.github.q11hackermans.slakeoverflow_client.components.SComponents.CTA_HEIGHT;
+import static com.github.q11hackermans.slakeoverflow_client.components.SComponents.FULL_WIDTH;
 
 public class GamePanel extends Panel {
 
@@ -56,7 +56,7 @@ public class GamePanel extends Panel {
         panel.setLayout(new BorderLayout(0, 0));
 
         // buttons
-        Layout buttonsPanel = new Layout(FULL_WIDTH, CTA_HEIGHT * 2); // *5 makes the button a bit taller
+        SLayout buttonsPanel = new SLayout(FULL_WIDTH, CTA_HEIGHT * 2); // *5 makes the button a bit taller
 
         SButton btnNewButton = new SButton("Back to Lobby");
         btnNewButton.addActionListener(actionListener);

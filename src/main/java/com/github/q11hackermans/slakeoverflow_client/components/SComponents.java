@@ -1,4 +1,4 @@
-package com.github.q11hackermans.slakeoverflow_client.utility;
+package com.github.q11hackermans.slakeoverflow_client.components;
 
 import java.awt.*;
 
