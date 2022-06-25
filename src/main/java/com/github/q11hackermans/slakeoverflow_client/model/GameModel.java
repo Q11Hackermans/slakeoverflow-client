@@ -1,40 +1,38 @@
 package com.github.q11hackermans.slakeoverflow_client.model;
 
-import java.io.IOException;
-import java.util.*;
-
 import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
 import com.github.q11hackermans.slakeoverflow_client.listeners.ModelEventListener;
 import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
 import com.github.q11hackermans.slakeoverflow_client.utility.OldLogger;
 import net.jandie1505.connectionmanager.client.CMCClient;
-
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamType;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOType;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class GameModel {
 
 
+    private final Map<Integer, ShopItem> items;
+    private final int gameStatus;
+    private final GameController gameController;
+    private final CMCClient cmcClient;
+    private final DataIOStreamHandler dataIOStreamHandler;
     private long accountId;
-    private  String serverName;
+    private String serverName;
     private int coinBalance;
     private int activeItem;
-    private Map<Integer, ShopItem> items;
-
     private String username;
-
-    private int gameStatus;
-
     private int lastSentKeyInput;
     private int[][] gameMatrix;
     private GamePanel gamePanel;
-    private GameController gameController;
-
-    private CMCClient cmcClient;
-    private DataIOStreamHandler dataIOStreamHandler;
 
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
@@ -91,12 +89,12 @@ public class GameModel {
      */
     public void sendKeyInput(int nextKey) {
         try {
-            if(nextKey != lastSentKeyInput) {
+            if (nextKey != lastSentKeyInput) {
                 //Logger.info("key " + nextKey + " pressed");
                 JSONObject keyObj = new JSONObject();
                 keyObj.put("cmd", "game_direction_change");
                 keyObj.put("direction", nextKey);
-                if (nextKey == Direction.SPEED){
+                if (nextKey == Direction.SPEED) {
                     keyObj = new JSONObject();
                     keyObj.put("cmd", "game_snake_speed_boost");
                 }
@@ -134,6 +132,7 @@ public class GameModel {
      * @param message
      */
     public void sendChatMessage(String message) {
+        System.out.println(message);
         try {
             JSONObject chatObj = new JSONObject();
             chatObj.put("cmd", "chat");
@@ -143,6 +142,7 @@ public class GameModel {
             ex.printStackTrace();
         }
     }
+
     public void registerAccount(String username, String password) {
         try {
             JSONObject output = new JSONObject();
@@ -206,32 +206,29 @@ public class GameModel {
         this.gameController.switchToLoginPanel();
     }
 
-    public void addChatMessage(String msg){
-        if (this.gamePanel != null){
+    public void addChatMessage(String msg) {
+        if (this.gamePanel != null) {
             this.gamePanel.applyNextMessage(msg);
         }
     }
 
 
-
     // Getter - Setter
 
-    public void setGamePanel(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public int[][] getGameMatrix() {
+        return gameMatrix;
     }
+
     /**
      * Receive data from the server
      */
     public void setGameMatrix(int[][] gridData) {
         //Logger.info("matrix data set");
         gameMatrix = gridData;
-        this.gamePanel.render(gameMatrix);
+        this.gamePanel.render(gameMatrix, getActiveItem());
         this.lastSentKeyInput = -1;
     }
 
-    public int[][] getGameMatrix() {
-        return gameMatrix;
-    }
     public boolean isLoggedIn() {
         return accountId > -1;
     }
@@ -256,15 +253,18 @@ public class GameModel {
         return this.gamePanel;
     }
 
+    public void setGamePanel(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        if (username.equals("")){
+        if (username.equals("")) {
             this.username = "LOADING";
-        }
-        else {
+        } else {
             this.username = username;
         }
     }
@@ -305,6 +305,6 @@ public class GameModel {
         ownedItems.forEach(i -> {
             this.items.get(i).setOwned(true);
         });
-        System.out.println(this.items.toString());
+        System.out.println(this.items);
     }
 }

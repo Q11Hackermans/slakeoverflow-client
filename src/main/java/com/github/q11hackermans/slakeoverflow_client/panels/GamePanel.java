@@ -118,7 +118,7 @@ public class GamePanel extends Panel {
 
     // RENDERING
 
-    public void render(int[][] fields) {
+    public void render(int[][] fields, int activeItem) {
         //System.out.println(Arrays.deepToString(fields));
 
         JPanel nextFrame = new JPanel();
@@ -126,7 +126,7 @@ public class GamePanel extends Panel {
         for (int x = 0; x < fields.length; x++) {
             for (int y = 0; y < fields[0].length; y++) {
                 if (fields[x][y] > 0) {
-                    JLabel nextSprite = new JLabel(Assets.getSpriteFromCode(fields[x][y]));
+                    JLabel nextSprite = new JLabel(Assets.getSpriteFromCode(fields[x][y], activeItem)); //TODO: change skinpack
                     nextSprite.setBounds((x * 20), (y * 20), 20, 20);
                     nextFrame.add(nextSprite);
                 }

@@ -53,7 +53,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setLayout(new BorderLayout());
         GamePanel g = new GamePanel(null);
         j.add(g);
-        g.render(new int[][]{{101}, {101}});
+        g.render(new int[][]{{101}, {101}}, 0); //uses first skinpack
         g.applyNextMessage(
                 "Message 1"
         );
@@ -63,7 +63,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         );
         try {
             TimeUnit.SECONDS.sleep(2);
-            g.render(new int[][]{{102, 101}, {102, 101}});
+            g.render(new int[][]{{102, 101}, {102, 101}}, 0);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -262,19 +262,19 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 break;
 
             default:
-                if (!this.handleShopActionCommand(e.getActionCommand(), e)){
-                System.out.println(e.getActionCommand());
-            }
+                if (!this.handleShopActionCommand(e.getActionCommand(), e)) {
+                    System.out.println(e.getActionCommand());
+                }
         }
     }
 
-    private boolean handleShopActionCommand(String actionCommand, ActionEvent e){
+    private boolean handleShopActionCommand(String actionCommand, ActionEvent e) {
         if (actionCommand.contains("shopItemButton")) {
             String[] splitCommand = actionCommand.split("-");
             System.out.println(splitCommand[0] + " " + splitCommand[1] + " " + splitCommand[2]);
-            if(Objects.equals(splitCommand[2], "1")){
+            if (Objects.equals(splitCommand[2], "1")) {
                 this.model.setActiveItem(Integer.parseInt(splitCommand[1]));
-            } else if (Objects.equals(splitCommand[2], "0")){
+            } else if (Objects.equals(splitCommand[2], "0")) {
                 this.model.buyItem(Integer.parseInt(splitCommand[1]));
                 JButton b = (JButton) e.getSource();
                 b.setText("LOADING");
