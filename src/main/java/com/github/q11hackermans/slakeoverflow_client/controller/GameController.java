@@ -1,36 +1,30 @@
 package com.github.q11hackermans.slakeoverflow_client.controller;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Dimension2D;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.panels.Panel;
+import com.github.q11hackermans.slakeoverflow_client.panels.*;
 import de.d3rhase.interfaces.Logger;
 import de.d3rhase.txtlogger.TxtLogger;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.geom.Dimension2D;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class GameController extends JFrame implements KeyListener, ActionListener {
+    public static Logger logger;
     private Panel panel;
     private GameModel model;
-
     private boolean disconnecting;
-    public static Logger logger;
 
-
-    public static void main(String[] args) throws IOException { // mvn clean install -U - resolve dependencies
-        new GameController();
-        //GameController.testGamePanel(); // Test GamePanel
-        //GameController.testLobbyPanel(); // Test LobbyPanel
-        //GameController.testStorePanel(); // Test LobbyPanel
-        //GameController.testLoginPanel(); // Test LoginPanel
-    }
 
     public GameController() {
         logger = new TxtLogger("GameController", true);
@@ -39,6 +33,78 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         configureJFrame();
 
         this.switchToStartPanel();
+    }
+
+    public static void main(String[] args) { // mvn clean install -U - resolve dependencies
+        new GameController();
+        //GameController.testGamePanel(); // Test GamePanel
+        //GameController.testLobbyPanel(); // Test LobbyPanel
+        //GameController.testStorePanel(); // Test StorePanel
+        //GameController.testLoginPanel(); // Test LoginPanel
+    }
+
+    private static void testGamePanel() {
+        JFrame j = new JFrame();
+        j.setTitle("Slakeoverflow");
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(true);
+        j.setSize(1210, 865);
+        j.setVisible(true);
+        j.setLayout(new BorderLayout());
+        GamePanel g = new GamePanel(null);
+        j.add(g);
+        g.render(new int[][]{{101}, {101}});
+        g.applyNextMessage(
+                "Message 1"
+        );
+
+        g.applyNextMessage(
+                "message 2  "
+        );
+        try {
+            TimeUnit.SECONDS.sleep(2);
+            g.render(new int[][]{{102, 101}, {102, 101}});
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        j.repaint();
+    }
+
+    private static void testLobbyPanel() {
+        JFrame j = new JFrame();
+        j.setTitle("Slakeoverflow");
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(true);
+        j.setSize(500, 500);
+        j.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        j.setVisible(true);
+        LobbyPanel g = new LobbyPanel(null, null);
+        j.add(g);
+        j.repaint();
+    }
+
+    private static void testStorePanel() {
+        JFrame j = new JFrame();
+        j.setTitle("Slakeoverflow");
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(false);
+        j.setSize(1210, 865);
+        j.setVisible(true);
+        StorePanel g = new StorePanel(null, null);
+        j.add(g);
+        j.repaint();
+    }
+
+    private static void testLoginPanel() {
+        JFrame j = new JFrame();
+        j.setTitle("Slakeoverflow");
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(false);
+        j.setSize(1210, 865);
+        j.setVisible(true);
+        LoginPanel g = new LoginPanel(null, "taest", null);
+        j.add(g);
+        j.repaint();
     }
 
     private void configureJFrame() {
@@ -113,7 +179,14 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 nextKey = Direction.SPEED;
                 break;
 
+            case 84:
+                // show chat message popup
+                String msg;
+                msg = JOptionPane.showInputDialog("Enter a chat message");
+                model.sendChatMessage(msg);
+
             default:
+
                 logger.info("HANDLE-KEY-INPUT", "key not found");
                 //System.out.println(e);
                 break;
@@ -129,10 +202,6 @@ public class GameController extends JFrame implements KeyListener, ActionListene
 //        System.out.println("action");
         switch (e.getActionCommand()) {
             //redirects
-            case ActionCommands.backToLobbyButton:
-                this.backToLobbyPressed();
-                break;
-
             case ActionCommands.toLobbyButton:
                 this.toLobbyButtonPressed();
                 break;
@@ -174,10 +243,6 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 System.out.println("register Server");
                 break;
 
-            case ActionCommands.backToLobbyFromLoginButton:
-                this.backToLobbyFromLoginButtonPressed();
-                break;
-
             case ActionCommands.toLoginViewButton:
                 this.switchToLoginPanel();
                 break;
@@ -191,9 +256,34 @@ public class GameController extends JFrame implements KeyListener, ActionListene
                 this.switchToStorePanel();
                 System.out.println("Store");
                 break;
+
+            case ActionCommands.unAuthPlayer:
+                this.unAuthPlayerPressed();
+                break;
+
+            default:
+                if (!this.handleShopActionCommand(e.getActionCommand(), e)){
+                System.out.println(e.getActionCommand());
+            }
         }
     }
 
+    private boolean handleShopActionCommand(String actionCommand, ActionEvent e){
+        if (actionCommand.contains("shopItemButton")) {
+            String[] splitCommand = actionCommand.split("-");
+            System.out.println(splitCommand[0] + " " + splitCommand[1] + " " + splitCommand[2]);
+            if(Objects.equals(splitCommand[2], "1")){
+                this.model.setActiveItem(Integer.parseInt(splitCommand[1]));
+            } else if (Objects.equals(splitCommand[2], "0")){
+                this.model.buyItem(Integer.parseInt(splitCommand[1]));
+                JButton b = (JButton) e.getSource();
+                b.setText("LOADING");
+                this.model.requestUserInfo();
+            }
+            return true;
+        }
+        return false;
+    }
 
     public void resizeJFrame(int xSize, int ySize) {
         this.setSize(xSize, ySize);
@@ -216,19 +306,19 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         this.switchToLobbyPanel();
     }
 
-    private void registerButtonPressed(){
+    private void registerButtonPressed() {
         this.model.registerAccount(this.panel.getUsername(), this.panel.getPasswordHash());
     }
 
-    private void toLobbyButtonPressed(){
+    private void toLobbyButtonPressed() {
         this.switchToLobbyPanel();
     }
 
-    private void loginButtonPressed(){
+    private void loginButtonPressed() {
         this.model.login(this.panel.getUsername(), this.panel.getPasswordHash());
     }
 
-    private void logoutButtonPressed(){
+    private void logoutButtonPressed() {
         this.model.logout();
     }
 
@@ -246,11 +336,11 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     private void playButtonPressed() {
-        this.model.authPlayer(1);
+        this.model.authPlayer();
     }
 
-    private void backToLobbyPressed() {
-        this.model.authPlayer(0);
+    private void unAuthPlayerPressed() {
+        this.model.unauthPlayer();
     }
 
     private void backToStorePressed() {
@@ -266,31 +356,35 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         }
     }
 
-    public void switchToUnAuthPanel() {
-        if(!(this.panel instanceof  UnauthenticatedPanel) || (this.panel instanceof  LobbyPanel && ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) || (this.panel instanceof LoginPanel && this.model.isLoggedIn())){
-            logger.debug("SWITCH-TO-AUTHPANEL", "switching to lobby panel");
-            this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
+    public void switchToUnauthPanel() {
+        if (!(this.panel instanceof UnauthenticatedPanel) || (!this.panel.isUpToDate(this.panel))) {
+            logger.debug("SWITCH-TO-UNAUTHPANEL", "switching to lobby panel");
+            if (this.panel instanceof StorePanel) {
+                this.updateView(new StorePanel(this, this.model));
+            } else {
+                this.updateView(new LobbyPanel(this, this.model));
+            }
         }
     }
 
     public void switchToStorePanel() {
         if (!(this.panel instanceof StorePanel)) {
             logger.debug("SWITCH-TO-STOREPANEL", "switching to game panel");
-            this.updateView(new StorePanel(this));
+            this.updateView(new StorePanel(this, this.model));
         }
     }
 
     public void switchToLobbyPanel() {
         if (!(this.panel instanceof LobbyPanel) || ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) {
             logger.debug("SWITCH-TO-LOBBYPANEL", "switching to lobby panel");
-            this.updateView(new LobbyPanel(this, this.model.isLoggedIn()));
+            this.updateView(new LobbyPanel(this, this.model));
         }
     }
 
     public void switchToLoginPanel() {
         if (!(this.panel instanceof LoginPanel)) {
             logger.debug("SWITCH-TO-LOGINPANEL", "switching to login panel");
-            this.updateView(new LoginPanel(this, this.model.getServerName()));
+            this.updateView(new LoginPanel(this, this.model.getServerName(), this.model));
         }
     }
 
@@ -309,14 +403,14 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     public void disconnectFromServerError() {
-        if (!disconnecting) {
+        if (!disconnecting && this.model != null) {
             JOptionPane.showMessageDialog(this, "Your were disconnected from the server!", "Connection Error", JOptionPane.ERROR_MESSAGE);
             this.disconnectFromServer();
         }
     }
 
     private void disconnectFromServer() {
-        if(!disconnecting) {
+        if (!disconnecting) {
             this.disconnecting = true;
             try {
                 this.model.disconnect();
@@ -327,67 +421,5 @@ public class GameController extends JFrame implements KeyListener, ActionListene
             this.disconnecting = false;
             this.switchToStartPanel();
         }
-    }
-
-    private static void testGamePanel() {
-        JFrame j = new JFrame();
-        j.setTitle("Slakeoverflow");
-        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setResizable(true);
-        j.setSize(1210, 865);
-        j.setVisible(true);
-        j.setLayout(new BorderLayout());
-        GamePanel g = new GamePanel(null);
-        j.add(g);
-        g.render(new int[][]{{101}, {101}});
-        g.applyNextMessage(
-                "Message 1"
-        );
-
-        g.applyNextMessage(
-                "message 2  "
-        );
-        try {
-            TimeUnit.SECONDS.sleep(2);
-            g.render(new int[][]{{102, 101}, {102, 101}});
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void testLobbyPanel() {
-        JFrame j = new JFrame();
-        j.setTitle("Slakeoverflow");
-        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setResizable(true);
-        j.setSize(500, 500);
-        j.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        j.setVisible(true);
-        LobbyPanel g = new LobbyPanel(null,false);
-        j.add(g);
-    }
-
-
-    private static void testStorePanel() {
-        JFrame j = new JFrame();
-        j.setTitle("Slakeoverflow");
-        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setResizable(true);
-        j.setSize(500, 500);
-        j.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        j.setVisible(true);
-        StorePanel g = new StorePanel(null);
-        j.add(g);
-    }
-
-    private static void testLoginPanel() {
-        JFrame j = new JFrame();
-        j.setTitle("Slakeoverflow");
-        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setResizable(true);
-        j.setSize(500, 500);
-        j.setVisible(true);
-        LoginPanel g = new LoginPanel(null, "taest");
-        j.add(g);
     }
 }

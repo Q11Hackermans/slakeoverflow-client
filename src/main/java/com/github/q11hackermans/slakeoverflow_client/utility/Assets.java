@@ -3,6 +3,7 @@
 package com.github.q11hackermans.slakeoverflow_client.utility;
 
 import javax.swing.*;
+import java.awt.*;
 
 public abstract class Assets {
 
@@ -98,6 +99,53 @@ public abstract class Assets {
                 return ITEM_FOOD;
             case ITEM_SUPER_FOOD_ID:
                 return ITEM_SUPER_FOOD;
+
+            default:
+                return null;
+        }
+        
+    }
+
+    public static ImageIcon getSpriteFromCode(int code, int skinPack) {
+
+        switch (code) {
+
+            // MAP
+            case BORDER_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/border.png" );
+
+            // OWN PLAYER
+            case PLAYER_HEAD_OWN_NORTH_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_own_north.png" );
+            case PLAYER_HEAD_OWN_SOUTH_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_own_south.png" );
+            case PLAYER_HEAD_OWN_EAST_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_own_east.png" );
+            case PLAYER_HEAD_OWN_WEST_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_own_west.png" );
+            case PLAYER_BODY_OWN_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_body_own.png" );
+
+
+            // OTHER PLAYER
+            case PLAYER_HEAD_OTHER_NORTH_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_other_north.png" );
+            case PLAYER_HEAD_OTHER_SOUTH_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_other_south.png" );
+            case PLAYER_HEAD_OTHER_EAST_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_other_east.png" );
+            case PLAYER_HEAD_OTHER_WEST_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_head_other_west.png" );
+            case PLAYER_BODY_OTHER_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/player_body_other.png" );
+
+            // ITEMS
+            case ITEM_UNKNOWN_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/border.png" );
+            case ITEM_FOOD_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/item_food.png" );
+            case ITEM_SUPER_FOOD_ID:
+                return new ImageIcon("assets/skins/" + skinPack +"/item_super_food.png" );
 
             default:
                 return null;

@@ -1,6 +1,7 @@
 package com.github.q11hackermans.slakeoverflow_client.panels;
 
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
+import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,25 +9,28 @@ import java.awt.event.ActionListener;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class LoginPanel extends UnauthenticatedPanel {
 
     private JButton loginButton;
     private JButton registerButton;
     private JButton backToLobbyButton;
+    private GameModel gameModel;
 
     private JFormattedTextField usernameField;
     private JPasswordField passwordField;
 
 
-    public LoginPanel(ActionListener actionListener, String serverName) {
+    public LoginPanel(ActionListener actionListener, String serverName, GameModel gameModel) {
+        this.gameModel = gameModel;
         this.configureJPanel(serverName);
         this.configureButtons(actionListener);
     }
 
     private void configureButtons(ActionListener actionListener){
         this.backToLobbyButton.addActionListener(actionListener);
-        this.backToLobbyButton.setActionCommand(ActionCommands.backToLobbyFromLoginButton);
+        this.backToLobbyButton.setActionCommand(ActionCommands.toLobbyButton);
 
         this.loginButton.addActionListener(actionListener);
         this.loginButton.setActionCommand(ActionCommands.loginButton);
@@ -166,4 +170,11 @@ public class LoginPanel extends UnauthenticatedPanel {
         return "";
     }
 
+    @Override
+    public boolean isUpToDate(Panel panel) {
+        if (panel.getClass() == this.getClass()){
+            return !(this.gameModel.isLoggedIn());
+        }
+        return false;
+    }
 }

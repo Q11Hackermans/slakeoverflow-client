@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.CTA_HEIGHT;
 import static com.github.q11hackermans.slakeoverflow_client.utility.SComponents.FULL_WIDTH;
@@ -23,7 +24,6 @@ public class GamePanel extends Panel {
     private JPanel matrixFrame;
     private JLabel map1;
     private JLabel map2;
-    private boolean altMap;
 
 
     // chat
@@ -42,6 +42,7 @@ public class GamePanel extends Panel {
         this.width = 59; // one smaller than the matrix (60)
         this.height = 39; // one smaller than the matrix (40)
         this.createPanel(actionListener);
+        this.applyNextMessage("");
     }
 
     private void createPanel(ActionListener actionListener) {
@@ -59,7 +60,7 @@ public class GamePanel extends Panel {
 
         SButton btnNewButton = new SButton("Back to Lobby");
         btnNewButton.addActionListener(actionListener);
-        btnNewButton.setActionCommand(ActionCommands.backToLobbyButton);
+        btnNewButton.setActionCommand(ActionCommands.unAuthPlayer);
         btnNewButton.setWidth(FULL_WIDTH / 2);
         buttonsPanel.addComponentToColumn(btnNewButton);
 
@@ -77,8 +78,9 @@ public class GamePanel extends Panel {
         pane.setBackground(
                 Color.BLACK
         );
+
         chat = new JPanel(new GridLayout(11, 0, 0, 0));
-        chat.setPreferredSize(new Dimension(600, 300));
+        chat.setPreferredSize(new Dimension(600, 400));
         chat.setBackground(
                 Colors.OVERLAY_BACKGROUND
         );
@@ -92,8 +94,6 @@ public class GamePanel extends Panel {
         add(this.matrixFrame, BorderLayout.CENTER);
         this.matrixFrame.setLayout(new GridLayout(0, 1, 0, 0));
 
-        System.out.println("generated");
-
         JPanel startMapPanel = new JPanel();
         startMapPanel.setLayout(null);
 
@@ -104,7 +104,6 @@ public class GamePanel extends Panel {
         this.map2 = new JLabel(Assets.MAP2);
         this.map2.setBounds(0, 0, 1200, 800);
 
-        this.altMap = false;
 
         //JLabel jl2 = new JLabel(Assets.ITEM_APPLE);
         //jl2.setBounds(200,200,20,20);
@@ -134,13 +133,10 @@ public class GamePanel extends Panel {
             }
         }
 
-        if (this.altMap) {
-            nextFrame.add(this.map1);
-            nextFrame.add(this.map2);
-        } else {
-            nextFrame.add(this.map2);
-            nextFrame.add(this.map1);
-        }
+
+        nextFrame.add(this.map1);
+        nextFrame.add(this.map2);
+
 
         //nextFrame.add(this.map1);
 
@@ -165,28 +161,32 @@ public class GamePanel extends Panel {
     }
 
     public void applyNextMessage(String msg) {
-        chatMessages.add(msg);
 
-        if (chatMessages.size() >= 11) {
-            chatMessages.remove(0);
+        if (!Objects.equals(msg, "") && msg.length() < 20) {
+            chatMessages.add(msg);
         }
 
+        if (chatMessages.size() >= 7) {
+            chatMessages.remove(0);
+        }
 
         //remove all current messages
         this.chat.removeAll();
 
-
-        for (int i = 0; i < chatMessages.size(); i++) {
-            this.chat.add(new JLabel(chatMessages.get(i)));
+        for (int i = chatMessages.size() - 1; i >= 0; i--) {
+            this.chat.add(new JLabel("<html> <font color='#d3d3d3'>" + chatMessages.get(i) + "</font></html>"));
         }
 
+        // add hint for writing a new chat message
+        this.chat.add(new JLabel("<html> <font color='#d3d3d3'>(t to write a new message)</font></html>"));
 
         this.chat.repaint();
         this.pane.repaint();
         this.repaint();
     }
 
-    public void switchAltMap() {
-        this.altMap = !this.altMap;
+    @Override
+    public boolean isUpToDate(Panel panel) {
+        return panel.getClass() == this.getClass();
     }
 }

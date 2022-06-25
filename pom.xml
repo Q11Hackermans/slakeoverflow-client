@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.github.jandie1505</groupId>
             <artifactId>ConnectionManager</artifactId>
-            <version>b78ec83c08</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.D3rHase</groupId>
