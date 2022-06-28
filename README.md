@@ -32,7 +32,7 @@
 ![Shop Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/ShopPanelExample.png)
 
 ### Spiel Fenster:
-![Game Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/GamePanelExample.png)
+![Game Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/GamePanelExample.jpg)
 
 ### Chat:
 **Press "t" inside the GamePanel to use the chat**
