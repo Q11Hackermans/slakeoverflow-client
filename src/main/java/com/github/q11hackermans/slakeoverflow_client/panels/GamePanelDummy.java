@@ -7,7 +7,6 @@ public class GamePanelDummy extends GamePanel {
     }
 
 
-    @Override
     public void render(int[][] fields, int activeItem) {
     }
 }
