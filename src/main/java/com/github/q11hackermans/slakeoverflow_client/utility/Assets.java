@@ -9,32 +9,12 @@ public abstract class Assets {
     /// SPRITES
 
     // MAP
+
+    //todo: remov e map 1/2
     public static final ImageIcon MAP1 = new ImageIcon("assets/map.png");
     public static final ImageIcon MAP2 = new ImageIcon("assets/map2.png");
-    public static final ImageIcon BORDER = new ImageIcon("assets/border.png");
-
-    // OWN PLAYER
-    public static final ImageIcon PLAYER_HEAD_OWN_NORTH = new ImageIcon("assets/player_head_own_north.png");
-    public static final ImageIcon PLAYER_HEAD_OWN_SOUTH = new ImageIcon("assets/player_head_own_south.png");
-    public static final ImageIcon PLAYER_HEAD_OWN_EAST = new ImageIcon("assets/player_head_own_east.png");
-    public static final ImageIcon PLAYER_HEAD_OWN_WEST = new ImageIcon("assets/player_head_own_west.png");
-    public static final ImageIcon PLAYER_BODY_OWN = new ImageIcon("assets/player_body_own.png");
-
-    // OTHER PLAYERS
-    public static final ImageIcon PLAYER_HEAD_OTHER_NORTH = new ImageIcon("assets/player_head_other_north.png");
-    public static final ImageIcon PLAYER_HEAD_OTHER_SOUTH = new ImageIcon("assets/player_head_other_south.png");
-    public static final ImageIcon PLAYER_HEAD_OTHER_EAST = new ImageIcon("assets/player_head_other_east.png");
-    public static final ImageIcon PLAYER_HEAD_OTHER_WEST = new ImageIcon("assets/player_head_other_west.png");
-    public static final ImageIcon PLAYER_BODY_OTHER = new ImageIcon("assets/player_body_enemy.png");
-
-    // ITEMS
-    public static final ImageIcon ITEM_UNKNOWN = new ImageIcon("assets/item_food.png");
-    public static final ImageIcon ITEM_FOOD = new ImageIcon("assets/item_food.png");
-    public static final ImageIcon ITEM_SUPER_FOOD = new ImageIcon("assets/item_super_food.png");
-
 
     // MAP
-    public static final int MAP_ID = 0;
     public static final int BORDER_ID = 1;
 
     // OWN PLAYER
@@ -57,60 +37,19 @@ public abstract class Assets {
     public static final int ITEM_SUPER_FOOD_ID = 503; // This item will be dropped when a player dies
 
 
-    public static ImageIcon getSpriteFromCode(int code) {
-
-        switch (code) {
-
-            // MAP
-            case BORDER_ID:
-                return BORDER;
-
-            // OWN PLAYER
-            case PLAYER_HEAD_OWN_NORTH_ID:
-                return PLAYER_HEAD_OWN_NORTH;
-            case PLAYER_HEAD_OWN_SOUTH_ID:
-                return PLAYER_HEAD_OWN_SOUTH;
-            case PLAYER_HEAD_OWN_EAST_ID:
-                return PLAYER_HEAD_OWN_EAST;
-            case PLAYER_HEAD_OWN_WEST_ID:
-                return PLAYER_HEAD_OWN_WEST;
-            case PLAYER_BODY_OWN_ID:
-                return PLAYER_BODY_OWN;
-
-            // OTHER PLAYERS
-            case PLAYER_HEAD_OTHER_NORTH_ID:
-                return PLAYER_HEAD_OTHER_NORTH;
-            case PLAYER_HEAD_OTHER_SOUTH_ID:
-                return PLAYER_HEAD_OTHER_SOUTH;
-            case PLAYER_HEAD_OTHER_EAST_ID:
-                return PLAYER_HEAD_OTHER_EAST;
-            case PLAYER_HEAD_OTHER_WEST_ID:
-                return PLAYER_HEAD_OTHER_WEST;
-            case PLAYER_BODY_OTHER_ID:
-                return PLAYER_BODY_OTHER;
-
-            // ITEMS
-            case ITEM_UNKNOWN_ID:
-                return ITEM_UNKNOWN;
-            case ITEM_FOOD_ID:
-                return ITEM_FOOD;
-            case ITEM_SUPER_FOOD_ID:
-                return ITEM_SUPER_FOOD;
-
-            default:
-                return null;
-        }
-
+    public static ImageIcon getMap1(int skinPack){
+        return new ImageIcon("assets/skins/"+ skinPack + "/map1.png");
     }
+
+
+    public static ImageIcon getMap2(int skinPack){
+        return new ImageIcon("assets/skins/"+ skinPack + "/map2.png");
+    }
+
 
     public static ImageIcon getSpriteFromCode(int code, int skinPack) {
 
         switch (code) {
-
-
-            // MAP
-            case MAP_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/map.png");
 
 
             // BORDER
