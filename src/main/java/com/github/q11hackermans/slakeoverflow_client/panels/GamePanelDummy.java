@@ -5,8 +5,4 @@ public class GamePanelDummy extends GamePanel {
     public GamePanelDummy() {
 
     }
-
-
-    public void render(int[][] fields, int activeItem) {
-    }
 }
