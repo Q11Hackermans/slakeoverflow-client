@@ -29,11 +29,18 @@ public class StartPanel extends Panel {
         button.addActionListener(actionListener);
         button.setActionCommand(ActionCommands.connectButtonPressed);
 
-        this.add(new JLabel("Host"));
+        JLabel slakeLabel = new JLabel("SlakeOverflow");
+        slakeLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+        this.add(slakeLabel);
+
+        JLabel hostLabel = new JLabel("Host:");
+        hostLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
+        this.add(hostLabel);
         this.add(host);
 
-
-        this.add(new JLabel("Port"));
+        JLabel portLabel = new JLabel("Port:");
+        portLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
+        this.add(portLabel);
         this.add(port);
         this.add(button);
         this.configureJPanel();
