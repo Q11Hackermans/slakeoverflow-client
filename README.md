@@ -26,7 +26,7 @@
 ![Login Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LoginPanelExample.png)
 
 ### Lobby Fenster:
-![Lobby Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LobbyPanel0Example.png)
+![Lobby Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LobbyPanel0Example.jpg)
 
 ### Shop Fenster:
 ![Shop Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/ShopPanelExample.png)
