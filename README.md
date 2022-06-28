@@ -19,20 +19,20 @@
 
 ## Anleitung:
 
-### Start Fenster:
+### Start-Panel:
 ![Start Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/StartPanelExample.png)
 
-### Login Fenster:
+### Login-Panel:
 ![Login Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LoginPanelExample.png)
 
-### Lobby Fenster:
+### Lobby-Panel:
 ![Lobby Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LobbyPanel0Example.jpg)
 ![Lobby Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LobbyPanel2Example.jpg)
 
-### Shop Fenster:
+### Shop-Panel:
 ![Shop Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/ShopPanelExample.png)
 
-### Spiel Fenster:
+### Spiel-Panel:
 ![Game Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/GamePanelExample.jpg)
 
 ### Chat:
