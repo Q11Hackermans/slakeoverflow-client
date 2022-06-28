@@ -19,14 +19,20 @@
 
 ## Anleitung:
 
-#### Start Fenster:
+### Start Fenster:
+![Start Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/StartPanelExample.png)
 
-#### Lobby Fenster:
+### Login Fenster:
+![Login Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LoginPanelExample.png)
 
-#### Login Fenster:
+### Lobby Fenster:
+![Lobby Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/LobbyPanel0Example.png)
 
-#### Shop Fenster:
+### Shop Fenster:
+![Shop Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/ShopPanelExample.png)
 
-#### Spiel Fenster:
+### Spiel Fenster:
+![Game Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/GamePanelExample.png)
 
-#### Chat:
+### Chat:
+**Press "t" inside the GamePanel to use the chat**
