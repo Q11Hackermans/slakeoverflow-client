@@ -51,9 +51,9 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         j.setSize(1210, 865);
         j.setVisible(true);
         j.setLayout(new BorderLayout());
-        GamePanel g = new GamePanel(null);
+        GamePanel g = new GamePanel(null,0);
         j.add(g);
-        g.render(new int[][]{{101}, {101}}, 0); //uses first skinpack
+        g.render(new int[][]{{101}, {101}}); //uses first skinpack
         g.applyNextMessage(
                 "Message 1"
         );
@@ -63,7 +63,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         );
         try {
             TimeUnit.SECONDS.sleep(2);
-            g.render(new int[][]{{102, 101}, {102, 101}}, 0);
+            g.render(new int[][]{{102, 101}, {102, 101}});
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -350,7 +350,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     public void switchToGamePanel() {
         if (!(this.panel instanceof GamePanel)) {
             logger.debug("SWITCH-TO-GAMEPANEL", "switching to game panel");
-            this.panel = new GamePanel(this);
+            this.panel = new GamePanel(this, model.getActiveItem());
             this.model.setGamePanel((GamePanel) this.panel);
             this.updateView(this.panel);
         }

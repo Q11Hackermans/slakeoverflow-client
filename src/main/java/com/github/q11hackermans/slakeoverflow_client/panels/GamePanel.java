@@ -18,6 +18,7 @@ import static com.github.q11hackermans.slakeoverflow_client.components.SComponen
 
 public class GamePanel extends Panel {
 
+    private int activeItem;
     private JPanel currentFrame = null;
     private JPanel lastFrame = null;
 
@@ -38,7 +39,8 @@ public class GamePanel extends Panel {
 
     }
 
-    public GamePanel(ActionListener actionListener) {
+    public GamePanel(ActionListener actionListener, int activeItem) {
+        this.activeItem = activeItem;
         this.width = 59; // one smaller than the matrix (60)
         this.height = 39; // one smaller than the matrix (40)
         this.createPanel(actionListener);
@@ -97,11 +99,11 @@ public class GamePanel extends Panel {
         JPanel startMapPanel = new JPanel();
         startMapPanel.setLayout(null);
 
-        this.map1 = new JLabel(Assets.MAP1);
+        this.map1 = new JLabel(Assets.getMap1(activeItem));
         this.map1.setBounds(0, 0, 1200, 800);
         startMapPanel.add(this.map1, 0, 0);
 
-        this.map2 = new JLabel(Assets.MAP2);
+        this.map2 = new JLabel(Assets.getMap2(activeItem));
         this.map2.setBounds(0, 0, 1200, 800);
 
 
@@ -118,7 +120,7 @@ public class GamePanel extends Panel {
 
     // RENDERING
 
-    public void render(int[][] fields, int activeItem) {
+    public void render(int[][] fields) {
         //System.out.println(Arrays.deepToString(fields));
 
         JPanel nextFrame = new JPanel();
@@ -126,7 +128,7 @@ public class GamePanel extends Panel {
         for (int x = 0; x < fields.length; x++) {
             for (int y = 0; y < fields[0].length; y++) {
                 if (fields[x][y] > 0) {
-                    JLabel nextSprite = new JLabel(Assets.getSpriteFromCode(fields[x][y], activeItem)); //TODO: change skinpack
+                    JLabel nextSprite = new JLabel(Assets.getSpriteFromCode(fields[x][y], activeItem));
                     nextSprite.setBounds((x * 20), (y * 20), 20, 20);
                     nextFrame.add(nextSprite);
                 }
