@@ -17,7 +17,7 @@
 
 ## Anleitung:
 
-#### Login Fenster:
+#### Start Fenster:
 
 #### Lobby Fenster:
 
