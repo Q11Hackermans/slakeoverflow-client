@@ -75,8 +75,8 @@ public class ModelEventListener extends CMListenerAdapter {
                         this.handleStatusMessage(data);
                         break;
 
-                    case "ready":
-                        System.out.println("FERERERERETIG");
+                    case "server_ready":
+                        this.gameModel.requestServerInfo();
                         break;
 
                     case "server_info":

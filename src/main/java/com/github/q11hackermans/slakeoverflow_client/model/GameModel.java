@@ -38,6 +38,7 @@ public class GameModel {
         this.gameStatus = 0;
         this.accountId = -1;
         this.serverName = "Slakomania";
+        this.coinBalance = 0;
         this.username = "LOADING";
         this.items = new HashMap<>();
         this.items.put(0, new ShopItem(0, 0, true));
@@ -52,8 +53,6 @@ public class GameModel {
         cmcClient.getInputStream().setTimeInterval(2);
         this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.MULTI_STREAM_HANDLER_CONSUMING);
         this.dataIOStreamHandler.addEventListener(new ModelEventListener(this));
-
-        this.requestServerInfo();
     }
 
     public void login(String username, String password) {

@@ -20,6 +20,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private JLabel balanceLabel;
     private JTextField updatePwdField;
     private JTextField updatePwdConfirmField;
+    private JMenuBar settingsBar;
     private GameModel gameModel;
 
     private String usernameLabelText;
@@ -59,6 +60,8 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
             this.shopPanelButton.setActionCommand(ActionCommands.toStoreViewButton);
             this.shopPanelButton.setVisible(true);
+
+            this.settingsBar.setVisible(true);
         } else {
             this.logInOutButton.setText("Login");
             this.logInOutButton.setActionCommand(ActionCommands.toLoginViewButton);
@@ -66,6 +69,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
             this.usernameLabel.setVisible(false);
             this.balanceLabel.setVisible(false);
             this.shopPanelButton.setVisible(false);
+            this.settingsBar.setVisible(false);
         }
     }
 
@@ -100,14 +104,14 @@ public class LobbyPanel extends UnauthenticatedPanel {
         gbc_panel.gridy = 0;
         add(panel, gbc_panel);
 
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        panel.add(menuBar);
+        settingsBar = new JMenuBar();
+        settingsBar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        panel.add(settingsBar);
 
         JMenu mnNewMenu = new JMenu("Account");
         mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
         mnNewMenu.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        menuBar.add(mnNewMenu);
+        settingsBar.add(mnNewMenu);
 
         JPanel panel_1 = new JPanel();
         panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -165,7 +169,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
         JMenu mnNewMenu_1 = new JMenu("General");
         mnNewMenu_1.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        menuBar.add(mnNewMenu_1);
+        settingsBar.add(mnNewMenu_1);
 
         JCheckBoxMenuItem chckbxmntmNewCheckItem = new JCheckBoxMenuItem("Fixed FOV");
         chckbxmntmNewCheckItem.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -192,12 +196,12 @@ public class LobbyPanel extends UnauthenticatedPanel {
         add(panel_2, gbc_panel_2);
         panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 
-        usernameLabel = new JLabel("Username: NAME");
+        usernameLabel = new JLabel(this.usernameLabelText);
         usernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel_2.add(usernameLabel);
 
-        balanceLabel = new JLabel("Balance: 9999999 Coins");
+        balanceLabel = new JLabel(this.coinBalanceLabelText);
         balanceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel_2.add(balanceLabel);
@@ -244,7 +248,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
     }
 
-    private void getGameModelData(){
+    private void getGameModelData() {
         this.coinBalanceLabelText = ("Balance: " + this.gameModel.getCoinBalance() + " Coins");
         this.usernameLabelText = ("Logged in as: " + this.gameModel.getUsername());
         this.loginButtonVisible = this.gameModel.isLoggedIn();
