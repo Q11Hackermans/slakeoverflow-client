@@ -36,3 +36,5 @@
 
 ### Chat:
 **Press "t" inside the GamePanel to use the chat**
+
+### HAVE FUN!!!
