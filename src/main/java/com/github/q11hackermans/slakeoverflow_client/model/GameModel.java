@@ -53,6 +53,8 @@ public class GameModel {
         cmcClient.getInputStream().setTimeInterval(2);
         this.dataIOStreamHandler = new DataIOStreamHandler(cmcClient, DataIOType.UTF, DataIOStreamType.MULTI_STREAM_HANDLER_CONSUMING);
         this.dataIOStreamHandler.addEventListener(new ModelEventListener(this));
+
+        this.requestServerInfo();
     }
 
     public void login(String username, String password) {

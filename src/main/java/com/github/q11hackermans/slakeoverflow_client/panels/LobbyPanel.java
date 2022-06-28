@@ -16,10 +16,13 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private JButton disconnect;
     private JButton logInOutButton;
     private JButton shopPanelButton;
+    private JButton sendChatMessageBtn;
     private JLabel usernameLabel;
     private JLabel balanceLabel;
+    private JPanel chatMsgPanel;
     private JTextField updatePwdField;
     private JTextField updatePwdConfirmField;
+    private JTextField chatField;
     private JMenuBar settingsBar;
     private GameModel gameModel;
 
@@ -80,10 +83,10 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private void configureJPanel() {
 
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{171, 42, 12, 69, 10, 22, 12, 0};
-        gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -166, 221, 0};
+        gridBagLayout.columnWidths = new int[]{171, 42, 12, 69, 10, 22, 15, 0};
+        gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -166, 221, 0, 0};
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
 
         disconnect = new JButton("Disconnect");
@@ -208,15 +211,17 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
         JPanel panel_3 = new JPanel();
         GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-        gbc_panel_3.gridheight = 9;
+        gbc_panel_3.gridheight = 10;
         gbc_panel_3.gridwidth = 5;
         gbc_panel_3.insets = new Insets(0, 0, 5, 5);
         gbc_panel_3.fill = GridBagConstraints.BOTH;
         gbc_panel_3.gridx = 1;
         gbc_panel_3.gridy = 3;
         add(panel_3, gbc_panel_3);
+        panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 
         JLabel lblNewLabel_3 = new JLabel("Irgendwas?");
+        lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
         panel_3.add(lblNewLabel_3);
 
         playerMode = new JButton("Join as Player");
@@ -245,6 +250,34 @@ public class LobbyPanel extends UnauthenticatedPanel {
         gbc_btnJoinAsSpectator.gridx = 5;
         gbc_btnJoinAsSpectator.gridy = 14;
         add(spectatorMode, gbc_btnJoinAsSpectator);
+
+        chatMsgPanel = new JPanel();
+        chatMsgPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+        GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+        gbc_panel_4.gridwidth = 5;
+        gbc_panel_4.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_4.fill = GridBagConstraints.BOTH;
+        gbc_panel_4.gridx = 1;
+        gbc_panel_4.gridy = 15;
+        add(chatMsgPanel, gbc_panel_4);
+
+        chatField = new JTextField();
+        GridBagConstraints gbc_textField = new GridBagConstraints();
+        gbc_textField.gridwidth = 5;
+        gbc_textField.insets = new Insets(0, 0, 0, 5);
+        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textField.gridx = 1;
+        gbc_textField.gridy = 16;
+        add(chatField, gbc_textField);
+        chatField.setColumns(10);
+
+        sendChatMessageBtn = new JButton("Send Message");
+        sendChatMessageBtn.setHorizontalAlignment(SwingConstants.TRAILING);
+        GridBagConstraints gbc_btnNewButton1 = new GridBagConstraints();
+        gbc_btnNewButton1.anchor = GridBagConstraints.WEST;
+        gbc_btnNewButton1.gridx = 6;
+        gbc_btnNewButton1.gridy = 16;
+        add(sendChatMessageBtn, gbc_btnNewButton1);
 
     }
 
