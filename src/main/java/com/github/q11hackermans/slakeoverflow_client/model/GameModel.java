@@ -224,7 +224,7 @@ public class GameModel {
     public void setGameMatrix(int[][] gridData) {
         //Logger.info("matrix data set");
         gameMatrix = gridData;
-        this.gamePanel.render(gameMatrix, getActiveItem());
+        this.gamePanel.render(gameMatrix);
         this.lastSentKeyInput = -1;
     }
 
