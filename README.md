@@ -20,9 +20,9 @@
 ### Start Fenster:
 ![Start Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/StartPanelExample.png)
 
-### Lobby Fenster:
-
 ### Login Fenster:
+
+### Lobby Fenster:
 
 ### Shop Fenster:
 
