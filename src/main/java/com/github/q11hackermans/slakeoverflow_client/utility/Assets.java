@@ -6,15 +6,7 @@ import javax.swing.*;
 
 public abstract class Assets {
 
-    /// SPRITES
 
-    // MAP
-
-    //todo: remov e map 1/2
-    public static final ImageIcon MAP1 = new ImageIcon("assets/map.png");
-    public static final ImageIcon MAP2 = new ImageIcon("assets/map2.png");
-
-    // MAP
     public static final int BORDER_ID = 1;
 
     // OWN PLAYER
@@ -37,13 +29,8 @@ public abstract class Assets {
     public static final int ITEM_SUPER_FOOD_ID = 503; // This item will be dropped when a player dies
 
 
-    public static ImageIcon getMap1(int skinPack){
-        return new ImageIcon("assets/skins/"+ skinPack + "/map1.png");
-    }
-
-
-    public static ImageIcon getMap2(int skinPack){
-        return new ImageIcon("assets/skins/"+ skinPack + "/map2.png");
+    public static ImageIcon getMap(int skinPack) {
+        return new ImageIcon("assets/skins/" + skinPack + "/map.png");
     }
 
 

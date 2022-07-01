@@ -24,7 +24,6 @@ public class GamePanel extends Panel {
 
     private JPanel matrixFrame;
     private JLabel map1;
-    private JLabel map2;
 
 
     // chat
@@ -99,12 +98,9 @@ public class GamePanel extends Panel {
         JPanel startMapPanel = new JPanel();
         startMapPanel.setLayout(null);
 
-        this.map1 = new JLabel(Assets.getMap1(activeItem));
+        this.map1 = new JLabel(Assets.getMap(activeItem));
         this.map1.setBounds(0, 0, 1200, 800);
         startMapPanel.add(this.map1, 0, 0);
-
-        this.map2 = new JLabel(Assets.getMap2(activeItem));
-        this.map2.setBounds(0, 0, 1200, 800);
 
 
         //JLabel jl2 = new JLabel(Assets.ITEM_APPLE);
@@ -137,7 +133,6 @@ public class GamePanel extends Panel {
 
 
         nextFrame.add(this.map1);
-        nextFrame.add(this.map2);
 
 
         //nextFrame.add(this.map1);
