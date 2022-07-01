@@ -1,6 +1,7 @@
 # SlakeOverflow
 ## Initial idea:
-- Creating an immersive online multiplayer game based on Google Snake and Slither IO.
+Creating an immersive online multiplayer game with inspiration taken from Googles' Snake game and Slither IO.
+The game should  also have a skinshop and/or additional fun additions in future
 
 ## Implementation:
 - Multiplayer [✔️](https://emojipedia.org/check-mark/)
@@ -38,6 +39,7 @@
 ![Game Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/GamePanelExample.jpg)
 
 ### Chat:
-**Press "t" inside the GamePanel to use the chat**
+**Press "t" inside the GamePanel to open the chat popup**
 
+Your messages will (hopefully) be displayed on the right bottom corner.
 ### HAVE FUN!!!
