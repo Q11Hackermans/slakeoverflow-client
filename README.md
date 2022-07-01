@@ -1,5 +1,5 @@
 # SlakeOverflow
-## Anfangsidee:
+## Initial idea:
 - Creating an immersive online multiplayer game based on Google Snake and Slither IO.
 
 ## Implementation:
