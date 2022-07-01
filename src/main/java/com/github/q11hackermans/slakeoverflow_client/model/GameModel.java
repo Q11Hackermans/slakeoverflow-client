@@ -4,6 +4,8 @@ import com.github.q11hackermans.slakeoverflow_client.constants.Direction;
 import com.github.q11hackermans.slakeoverflow_client.controller.GameController;
 import com.github.q11hackermans.slakeoverflow_client.listeners.ModelEventListener;
 import com.github.q11hackermans.slakeoverflow_client.panels.GamePanel;
+import com.github.q11hackermans.slakeoverflow_client.panels.LobbyPanel;
+import com.github.q11hackermans.slakeoverflow_client.panels.Panel;
 import com.github.q11hackermans.slakeoverflow_client.utility.OldLogger;
 import net.jandie1505.connectionmanager.client.CMCClient;
 import net.jandie1505.connectionmanager.utilities.dataiostreamhandler.DataIOStreamHandler;
@@ -32,7 +34,7 @@ public class GameModel {
     private String username;
     private int lastSentKeyInput;
     private int[][] gameMatrix;
-    private GamePanel gamePanel;
+    private Panel activePanel;
 
     public GameModel(String host, int port, GamePanel gamePanel, GameController gameController) throws IOException {
         this.gameStatus = 0;
@@ -46,7 +48,7 @@ public class GameModel {
 
         this.lastSentKeyInput = -1;
         gameMatrix = new int[][]{{0}, {0}};
-        this.gamePanel = gamePanel;
+        this.activePanel = gamePanel;
         this.gameController = gameController;
 
         this.cmcClient = new CMCClient(host, port, List.of(new ModelEventListener(this)));
@@ -208,8 +210,13 @@ public class GameModel {
     }
 
     public void addChatMessage(String msg) {
-        if (this.gamePanel != null) {
-            this.gamePanel.applyNextMessage(msg);
+        System.out.println(this.activePanel.getClass());
+        if (this.activePanel instanceof GamePanel) {
+            GamePanel gp = (GamePanel) this.activePanel;
+            gp.applyNextMessage(msg);
+        } else if (this.activePanel instanceof LobbyPanel) {
+            LobbyPanel lp = (LobbyPanel) this.activePanel;
+            lp.applyNextMessage(msg);
         }
     }
 
@@ -226,7 +233,10 @@ public class GameModel {
     public void setGameMatrix(int[][] gridData) {
         //Logger.info("matrix data set");
         gameMatrix = gridData;
-        this.gamePanel.render(gameMatrix);
+        if (this.activePanel instanceof GamePanel) {
+            GamePanel gp = (GamePanel) this.activePanel;
+            gp.render(gameMatrix);
+        }
         this.lastSentKeyInput = -1;
     }
 
@@ -250,12 +260,15 @@ public class GameModel {
         return gameController;
     }
 
-    public GamePanel getGamePanel() {
-        return this.gamePanel;
+    public GamePanel getActivePanel() {
+        if (this.activePanel instanceof GamePanel) {
+            return (GamePanel) this.activePanel;
+        }
+        return null;
     }
 
-    public void setGamePanel(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public void setActivePanel(Panel activePanel) {
+        this.activePanel = activePanel;
     }
 
     public String getUsername() {

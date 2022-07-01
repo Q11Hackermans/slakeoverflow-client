@@ -351,25 +351,30 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         if (!(this.panel instanceof GamePanel)) {
             logger.debug("SWITCH-TO-GAMEPANEL", "switching to game panel");
             this.panel = new GamePanel(this, model.getActiveItem());
-            this.model.setGamePanel((GamePanel) this.panel);
             this.updateView(this.panel);
+            this.model.setActivePanel(this.panel);
         }
     }
 
     public void switchToUnauthPanel() {
         if (!(this.panel instanceof UnauthenticatedPanel) || (!this.panel.isUpToDate(this.panel))) {
-            logger.debug("SWITCH-TO-UNAUTHPANEL", "switching to lobby panel");
+            logger.debug("SWITCH-TO-UNAUTHPANEL", "switching to panel");
             if (this.panel instanceof StorePanel) {
-                this.updateView(new StorePanel(this, this.model));
+                this.switchToStorePanel();
+                //this.updateView(new StorePanel(this, this.model));
             } else {
-                this.updateView(new LobbyPanel(this, this.model));
+                this.switchToLobbyPanel();
+                //this.updateView(new LobbyPanel(this, this.model));
             }
         }
     }
 
     public void switchToStorePanel() {
         if (!(this.panel instanceof StorePanel)) {
-            logger.debug("SWITCH-TO-STOREPANEL", "switching to game panel");
+            logger.debug("SWITCH-TO-STOREPANEL", "switching to store panel");
+            this.updateView(new StorePanel(this, this.model));
+        } else {
+            logger.debug("SWITCH-TO-STOREPANEL", "updating to store panel");
             this.updateView(new StorePanel(this, this.model));
         }
     }
@@ -378,6 +383,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
         if (!(this.panel instanceof LobbyPanel) || ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) {
             logger.debug("SWITCH-TO-LOBBYPANEL", "switching to lobby panel");
             this.updateView(new LobbyPanel(this, this.model));
+            this.model.setActivePanel(this.panel);
         }
     }
 

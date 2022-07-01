@@ -39,6 +39,7 @@ public class GamePanel extends Panel {
 
     public GamePanel(ActionListener actionListener, int activeItem) {
         this.activeItem = activeItem;
+        chatMessages = new ArrayList<>();
         this.width = 59; // one smaller than the matrix (60)
         this.height = 39; // one smaller than the matrix (40)
         this.createPanel(actionListener);
@@ -46,8 +47,6 @@ public class GamePanel extends Panel {
     }
 
     private void createPanel(ActionListener actionListener) {
-        chatMessages = new ArrayList<>();
-
         setLayout(new BorderLayout(0, 0));
 
 

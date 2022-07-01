@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class LobbyPanel extends UnauthenticatedPanel {
@@ -26,12 +28,14 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private JMenuBar settingsBar;
     private GameModel gameModel;
 
+    private List<String> chatMessages;
     private String usernameLabelText;
     private String coinBalanceLabelText;
     private boolean loginButtonVisible;
 
     public LobbyPanel(ActionListener actionListener, GameModel gameModel) {
 
+        this.chatMessages = new ArrayList<>();
         this.gameModel = gameModel;
         this.gameModel.requestUserInfo();
         this.getGameModelData();
@@ -81,7 +85,6 @@ public class LobbyPanel extends UnauthenticatedPanel {
     }
 
     private void configureJPanel() {
-
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{171, 42, 12, 69, 10, 22, 15, 0};
         gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -166, 221, 0, 0};
@@ -220,7 +223,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
         add(panel_3, gbc_panel_3);
         panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JLabel lblNewLabel_3 = new JLabel("Irgendwas?");
+        JLabel lblNewLabel_3 = new JLabel(new ImageIcon("assets/skins/loading_gif.gif"));
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
         panel_3.add(lblNewLabel_3);
 
@@ -260,6 +263,12 @@ public class LobbyPanel extends UnauthenticatedPanel {
         gbc_panel_4.gridx = 1;
         gbc_panel_4.gridy = 15;
         add(chatMsgPanel, gbc_panel_4);
+        GridBagLayout gbl_chatMsgPanel = new GridBagLayout();
+        gbl_chatMsgPanel.columnWidths = new int[]{0, 0};
+        gbl_chatMsgPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gbl_chatMsgPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+        gbl_chatMsgPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        chatMsgPanel.setLayout(gbl_chatMsgPanel);
 
         chatField = new JTextField();
         GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -301,5 +310,41 @@ public class LobbyPanel extends UnauthenticatedPanel {
             return Objects.equals(((LobbyPanel) panel).username(), this.gameModel.getUsername()) && Objects.equals(((LobbyPanel) panel).coinBalance(), Integer.toString(this.gameModel.getCoinBalance())) && Objects.equals(((LobbyPanel) panel).isLoginButtonVisible(), this.gameModel.isLoggedIn());
         }
         return false;
+    }
+
+    public void applyNextMessage(String msg) {
+
+        if (!Objects.equals(msg, "") && msg.length() < 90) {
+            chatMessages.add(msg);
+        }
+
+        if (chatMessages.size() >= 12) {
+            chatMessages.remove(0);
+        }
+
+        //remove all current messages
+        this.chatMsgPanel.removeAll();
+
+        for (int i = 0; i < chatMessages.size(); i++) {
+            JLabel jl = new JLabel("<html> <font color='#000000'>" + chatMessages.get(i) + "</font></html>");
+            //jl.setFont(new Font("Tahoma", Font.PLAIN, 13));
+            GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+            gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
+            gbc_lblNewLabel_1.gridx = 0;
+            gbc_lblNewLabel_1.gridy = i;
+            chatMsgPanel.add(jl, gbc_lblNewLabel_1);
+        }
+
+        // add hint for writing a new chat message
+        JLabel jll = new JLabel("<html> <font color='#000000'>(t to write a new message)</font></html>");
+        //jll.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+        gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
+        gbc_lblNewLabel_1.gridx = 0;
+        gbc_lblNewLabel_1.gridy = chatMessages.size() + 1;
+        chatMsgPanel.add(jll, gbc_lblNewLabel_1);
+
+        this.chatMsgPanel.repaint();
+        this.repaint();
     }
 }
