@@ -1,7 +1,7 @@
 import cv2
 import os
 
-_dir = "./"
+_dir = "./skins/0/"
 _width = 20
 _height = 20
 
