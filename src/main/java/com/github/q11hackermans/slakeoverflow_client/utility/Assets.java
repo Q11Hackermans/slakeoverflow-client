@@ -66,7 +66,7 @@ public abstract class Assets {
             case PLAYER_HEAD_enemy_WEST_ID:
                 return new ImageIcon("assets/skins/" + skinPack + "/player_head_enemy_west.png");
             case PLAYER_BODY_enemy_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/player_body_other.png");
+                return new ImageIcon("assets/skins/" + skinPack + "/player_body_enemy.png");
 
             // ITEMS
             case ITEM_UNKNOWN_ID:
