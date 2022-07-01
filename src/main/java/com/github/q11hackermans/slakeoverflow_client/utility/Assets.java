@@ -74,7 +74,7 @@ public abstract class Assets {
             case ITEM_FOOD_ID:
                 return new ImageIcon("assets/skins/" + skinPack + "/item_food.png");
             case ITEM_SUPER_FOOD_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/item_super_food.png");
+                return new ImageIcon("assets/skins/" + skinPack + "/item_superfood.png");
 
             default:
                 return null;
