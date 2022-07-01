@@ -6,6 +6,7 @@ import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,13 @@ public class LobbyPanel extends UnauthenticatedPanel {
             this.shopPanelButton.setVisible(false);
             this.settingsBar.setVisible(false);
         }
+
+        this.sendChatMessageBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendChatMessage();
+            }
+        });
     }
 
     public boolean isLoginButtonVisible() {
@@ -346,5 +354,12 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
         this.chatMsgPanel.repaint();
         this.repaint();
+    }
+
+    private void sendChatMessage(){
+        if (this.chatField.getText().length() > 0){
+            this.gameModel.sendChatMessage(this.chatField.getText());
+            this.chatField.setText("");
+        }
     }
 }
