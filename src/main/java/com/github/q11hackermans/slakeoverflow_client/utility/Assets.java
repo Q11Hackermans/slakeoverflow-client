@@ -17,11 +17,11 @@ public abstract class Assets {
     public static final int PLAYER_BODY_OWN_ID = 105;
 
     // OTHER PLAYERS
-    public static final int PLAYER_HEAD_OTHER_NORTH_ID = 201;
-    public static final int PLAYER_HEAD_OTHER_SOUTH_ID = 203;
-    public static final int PLAYER_HEAD_OTHER_EAST_ID = 202;
-    public static final int PLAYER_HEAD_OTHER_WEST_ID = 204;
-    public static final int PLAYER_BODY_OTHER_ID = 205;
+    public static final int PLAYER_HEAD_enemy_NORTH_ID = 201;
+    public static final int PLAYER_HEAD_enemy_SOUTH_ID = 203;
+    public static final int PLAYER_HEAD_enemy_EAST_ID = 202;
+    public static final int PLAYER_HEAD_enemy_WEST_ID = 204;
+    public static final int PLAYER_BODY_enemy_ID = 205;
 
     // ITEMS
     public static final int ITEM_UNKNOWN_ID = 501; // If it is an unknown item
@@ -57,15 +57,15 @@ public abstract class Assets {
 
 
             // OTHER PLAYER
-            case PLAYER_HEAD_OTHER_NORTH_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/player_head_other_north.png");
-            case PLAYER_HEAD_OTHER_SOUTH_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/player_head_other_south.png");
-            case PLAYER_HEAD_OTHER_EAST_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/player_head_other_east.png");
-            case PLAYER_HEAD_OTHER_WEST_ID:
-                return new ImageIcon("assets/skins/" + skinPack + "/player_head_other_west.png");
-            case PLAYER_BODY_OTHER_ID:
+            case PLAYER_HEAD_enemy_NORTH_ID:
+                return new ImageIcon("assets/skins/" + skinPack + "/player_head_enemy_north.png");
+            case PLAYER_HEAD_enemy_SOUTH_ID:
+                return new ImageIcon("assets/skins/" + skinPack + "/player_head_enemy_south.png");
+            case PLAYER_HEAD_enemy_EAST_ID:
+                return new ImageIcon("assets/skins/" + skinPack + "/player_head_enemy_east.png");
+            case PLAYER_HEAD_enemy_WEST_ID:
+                return new ImageIcon("assets/skins/" + skinPack + "/player_head_enemy_west.png");
+            case PLAYER_BODY_enemy_ID:
                 return new ImageIcon("assets/skins/" + skinPack + "/player_body_other.png");
 
             // ITEMS
