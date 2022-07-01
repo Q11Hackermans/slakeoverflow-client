@@ -19,7 +19,7 @@
 
 ## Instructions:
 
-Generally self explaining but for the ones who don't have any intuition:
+- __Generally self explaining but for the ones who don't have any intuition__:
 
 ### Start-Panel:
 ![Start Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/StartPanelExample.png)
