@@ -271,12 +271,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
         gbc_panel_4.gridx = 1;
         gbc_panel_4.gridy = 15;
         add(chatMsgPanel, gbc_panel_4);
-        GridBagLayout gbl_chatMsgPanel = new GridBagLayout();
-        gbl_chatMsgPanel.columnWidths = new int[]{0, 0};
-        gbl_chatMsgPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gbl_chatMsgPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-        gbl_chatMsgPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        chatMsgPanel.setLayout(gbl_chatMsgPanel);
+        chatMsgPanel.setLayout(new GridLayout(13, 0, 0, 0));
 
         chatField = new JTextField();
         GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -322,11 +317,11 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
     public void applyNextMessage(String msg) {
 
-        if (!Objects.equals(msg, "") && msg.length() < 90) {
+        if (!Objects.equals(msg, "") && msg.length() < 70) {
             chatMessages.add(msg);
         }
 
-        if (chatMessages.size() >= 12) {
+        if (chatMessages.size() >= 14) {
             chatMessages.remove(0);
         }
 
@@ -335,22 +330,9 @@ public class LobbyPanel extends UnauthenticatedPanel {
 
         for (int i = 0; i < chatMessages.size(); i++) {
             JLabel jl = new JLabel("<html> <font color='#000000'>" + chatMessages.get(i) + "</font></html>");
-            //jl.setFont(new Font("Tahoma", Font.PLAIN, 13));
-            GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-            gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-            gbc_lblNewLabel_1.gridx = 0;
-            gbc_lblNewLabel_1.gridy = i;
-            chatMsgPanel.add(jl, gbc_lblNewLabel_1);
+            jl.setFont(new Font("Tahoma", Font.BOLD, 13));
+            chatMsgPanel.add(jl);
         }
-
-        // add hint for writing a new chat message
-        JLabel jll = new JLabel("<html> <font color='#000000'>(t to write a new message)</font></html>");
-        //jll.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-        gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-        gbc_lblNewLabel_1.gridx = 0;
-        gbc_lblNewLabel_1.gridy = chatMessages.size() + 1;
-        chatMsgPanel.add(jll, gbc_lblNewLabel_1);
 
         this.chatMsgPanel.repaint();
         this.repaint();
