@@ -19,6 +19,8 @@
 
 ## Instructions:
 
+Generally self explaining but for the ones who don't have any intuition:
+
 ### Start-Panel:
 ![Start Panel Example](https://github.com/Q11Hackermans/slakeoverflow-client/raw/master/assets/README/StartPanelExample.png)
 
