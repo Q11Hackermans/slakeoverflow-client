@@ -53,18 +53,20 @@ public class ModelEventListener extends CMListenerAdapter {
 
                 switch (baseCommand) {
                     case "playerdata":
-                        JSONArray rawData = data.getJSONArray("fields");
-                        //System.out.println(rawData.toString());
+                        if (this.gameModel.getAuthStatus() == ConnectionType.PLAYER) {
+                            JSONArray rawData = data.getJSONArray("fields");
+                            //System.out.println(rawData.toString());
 
-                        int[][] gridData = new int[60][40];
-                        for (Object jo : rawData) {
-                            JSONArray jj = (JSONArray) jo;
-                            try {
-                                gridData[jj.getInt(0)][jj.getInt(1)] = jj.getInt(2);
-                            } catch (IndexOutOfBoundsException ignored) {
+                            int[][] gridData = new int[60][40];
+                            for (Object jo : rawData) {
+                                JSONArray jj = (JSONArray) jo;
+                                try {
+                                    gridData[jj.getInt(0)][jj.getInt(1)] = jj.getInt(2);
+                                } catch (IndexOutOfBoundsException ignored) {
+                                }
                             }
+                            this.gameModel.setGameMatrix(gridData);
                         }
-                        this.gameModel.setGameMatrix(gridData);
                         break;
 
                     case "status":
@@ -137,6 +139,8 @@ public class ModelEventListener extends CMListenerAdapter {
         long accountId = data.getLong("account");
 
         this.gameModel.setAccountId(accountId);
+        this.gameModel.setGameStatus(gameStatus);
+        this.gameModel.setAuthStatus(authStatus);
 
         if ((gameStatus == GameState.RUNNING || gameStatus == GameState.PAUSED) && authStatus == ConnectionType.PLAYER) {
             this.gameModel.gameControllerSwitchToGamePanel();

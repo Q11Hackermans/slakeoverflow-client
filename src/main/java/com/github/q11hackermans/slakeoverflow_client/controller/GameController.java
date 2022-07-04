@@ -380,7 +380,7 @@ public class GameController extends JFrame implements KeyListener, ActionListene
     }
 
     public void switchToLobbyPanel() {
-        if (!(this.panel instanceof LobbyPanel) || ((LobbyPanel) this.panel).isLoginButtonVisible() == this.model.isLoggedIn()) {
+        if (!(this.panel instanceof LobbyPanel) || !this.panel.isUpToDate(this.panel)) {
             logger.debug("SWITCH-TO-LOBBYPANEL", "switching to lobby panel");
             this.updateView(new LobbyPanel(this, this.model));
             this.model.setActivePanel(this.panel);

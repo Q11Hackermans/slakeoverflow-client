@@ -23,7 +23,8 @@ public class GameModel {
 
 
     private final Map<Integer, ShopItem> items;
-    private final int gameStatus;
+    private int gameStatus;
+    private int authStatus;
     private final GameController gameController;
     private final CMCClient cmcClient;
     private final DataIOStreamHandler dataIOStreamHandler;
@@ -210,7 +211,7 @@ public class GameModel {
     }
 
     public void addChatMessage(String msg) {
-        System.out.println(this.activePanel.getClass());
+        //System.out.println(this.activePanel.getClass());
         if (this.activePanel instanceof GamePanel) {
             GamePanel gp = (GamePanel) this.activePanel;
             gp.applyNextMessage(msg);
@@ -297,6 +298,22 @@ public class GameModel {
 
     public void setActiveItem(int activeItem) {
         this.activeItem = activeItem;
+    }
+
+    public int getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(int gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public int getAuthStatus() {
+        return authStatus;
+    }
+
+    public void setAuthStatus(int authStatus) {
+        this.authStatus = authStatus;
     }
 
     public Map<Integer, ShopItem> getItems() {
