@@ -6,7 +6,10 @@ import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class LobbyPanel extends UnauthenticatedPanel {
@@ -26,12 +29,14 @@ public class LobbyPanel extends UnauthenticatedPanel {
     private JMenuBar settingsBar;
     private GameModel gameModel;
 
+    private List<String> chatMessages;
     private String usernameLabelText;
     private String coinBalanceLabelText;
     private boolean loginButtonVisible;
 
     public LobbyPanel(ActionListener actionListener, GameModel gameModel) {
 
+        this.chatMessages = new ArrayList<>();
         this.gameModel = gameModel;
         this.gameModel.requestUserInfo();
         this.getGameModelData();
@@ -74,6 +79,13 @@ public class LobbyPanel extends UnauthenticatedPanel {
             this.shopPanelButton.setVisible(false);
             this.settingsBar.setVisible(false);
         }
+
+        this.sendChatMessageBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendChatMessage();
+            }
+        });
     }
 
     public boolean isLoginButtonVisible() {
@@ -81,7 +93,6 @@ public class LobbyPanel extends UnauthenticatedPanel {
     }
 
     private void configureJPanel() {
-
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{171, 42, 12, 69, 10, 22, 15, 0};
         gridBagLayout.rowHeights = new int[]{16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -166, 221, 0, 0};
@@ -220,7 +231,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
         add(panel_3, gbc_panel_3);
         panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JLabel lblNewLabel_3 = new JLabel("Irgendwas?");
+        JLabel lblNewLabel_3 = new JLabel(new ImageIcon("assets/skins/loading_gif.gif"));
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
         panel_3.add(lblNewLabel_3);
 
@@ -260,6 +271,7 @@ public class LobbyPanel extends UnauthenticatedPanel {
         gbc_panel_4.gridx = 1;
         gbc_panel_4.gridy = 15;
         add(chatMsgPanel, gbc_panel_4);
+        chatMsgPanel.setLayout(new GridLayout(13, 0, 0, 0));
 
         chatField = new JTextField();
         GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -301,5 +313,35 @@ public class LobbyPanel extends UnauthenticatedPanel {
             return Objects.equals(((LobbyPanel) panel).username(), this.gameModel.getUsername()) && Objects.equals(((LobbyPanel) panel).coinBalance(), Integer.toString(this.gameModel.getCoinBalance())) && Objects.equals(((LobbyPanel) panel).isLoginButtonVisible(), this.gameModel.isLoggedIn());
         }
         return false;
+    }
+
+    public void applyNextMessage(String msg) {
+
+        if (!Objects.equals(msg, "") && msg.length() < 70) {
+            chatMessages.add(msg);
+        }
+
+        if (chatMessages.size() >= 14) {
+            chatMessages.remove(0);
+        }
+
+        //remove all current messages
+        this.chatMsgPanel.removeAll();
+
+        for (int i = 0; i < chatMessages.size(); i++) {
+            JLabel jl = new JLabel("<html> <font color='#000000'>" + chatMessages.get(i) + "</font></html>");
+            jl.setFont(new Font("Tahoma", Font.BOLD, 13));
+            chatMsgPanel.add(jl);
+        }
+
+        this.chatMsgPanel.repaint();
+        this.repaint();
+    }
+
+    private void sendChatMessage(){
+        if (this.chatField.getText().length() > 0){
+            this.gameModel.sendChatMessage(this.chatField.getText());
+            this.chatField.setText("");
+        }
     }
 }
