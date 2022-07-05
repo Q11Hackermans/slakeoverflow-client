@@ -146,7 +146,7 @@ public class StorePanel extends UnauthenticatedPanel {
             gbc_lblNewLabel_0.gridy = 1;
             panel_1.add(lblNewLabel_0, gbc_lblNewLabel_0);
 
-            JLabel lblNewLabel_2 = new JLabel("Item - Price: " + it.getPrice() + " Coins");
+            JLabel lblNewLabel_2 = new JLabel("Item " + it.getId() + " - Price: " + it.getPrice() + " Coins");
             lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
             lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
             GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();

@@ -67,7 +67,7 @@ public class LoginPanel extends UnauthenticatedPanel {
         gbc_loginMsgLabel.gridy = 1;
         add(loginMsgLabel, gbc_loginMsgLabel);
 
-        JLabel slakeGifLabel = new JLabel("GIF");
+        JLabel slakeGifLabel = new JLabel(new ImageIcon("assets/skins/loading_gif.gif"));
         GridBagConstraints gbc_slakeGifLabel = new GridBagConstraints();
         gbc_slakeGifLabel.gridheight = 2;
         gbc_slakeGifLabel.gridwidth = 6;
