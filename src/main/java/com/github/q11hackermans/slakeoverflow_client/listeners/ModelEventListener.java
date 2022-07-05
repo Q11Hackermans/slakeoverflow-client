@@ -53,7 +53,7 @@ public class ModelEventListener extends CMListenerAdapter {
 
                 switch (baseCommand) {
                     case "playerdata":
-                        if (this.gameModel.getAuthStatus() == ConnectionType.PLAYER) {
+                        if (data.has("fields")) {
                             JSONArray rawData = data.getJSONArray("fields");
                             //System.out.println(rawData.toString());
 
