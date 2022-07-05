@@ -3,6 +3,7 @@ package com.github.q11hackermans.slakeoverflow_client.panels;
 import com.github.q11hackermans.slakeoverflow_client.constants.ActionCommands;
 import com.github.q11hackermans.slakeoverflow_client.model.GameModel;
 import com.github.q11hackermans.slakeoverflow_client.model.ShopItem;
+import com.github.q11hackermans.slakeoverflow_client.utility.Assets;
 
 import javax.swing.*;
 import java.awt.*;
@@ -128,7 +129,7 @@ public class StorePanel extends UnauthenticatedPanel {
             gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
             panel_1.setLayout(gbl_panel_1);
 
-            JLabel lblNewLabel_1 = new JLabel("Pack Overview - here - PNG");
+            JLabel lblNewLabel_1 = new JLabel(Assets.getSpriteFromCode(600, id));
             GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
             gbc_lblNewLabel_1.gridwidth = 4;
             gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
