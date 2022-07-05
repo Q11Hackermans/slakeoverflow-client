@@ -28,6 +28,10 @@ public abstract class Assets {
     public static final int ITEM_FOOD_ID = 502; // The default food item
     public static final int ITEM_SUPER_FOOD_ID = 503; // This item will be dropped when a player dies
 
+    // STORE
+    public static final int STORE_PREVIEW_ID  = 600;
+
+
 
     public static ImageIcon getMap(int skinPack) {
         return new ImageIcon("assets/skins/" + skinPack + "/map.png");
@@ -75,6 +79,11 @@ public abstract class Assets {
                 return new ImageIcon("assets/skins/" + skinPack + "/item_food.png");
             case ITEM_SUPER_FOOD_ID:
                 return new ImageIcon("assets/skins/" + skinPack + "/item_superfood.png");
+
+                // PREVIEW
+
+            case STORE_PREVIEW_ID:
+                return new ImageIcon("assets/skins/" + skinPack + "/preview.png");
 
             default:
                 return null;
